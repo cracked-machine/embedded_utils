@@ -92,9 +92,9 @@ void bitset_utils::bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_
 }
 
 template<std::size_t BITSET_SIZE>
-void bitset_utils::print_bits(std::bitset<BITSET_SIZE> &pattern)
+void bitset_utils::print_bits(std::bitset<BITSET_SIZE> &pattern __attribute__((unused)))
 {
-    UNUSED(pattern);
+    
     #ifdef USE_RTT
         for (uint16_t idx = 0; idx < pattern.size(); idx++)
         {
