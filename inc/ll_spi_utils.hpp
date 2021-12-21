@@ -36,6 +36,8 @@ public:
 
     #if defined(USE_SSD1306_LL_DRIVER)
         // @brief Check and retry (with timeout) the SPIx_SR TXE register.
+        // static resolved performance drop after moving this code to this external class
+        // @param spi_handle The STM32 LL object, usually "SPI_TypeDef"
         // @param delay_ms The timeout
         // @return true if TX FIFO is empty, false if TX FIFO is full
         static bool check_txe_flag_status(const SPI_HANDLE *spi_handle, uint32_t delay_ms = 1)
@@ -62,6 +64,8 @@ public:
         }        
 
         // @brief Check and retry (with timeout) the SPIx_SR BSY register.
+        // static resolved performance drop after moving this code to this external class
+        // @param spi_handle The STM32 LL object, usually "SPI_TypeDef"
         // @param delay_ms The timeout
         // @return true if SPI bus is busy, false if SPI bus is not busy.
         static bool check_bsy_flag_status(const SPI_HANDLE *spi_handle, uint32_t delay_ms = 1)
