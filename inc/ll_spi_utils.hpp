@@ -25,38 +25,18 @@
 
 #include "ll_tim_utils.hpp"
 
-namespace embedded_utils
+namespace embed_utils
 {
 
-// @brief common functions for using with STM32 LL SPI
-
-class LowLevelSPIUtils
+namespace spi
 {
 
-public: 
-
-    LowLevelSPIUtils() = default;
-
-    // @brief Check and retry (with timeout) the SPIx_SR TXE register.
-    // static resolved performance drop after moving this code to this external class
-    // @param spi_handle Pointer to the STM32 LL SPI_HANDLE object
-    // @param delay_us The timeout
-    // @return true if TX FIFO is empty, false if TX FIFO is full
-    template<typename SPI_HANDLE>
-    static bool check_txe_flag_status(const SPI_HANDLE *spi_handle, uint32_t delay_us = 100);
-
-    // @brief Check and retry (with timeout) the SPIx_SR BSY register.
-    // static resolved performance drop after moving this code to this external class
-    // @param spi_handle Pointer to the STM32 LL SPI_HANDLE object
-    // @param delay_us The timeout
-    // @return true if SPI bus is busy, false if SPI bus is not busy.
-    template<typename SPI_HANDLE>
-    static bool check_bsy_flag_status(const SPI_HANDLE *spi_handle, uint32_t delay_us = 100);
-
-};
-
+// @brief Check and retry (with timeout) the SPIx_SR TXE register.
+// @param spi_handle Pointer to the STM32 LL SPI_HANDLE object
+// @param delay_us The timeout
+// @return true if TX FIFO is empty, false if TX FIFO is full
 template<typename SPI_HANDLE>
-bool LowLevelSPIUtils::check_txe_flag_status(const SPI_HANDLE *spi_handle, uint32_t delay_us)
+bool ll_wait_for_txe_flag(const SPI_HANDLE *spi_handle, uint32_t delay_us = 100)
 {
 
     if (spi_handle == nullptr)
@@ -68,7 +48,7 @@ bool LowLevelSPIUtils::check_txe_flag_status(const SPI_HANDLE *spi_handle, uint3
     if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
     {
         // give TX FIFO a chance to clear before checking again
-        ll_uDelay::timeout(TIM14, delay_us);
+        tim::ll_delay_microsecond(TIM14, delay_us);
         if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
         { 
             return false;
@@ -78,8 +58,12 @@ bool LowLevelSPIUtils::check_txe_flag_status(const SPI_HANDLE *spi_handle, uint3
     return true;
 }        
 
+// @brief Check and retry (with timeout) the SPIx_SR BSY register.
+// @param spi_handle Pointer to the STM32 LL SPI_HANDLE object
+// @param delay_us The timeout
+// @return true if SPI bus is busy, false if SPI bus is not busy.
 template<typename SPI_HANDLE>
-bool LowLevelSPIUtils::check_bsy_flag_status(const SPI_HANDLE *spi_handle, uint32_t delay_us)
+bool ll_wait_for_bsy_flag(const SPI_HANDLE *spi_handle, uint32_t delay_us = 100)
 {
     if (spi_handle == nullptr)
     {
@@ -89,7 +73,7 @@ bool LowLevelSPIUtils::check_bsy_flag_status(const SPI_HANDLE *spi_handle, uint3
     if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
     {
         // give SPI bus a chance to finish sending data before checking again
-        ll_uDelay::timeout(TIM14, delay_us);
+        tim::ll_delay_microsecond(TIM14, delay_us);
         if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
         { 
             return false;
@@ -98,7 +82,9 @@ bool LowLevelSPIUtils::check_bsy_flag_status(const SPI_HANDLE *spi_handle, uint3
     return true; 
 }   
 
-} // namespace embedded_utils
+} // spi
+
+} // namespace embed_utils
 
 
 #endif // __LL_SPI_UTILS_HPP__

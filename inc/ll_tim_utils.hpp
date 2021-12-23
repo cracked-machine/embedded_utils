@@ -23,35 +23,34 @@
 #ifndef __LL_TIM_UTILS_HPP__
 #define __LL_TIM_UTILS_HPP__
 
-namespace embedded_utils
+namespace embed_utils
+{
+    
+namespace tim
 {
 
-// @brief common functions for using with STM32 LL TIM
-class ll_uDelay
+// @brief microsecond timeout using periperhal timer
+// @param tim_handle Make sure the timer is initialised
+// @param delay_us 
+template<typename TIM_HANDLE>
+static void ll_delay_microsecond(TIM_HANDLE *tim_handle, uint32_t delay_us)
 {
-public:
-    ll_uDelay() = default;
+    // @TODO change the prescaler to allow longer delays, clamp for now
+    if (delay_us > 0xFFFE) { delay_us = 0xFFFE; }
+    // ensure the timer is disabled before setup
+    if (LL_TIM_IsEnabledCounter(tim_handle)) { LL_TIM_DisableCounter(tim_handle); }
+    // setup the timer to 1 us resolution (depending on the system clock frequency)
+    LL_TIM_SetPrescaler(tim_handle, SystemCoreClock / 1000000UL);
+    // allow largest possible timeout
+    LL_TIM_SetAutoReload(tim_handle, 0xFFFF-1);
+    // reset CNT
+    LL_TIM_SetCounter(tim_handle, 0);
+    // start the timer and wait for the timeout
+    LL_TIM_EnableCounter(tim_handle);
+    while (LL_TIM_GetCounter(tim_handle) < delay_us);
+}
 
-    // @brief microsecond timeout using periperhal timer
-    // @param tim_handle Make sure the timer is initialised
-    // @param delay_us 
-    template<typename TIM_HANDLE>
-    static void timeout(TIM_HANDLE *tim_handle, uint32_t delay_us)
-    {
-        // ensure the timer is disabled before setup
-        if (LL_TIM_IsEnabledCounter(tim_handle)) { LL_TIM_DisableCounter(tim_handle); }
-        // setup the timer to 1 us resolution (depending on the system clock frequency)
-        LL_TIM_SetPrescaler(tim_handle, SystemCoreClock / 1000000UL);
-        // allow largest possible timeout
-        LL_TIM_SetAutoReload(tim_handle, 0xFFFF-1);
-        // reset CNT
-        LL_TIM_SetCounter(tim_handle, 0);
-        // start the timer and wait for the timeout
-        LL_TIM_EnableCounter(tim_handle);
-        while (LL_TIM_GetCounter(tim_handle) < delay_us);
-    }
-};
-
-} // namespace embedded_utils
+} // tim
+} // namespace embed_utils
 
 #endif // __LL_TIM_UTILS_HPP__

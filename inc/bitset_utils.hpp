@@ -37,26 +37,20 @@
 #include <bitset>
 #include <array>
 
-namespace embedded_utils
+namespace embed_utils
 {
 
-class bitset_utils
+namespace bit_manip
 {
-public:
-    template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-    void add_bitset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset);
-    
 
-    template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-    void bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const std::bitset<SOURCE_SIZE> &source_bitset);  
-
-    
-    template<std::size_t BITSET_SIZE>
-    void print_bits(std::bitset<BITSET_SIZE> &reg);    
-};
-
+// @brief Adds each bit from source std::bitset to target std::bitset with msb_offset
+// @tparam TARGET_SIZE The size of the source bitset container
+// @tparam SOURCE_SIZE The size of the target bitset container
+// @param target The target bitset container to copy into 
+// @param source The source bitset container to copy from
+// @param msb_offset how many bits offset from the target MSB does the copy begin
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-void bitset_utils::add_bitset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset) 
+void add_bitset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset) 
 {
     // iterate over the source bitset pattern
     for (uint16_t idx = 0; idx < source.size(); idx++)
@@ -81,7 +75,7 @@ void bitset_utils::add_bitset(std::bitset<TARGET_SIZE> &target,  const std::bits
 // @param target_array The std::array object copied to. Caution, all pre-existing contents is destroyed.
 // @param source_bitset The std::bitset object copied from. 
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-void bitset_utils::bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const std::bitset<SOURCE_SIZE> &source_bitset)
+void bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const std::bitset<SOURCE_SIZE> &source_bitset)
 {
     // 8-bit byte
     const uint8_t word_size_bits = 8; 
@@ -112,8 +106,10 @@ void bitset_utils::bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_
     }
 }
 
+// @brief Print out the provided bitset as bytes
+// @param pattern The bitset to print
 template<std::size_t BITSET_SIZE>
-void bitset_utils::print_bits(std::bitset<BITSET_SIZE> &pattern __attribute__((unused)))
+void print_bits(std::bitset<BITSET_SIZE> &pattern __attribute__((unused)))
 {
     
     #ifdef USE_RTT
@@ -143,7 +139,9 @@ void bitset_utils::print_bits(std::bitset<BITSET_SIZE> &pattern __attribute__((u
     #endif
 }
 
-}  // namespace embedded_utils
+} // bit_manip
+
+}  // namespace embed_utils
 
 
 #endif // __BITSET_UTILS_HPP__
