@@ -121,6 +121,7 @@ void print_bits(std::bitset<BITSET_SIZE> &pattern __attribute__((unused)))
                 SEGGER_RTT_printf(0, "\n");            
             SEGGER_RTT_printf(0, "%u ", +pattern.test(idx));
         }
+        SEGGER_RTT_printf(0, "\n");       
     #endif
     #ifdef USE_COUT
         for (uint16_t idx = 0; idx < pattern.size(); idx++)
