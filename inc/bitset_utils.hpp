@@ -109,7 +109,7 @@ void bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const s
 // @brief Print out the provided bitset as bytes
 // @param pattern The bitset to print
 template<std::size_t BITSET_SIZE>
-void print_bits(std::bitset<BITSET_SIZE> &pattern __attribute__((unused)))
+void print_bits(std::bitset<BITSET_SIZE> &pattern [[maybe_unused]])
 {
     
     #ifdef USE_RTT

@@ -33,7 +33,7 @@ namespace byte_manip
 {
 
 template<std::size_t BYTE_ARRAY_SIZE> 
-void print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes __attribute__((unused)))
+void print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
 {
     #ifdef USE_RTT
         for (uint16_t idx = 0; idx < bytes.size(); idx++)
