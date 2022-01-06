@@ -24,34 +24,137 @@
 #define __LL_I2C_UTILS_HPP__
 
 #include <cstdint>
+#include <array>
+#include <ll_tim_utils.hpp>
 
 namespace stm32::i2c
 {
 
-template<typename I2C_HANDLE>
-bool init_i2c_connect(I2C_HANDLE *i2c_handle, uint8_t addr)
+// @brief The I2C bus transaction status
+enum class Status
 {
-	if (LL_I2C_IsActiveFlag_BUSY(i2c_handle) == SET) { return false; }
-	
+    // @brief Slave device recognised the address
+    ACK,
+    // @brief Slave device is busy
+    BUSY,
+    // @brief Slave device did not recognise the address
+    NACK,
+	// @brief placeholder for misc errors
+	NOSUPPORT
+};
+
+enum class MsgType
+{
+	PROBE,
+    READ,
+    WRITE
+};
+
+// @brief Send the address byte to the slave ending with write bit.
+// @param i2c_handle Pointer to the mem-mapped I2C device. 
+// @param write_addr The slave device address, check device datasheet for write-specific address
+// @param type PROBE will auto-send a STOP condition, WRITE will not. 
+// @return Status ACK for valid slave device address, NACK for invalid slave address.
+template<typename I2C_HANDLE>
+Status send_addr(I2C_HANDLE *i2c_handle, uint8_t addr, MsgType type )
+{	
+	// setup the common transaction options
 	LL_I2C_SetMasterAddressingMode(i2c_handle, LL_I2C_ADDRESSING_MODE_7BIT);
+	
 	LL_I2C_SetSlaveAddr(i2c_handle, addr);
-	LL_I2C_SetTransferRequest(i2c_handle, LL_I2C_REQUEST_WRITE);
-	LL_I2C_EnableAutoEndMode(i2c_handle);
+	
+	if (type == MsgType::PROBE)
+	{
+		// generate START with AUTO-END enabled
+		LL_I2C_SetTransferRequest(i2c_handle, LL_I2C_REQUEST_WRITE);
+		LL_I2C_EnableAutoEndMode(i2c_handle);
+	}
+	else if (type == MsgType::WRITE)
+	{
+		// generate START with AUTO-END disabled
+		LL_I2C_SetTransferRequest(i2c_handle, LL_I2C_REQUEST_WRITE);
+		LL_I2C_DisableReloadMode(i2c_handle);
+		LL_I2C_DisableAutoEndMode(i2c_handle);
+	}
+	else if (type == MsgType::READ)
+	{
+		// generate REPEATED START
+		LL_I2C_SetTransferRequest(i2c_handle, LL_I2C_REQUEST_READ);		
+		LL_I2C_DisableReloadMode(i2c_handle);
+		LL_I2C_DisableAutoEndMode(i2c_handle);		
+	}
+
+	// send the address byte to slave
 	LL_I2C_GenerateStartCondition(i2c_handle);
 
 	// give slave a chance to respond
-	LL_mDelay(1);
+	embed_utils::tim::ll_delay_microsecond(TIM14, 1000);
 
 	// addr was not recognised by slave device
 	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle) == SET) )
 	{
-		return false;
+		return Status::NACK;
 	}
 
-	return true;
+	return Status::ACK;
 
 }
 
+template<typename I2C_HANDLE>
+Status send_command(I2C_HANDLE *i2c_handle, uint8_t command)
+{
+
+	// send the command byte
+	LL_I2C_TransmitData8(i2c_handle, command);
+	while (!LL_I2C_IsActiveFlag_TXE(i2c_handle))
+	{
+		// wait for byte to be sent
+	}
+	// command was not recognised by slave device
+	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle) == SET) )
+	{
+		return Status::NACK;
+	}
+
+	return Status::ACK;
+}
+
+
+template<typename I2C_HANDLE, std::size_t BUFFER_SIZE>
+Status send_data(I2C_HANDLE *i2c_handle, std::array<uint8_t, BUFFER_SIZE> &buffer)
+{
+	Status res = Status::ACK;
+	for (uint8_t &byte : buffer)
+	{
+
+		LL_I2C_TransmitData8(i2c_handle, byte);
+		while (!LL_I2C_IsActiveFlag_TXE(i2c_handle))
+		{
+			// wait for byte to be sent
+		}
+		// command was not recognised by slave device
+		if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle) == SET) )
+		{
+			res = Status::NACK;
+		}
+	
+	}
+	
+	return res;
+}
+
+
+
+template<typename I2C_HANDLE, std::size_t BUFFER_SIZE>
+Status receive_data(    
+    I2C_HANDLE *i2c_handle, 
+    std::array<uint8_t, BUFFER_SIZE> &buffer [[maybe_unused]])
+{
+
+	buffer.at(0) = LL_I2C_ReceiveData8(i2c_handle);
+	return Status::ACK;	
+
+}
 
 }   // namespace stm32::i2c
 
