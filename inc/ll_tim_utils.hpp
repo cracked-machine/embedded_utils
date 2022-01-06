@@ -29,7 +29,7 @@ namespace embed_utils
 namespace tim
 {
 
-// @brief microsecond timeout using periperhal timer
+// @brief microsecond timeout using periperhal timer. Max threshold is 0xFFFE (65534)
 // @param tim_handle Make sure the timer is initialised
 // @param delay_us 
 template<typename TIM_HANDLE>
