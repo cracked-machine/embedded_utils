@@ -24,67 +24,27 @@
 #define __LL_SPI_UTILS_HPP__
 
 #include "ll_tim_utils.hpp"
+#include <memory>
 
-namespace embed_utils
+namespace stm32::spi
 {
 
-namespace spi
-{
 
 // @brief Check and retry (with timeout) the SPIx_SR TXE register.
-// @param spi_handle Pointer to the STM32 LL SPI_HANDLE object
+// @param spi_handle Pointer to the CMSIS mem-mapped SPI device
 // @param delay_us The timeout
 // @return true if TX FIFO is empty, false if TX FIFO is full
-template<typename SPI_HANDLE>
-bool ll_wait_for_txe_flag(const SPI_HANDLE *spi_handle, uint32_t delay_us = 100)
-{
-
-    if (spi_handle == nullptr)
-    {
-        return false;
-    }
-
-    // The TXE flag is set when transmission TXFIFO has enough space to store data to send.
-    if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
-    {
-        // give TX FIFO a chance to clear before checking again
-        tim::ll_delay_microsecond(TIM14, delay_us);
-        if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
-        { 
-            return false;
-        }
-        
-    }
-    return true;
-}        
+bool ll_wait_for_txe_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
 
 // @brief Check and retry (with timeout) the SPIx_SR BSY register.
-// @param spi_handle Pointer to the STM32 LL SPI_HANDLE object
+// @param spi_handle Pointer to the CMSIS mem-mapped SPI device
 // @param delay_us The timeout
 // @return true if SPI bus is busy, false if SPI bus is not busy.
-template<typename SPI_HANDLE>
-bool ll_wait_for_bsy_flag(const SPI_HANDLE *spi_handle, uint32_t delay_us = 100)
-{
-    if (spi_handle == nullptr)
-    {
-        return false;
-    }
-    // When BSY is set, it indicates that a data transfer is in progress on the SPI
-    if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
-    {
-        // give SPI bus a chance to finish sending data before checking again
-        tim::ll_delay_microsecond(TIM14, delay_us);
-        if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
-        { 
-            return false;
-        }
-    }    
-    return true; 
-}   
+bool ll_wait_for_bsy_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
 
-} // spi
+} // namespace stm32::spi
 
-} // namespace embed_utils
+
 
 
 #endif // __LL_SPI_UTILS_HPP__

@@ -67,7 +67,7 @@ Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t addr, MsgType
 	LL_I2C_GenerateStartCondition(i2c_handle.get());
 
 	// give slave a chance to respond
-	embed_utils::tim::ll_delay_microsecond(TIM14, 1000);
+	stm32::tim::ll_delay_microsecond(TIM14, 1000);
 
 	// addr was not recognised by slave device
 	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle.get()) == SET) )
