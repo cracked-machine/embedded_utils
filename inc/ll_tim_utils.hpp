@@ -23,11 +23,9 @@
 #ifndef __LL_TIM_UTILS_HPP__
 #define __LL_TIM_UTILS_HPP__
 
-namespace embed_utils
+namespace stm32::tim
 {
     
-namespace tim
-{
 
 // @brief microsecond timeout using periperhal timer. Max threshold is 0xFFFE (65534)
 // @param tim_handle Make sure the timer is initialised
@@ -50,7 +48,6 @@ static void ll_delay_microsecond(TIM_HANDLE *tim_handle, uint32_t delay_us)
     while (LL_TIM_GetCounter(tim_handle) < delay_us);
 }
 
-} // tim
-} // namespace embed_utils
+} // namespace stm32::tim
 
 #endif // __LL_TIM_UTILS_HPP__
