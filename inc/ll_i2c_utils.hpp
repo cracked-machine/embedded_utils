@@ -44,82 +44,37 @@ enum class Status
 	NOSUPPORT
 };
 
+// @brief Specify the type of message to send with send_addr() function
 enum class MsgType
 {
+	// @brief Send STOP after adddress. Use this to test if a slave device is present
 	PROBE,
+	// @brief Sends r/w bit high and sends a repeated START condition. Use this to change direction after WRITE.
     READ,
+	// @brief Sends r/w bit low and keeps bus open for further writes
     WRITE
 };
 
+// @brief Send the address byte to the I2C slave device
+// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+// @param addr The address byte to send to the slave device
+// @param type PROBE: send STOP after adddress, WRITE: r/w bit low and keep open, READ: r/w bit high + repeated START
+// @return Status The I2C slave device response
+Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t addr, MsgType type );
 
-template<typename I2C_TYPEDEF>
-Status send_addr(std::unique_ptr<I2C_TYPEDEF> &i2c_handle, uint8_t addr, MsgType type )
-{	
-	// setup the common transaction options
-	LL_I2C_SetMasterAddressingMode(i2c_handle.get(), LL_I2C_ADDRESSING_MODE_7BIT);
-	
-	LL_I2C_SetSlaveAddr(i2c_handle.get(), addr);
-	
-	if (type == MsgType::PROBE)
-	{
-		// generate START with AUTO-END enabled
-		LL_I2C_SetTransferRequest(i2c_handle.get(), LL_I2C_REQUEST_WRITE);
-		LL_I2C_EnableAutoEndMode(i2c_handle.get());
-	}
-	else if (type == MsgType::WRITE)
-	{
-		// generate START with AUTO-END disabled
-		LL_I2C_SetTransferRequest(i2c_handle.get(), LL_I2C_REQUEST_WRITE);
-		LL_I2C_DisableReloadMode(i2c_handle.get());
-		LL_I2C_DisableAutoEndMode(i2c_handle.get());
-	}
-	else if (type == MsgType::READ)
-	{
-		// generate REPEATED START
-		LL_I2C_SetTransferRequest(i2c_handle.get(), LL_I2C_REQUEST_READ);		
-		LL_I2C_DisableReloadMode(i2c_handle.get());
-		LL_I2C_DisableAutoEndMode(i2c_handle.get());		
-	}
+// @brief Send the command byte to the I2C slave device
+// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+// @param command The command byte to send
+// @return Status The I2C slave device response
+Status send_command(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t command);
 
-	// send the address byte to slave
-	LL_I2C_GenerateStartCondition(i2c_handle.get());
-
-	// give slave a chance to respond
-	embed_utils::tim::ll_delay_microsecond(TIM14, 1000);
-
-	// addr was not recognised by slave device
-	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle.get()) == SET) )
-	{
-		return Status::NACK;
-	}
-
-	return Status::ACK;
-
-}
-
-
-template<typename I2C_TYPEDEF>
-Status send_command(std::unique_ptr<I2C_TYPEDEF> &i2c_handle, uint8_t command)
-{
-
-	// send the command byte
-	LL_I2C_TransmitData8(i2c_handle.get(), command);
-	while (!LL_I2C_IsActiveFlag_TXE(i2c_handle.get()))
-	{
-		// wait for byte to be sent
-	}
-	// command was not recognised by slave device
-	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle.get()) == SET) )
-	{
-		return Status::NACK;
-	}
-
-	return Status::ACK;
-}
-
-
-template<typename I2C_TYPEDEF, std::size_t BUFFER_SIZE>
-Status send_data(std::unique_ptr<I2C_TYPEDEF> &i2c_handle, std::array<uint8_t, BUFFER_SIZE> &buffer)
+// @brief Write the data byte(s) to I2C_TXDR register (transmit to the I2C slave device)
+// @tparam BUFFER_SIZE The size of the buffer
+// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+// @param buffer data byte(s) to transmit
+// @return Status The I2C slave device response
+template<std::size_t BUFFER_SIZE>
+Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, BUFFER_SIZE> &buffer)
 {
 	Status res = Status::ACK;
 	for (uint8_t &byte : buffer)
@@ -142,11 +97,13 @@ Status send_data(std::unique_ptr<I2C_TYPEDEF> &i2c_handle, std::array<uint8_t, B
 }
 
 
-
-template<typename I2C_TYPEDEF, std::size_t BUFFER_SIZE>
-Status receive_data(    
-    std::unique_ptr<I2C_TYPEDEF> &i2c_handle, 
-    std::array<uint8_t, BUFFER_SIZE> &buffer [[maybe_unused]])
+// @brief Read the data byte from I2C_RXDR register (Received from the I2C slave device)
+// @tparam BUFFER_SIZE The size of the buffer
+// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+// @param buffer Data byte(s) to receive
+// @return Status The I2C slave device response
+template<std::size_t BUFFER_SIZE>
+Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, BUFFER_SIZE> &buffer)
 {
 
 	buffer.at(0) = LL_I2C_ReceiveData8(i2c_handle.get());
