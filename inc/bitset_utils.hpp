@@ -37,11 +37,9 @@
 #include <bitset>
 #include <array>
 
-namespace embed_utils
+namespace noarch::bit_manip
 {
 
-namespace bit_manip
-{
 
 // @brief Adds each bit from source std::bitset to target std::bitset with msb_offset
 // @tparam TARGET_SIZE The size of the source bitset container
@@ -140,9 +138,7 @@ void print_bits(std::bitset<BITSET_SIZE> &pattern [[maybe_unused]])
     #endif
 }
 
-} // bit_manip
-
-}  // namespace embed_utils
+} // namespace noarch::bit_manip
 
 
 #endif // __BITSET_UTILS_HPP__

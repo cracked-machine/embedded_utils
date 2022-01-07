@@ -26,10 +26,7 @@
 #include <stdint.h>
 
 
-namespace embed_utils
-{
-
-namespace byte_manip
+namespace noarch::byte_manip
 {
 
 template<std::size_t BYTE_ARRAY_SIZE> 
@@ -50,8 +47,6 @@ void print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
     
 }
 
-}   // namespace byte_manip
-
-}   // namespace embed_utils
+}   // namespace noarch::byte_manip
 
 #endif // __BYTE_UTILS_HPP__
