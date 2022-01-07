@@ -99,6 +99,31 @@ Status send_command(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t command)
 }
 
 
+Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t &buffer_byte)
+{
 
+	buffer_byte = LL_I2C_ReceiveData8(i2c_handle.get());
+	return Status::ACK;	
+
+}
+
+
+Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t buffer_byte)
+{
+	Status res = Status::ACK;
+
+	LL_I2C_TransmitData8(i2c_handle.get(), buffer_byte);
+	while (!LL_I2C_IsActiveFlag_TXE(i2c_handle.get()))
+	{
+		// wait for byte to be sent
+	}
+	// command was not recognised by slave device
+	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle.get()) == SET) )
+	{
+		res = Status::NACK;
+	}
+		
+	return res;
+}
 
 } // namespace stm32::i2c

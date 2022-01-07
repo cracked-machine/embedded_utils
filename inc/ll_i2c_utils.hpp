@@ -40,8 +40,7 @@ enum class Status
     BUSY,
     // @brief Slave device did not recognise the address
     NACK,
-	// @brief placeholder for misc errors
-	NOSUPPORT
+
 };
 
 // @brief Specify the type of message to send with send_addr() function
@@ -68,7 +67,8 @@ Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t addr, MsgType
 // @return Status The I2C slave device response
 Status send_command(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t command);
 
-// @brief Write the data byte(s) to I2C_TXDR register (transmit to the I2C slave device)
+
+// @brief Write multiple data bytes to I2C_TXDR register (transmit to the I2C slave device) without waiting for ACK 
 // @tparam BUFFER_SIZE The size of the buffer
 // @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
 // @param buffer data byte(s) to transmit
@@ -96,8 +96,14 @@ Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, B
 	return res;
 }
 
+// @brief Write single data byte to I2C_TXDR register (transmit to the I2C slave device) 
+// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+// @param buffer_byte Data byte to transmit
+// @return Status The I2C slave device response
+Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t buffer_byte);
 
-// @brief Read the data byte from I2C_RXDR register (Received from the I2C slave device)
+
+// @brief Read multiple data bytes from I2C_RXDR register (Received from the I2C slave device) without waiting for ACK
 // @tparam BUFFER_SIZE The size of the buffer
 // @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
 // @param buffer Data byte(s) to receive
@@ -110,6 +116,12 @@ Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t
 	return Status::ACK;	
 
 }
+
+// @brief Read single byte from I2C_RXDR register (Received from the I2C slave device)
+// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+// @param buffer_byte Data byte to receive
+// @return Status The I2C slave device response
+Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t &buffer_byte);
 
 }   // namespace stm32::i2c
 
