@@ -61,12 +61,6 @@ enum class MsgType
 // @return Status The I2C slave device response
 Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t addr, MsgType type );
 
-// @brief Send the command byte to the I2C slave device
-// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
-// @param command The command byte to send
-// @return Status The I2C slave device response
-Status send_command(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t command);
-
 
 // @brief Write multiple data bytes to I2C_TXDR register (transmit to the I2C slave device) without waiting for ACK 
 // @tparam BUFFER_SIZE The size of the buffer
@@ -100,7 +94,7 @@ Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, B
 // @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
 // @param buffer_byte Data byte to transmit
 // @return Status The I2C slave device response
-Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t buffer_byte);
+Status send_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t tx_byte);
 
 
 // @brief Read multiple data bytes from I2C_RXDR register (Received from the I2C slave device) without waiting for ACK
@@ -121,7 +115,7 @@ Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t
 // @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
 // @param buffer_byte Data byte to receive
 // @return Status The I2C slave device response
-Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t &buffer_byte);
+Status receive_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t &rx_byte);
 
 }   // namespace stm32::i2c
 
