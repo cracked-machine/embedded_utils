@@ -22,16 +22,6 @@
 
 #include <interrupt_manager_base.hpp>
 
-#if defined(USE_SSD1306_HAL_DRIVER) || defined(USE_SSD1306_LL_DRIVER)
-
-	#pragma GCC diagnostic push
-	#pragma GCC diagnostic ignored "-Wvolatile"
-		#include "main.h"
-		#include "i2c.h"	
-	#pragma GCC diagnostic pop
-
-#endif
-
 namespace isr::stm32g0
 {
 
@@ -43,11 +33,10 @@ void InterruptManagerBase::Register(ISRVectorTableEnums interrupt_number, std::u
 
 extern "C" void EXTI4_15_IRQHandler(void)
 {
-    if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_5) != RESET)
-    {
-        LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_5);
-    }
+    // call the ISR() of the registered interrupt class
     InterruptManagerBase::ISRVectorTable[ static_cast<int>(InterruptManagerBase::ISRVectorTableEnums::exti4_15_irqhandler) ]->ISR();
 }
+
+
 
 } // namespace isr::stm32g0
