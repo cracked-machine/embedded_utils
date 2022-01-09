@@ -45,14 +45,17 @@ public:
     {
         // @brief EXTI line 4 to 15 interrupt Handler 
         exti4_15_irqhandler = 0,
+        // @brief DMA1 channel 1 interrupt
+        dma_ch1_irqhandler = 1,
         // @brief THIS IS NOT AN INTERRUPT HANDLER. DO NOT SELECT THIS!!! 
-        isr_count = 1,
+        // This element must always be last and must not be assigned a value.
+        isr_count,      
     };
 
     // @brief Register the derived interrupt manager to specific interrupt handler function
     // @param interrupt_number 
     // @param intThisPtr 
-    static void Register(ISRVectorTableEnums interrupt_number, std::unique_ptr<InterruptManagerBase> &interrupt_manager_instance);
+    static void register_handler(ISRVectorTableEnums interrupt_number, std::unique_ptr<InterruptManagerBase> &interrupt_manager_instance);
     
     // @brief 
     virtual void ISR(void) = 0;
@@ -63,7 +66,7 @@ public:
 
 // @brief The STM32G0 interrupt handler for EXTI4_15
 extern "C" void EXTI4_15_IRQHandler(void);
-
+extern "C" void DMA1_Channel1_IRQHandler(void);
 
 } // namespace isr::stm32g0
 

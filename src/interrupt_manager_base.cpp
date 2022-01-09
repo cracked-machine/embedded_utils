@@ -22,19 +22,34 @@
 
 #include <interrupt_manager_base.hpp>
 
+#include <cassert>
+
 namespace isr::stm32g0
 {
 
-void InterruptManagerBase::Register(ISRVectorTableEnums interrupt_number, std::unique_ptr<InterruptManagerBase> &interrupt_manager_instance)
+void InterruptManagerBase::register_handler(ISRVectorTableEnums interrupt_number, std::unique_ptr<InterruptManagerBase> &interrupt_manager_instance)
 {
+    assert(static_cast<size_t>(interrupt_number) < InterruptManagerBase::ISRVectorTable.size());
+
     // add the interrupt manager instance to the array for the specified interrupt number
     ISRVectorTable[ static_cast<int>(interrupt_number) ] = std::move(interrupt_manager_instance);
 }
 
 extern "C" void EXTI4_15_IRQHandler(void)
 {
+    // Do not assign a value to InterruptManagerBase::ISRVectorTableEnums::isr_count
+    static_assert( static_cast<std::size_t>(InterruptManagerBase::ISRVectorTableEnums::exti4_15_irqhandler) < InterruptManagerBase::ISRVectorTable.size());
+
     // call the ISR() of the registered interrupt class
     InterruptManagerBase::ISRVectorTable[ static_cast<int>(InterruptManagerBase::ISRVectorTableEnums::exti4_15_irqhandler) ]->ISR();
+}
+
+extern "C" void DMA1_Channel1_IRQHandler(void)
+{
+    // Do not assign a value to InterruptManagerBase::ISRVectorTableEnums::isr_count
+    static_assert( static_cast<std::size_t>(InterruptManagerBase::ISRVectorTableEnums::dma_ch1_irqhandler) < InterruptManagerBase::ISRVectorTable.size());
+
+    InterruptManagerBase::ISRVectorTable[ static_cast<int>(InterruptManagerBase::ISRVectorTableEnums::dma_ch1_irqhandler) ]->ISR();
 }
 
 
