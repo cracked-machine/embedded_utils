@@ -20,19 +20,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <interrupt_base.hpp>
+#include <interrupt_manager_base.hpp>
 
-namespace stm32::isr
+#if defined(USE_SSD1306_HAL_DRIVER) || defined(USE_SSD1306_LL_DRIVER)
+
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wvolatile"
+		#include "main.h"
+		#include "i2c.h"	
+	#pragma GCC diagnostic pop
+
+#endif
+
+namespace isr::stm32g0
 {
 
-void InterruptBase::Register(InterruptVectors interrupt_number, InterruptBase* intThisPtr)
+void InterruptManagerBase::Register(ISRVectorTableEnums interrupt_number, std::unique_ptr<InterruptManagerBase> &interrupt_manager_instance)
 {
-    ISRVectorTable[ static_cast<int>(interrupt_number) ] = intThisPtr;
+    // add the interrupt manager instance to the array for the specified interrupt number
+    ISRVectorTable[ static_cast<int>(interrupt_number) ] = std::move(interrupt_manager_instance);
 }
 
-void InterruptBase::EXTI4_15_IRQHandler(void)
+extern "C" void EXTI4_15_IRQHandler(void)
 {
-    ISRVectorTable[ static_cast<int>(InterruptVectors::exti4_15_irqhandler) ]->ISR();
+    if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_5) != RESET)
+    {
+        LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_5);
+    }
+    InterruptManagerBase::ISRVectorTable[ static_cast<int>(InterruptManagerBase::ISRVectorTableEnums::exti4_15_irqhandler) ]->ISR();
 }
 
-} // namespace stm32::isr
+} // namespace isr::stm32g0
