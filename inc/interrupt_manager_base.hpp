@@ -25,6 +25,7 @@
 
 #include <array>
 #include <memory>
+
 namespace isr::stm32g0
 {
 
@@ -44,7 +45,7 @@ public:
     enum class ISRVectorTableEnums
     {
         // @brief EXTI line 4 to 15 interrupt Handler 
-        exti4_15_irqhandler = 0,
+        exti5_irqhandler = 0,
         // @brief DMA1 channel 1 interrupt
         dma_ch1_irqhandler = 1,
         // @brief THIS IS NOT AN INTERRUPT HANDLER. DO NOT SELECT THIS!!! 

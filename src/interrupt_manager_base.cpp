@@ -22,6 +22,11 @@
 
 #include <interrupt_manager_base.hpp>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvolatile"
+    #include "main.h"
+#pragma GCC diagnostic pop
+
 #include <cassert>
 
 namespace isr::stm32g0
@@ -38,17 +43,20 @@ void InterruptManagerBase::register_handler(ISRVectorTableEnums interrupt_number
 extern "C" void EXTI4_15_IRQHandler(void)
 {
     // Do not assign a value to InterruptManagerBase::ISRVectorTableEnums::isr_count
-    static_assert( static_cast<std::size_t>(InterruptManagerBase::ISRVectorTableEnums::exti4_15_irqhandler) < InterruptManagerBase::ISRVectorTable.size());
+    static_assert( static_cast<std::size_t>(InterruptManagerBase::ISRVectorTableEnums::exti5_irqhandler) < InterruptManagerBase::ISRVectorTable.size());
 
     // call the ISR() of the registered interrupt class
-    InterruptManagerBase::ISRVectorTable[ static_cast<int>(InterruptManagerBase::ISRVectorTableEnums::exti4_15_irqhandler) ]->ISR();
+    if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_5))
+    {
+        InterruptManagerBase::ISRVectorTable[ static_cast<int>(InterruptManagerBase::ISRVectorTableEnums::exti5_irqhandler) ]->ISR();
+    }
 }
 
 extern "C" void DMA1_Channel1_IRQHandler(void)
 {
     // Do not assign a value to InterruptManagerBase::ISRVectorTableEnums::isr_count
     static_assert( static_cast<std::size_t>(InterruptManagerBase::ISRVectorTableEnums::dma_ch1_irqhandler) < InterruptManagerBase::ISRVectorTable.size());
-
+    
     InterruptManagerBase::ISRVectorTable[ static_cast<int>(InterruptManagerBase::ISRVectorTableEnums::dma_ch1_irqhandler) ]->ISR();
 }
 
