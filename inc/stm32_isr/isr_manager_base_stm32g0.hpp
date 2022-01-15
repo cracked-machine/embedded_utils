@@ -45,50 +45,50 @@ public:
     enum class InterruptList
     {
         // @brief EXTI line interrupt definitions
-        exti0_irqhandler,
-        exti1_irqhandler,
-        exti2_irqhandler,
-        exti3_irqhandler,
-        exti4_irqhandler,
-        exti5_irqhandler,
-        exti6_irqhandler,
-        exti7_irqhandler,
-        exti8_irqhandler,
-        exti9_irqhandler,
-        exti10_irqhandler,
-        exti11_irqhandler,
-        exti12_irqhandler,
-        exti13_irqhandler,
-        exti14_irqhandler,
-        exti15_irqhandler,
-        exti16_irqhandler,
-        exti17_irqhandler,
-        exti18_irqhandler,
-        exti19_irqhandler,
-        exti20_irqhandler,
-        exti21_irqhandler,
-        exti22_irqhandler,
-        exti23_irqhandler,
-        exti24_irqhandler,
-        exti25_irqhandler,
-        exti26_irqhandler,
-        exti27_irqhandler,
-        exti28_irqhandler,
-        exti29_irqhandler,
-        exti30_irqhandler,
-        exti31_irqhandler,
+        exti0,
+        exti1,
+        exti2,
+        exti3,
+        exti4,
+        exti5,
+        exti6,
+        exti7,
+        exti8,
+        exti9,
+        exti10,
+        exti11,
+        exti12,
+        exti13,
+        exti14,
+        exti15,
+        exti16,
+        exti17,
+        exti18,
+        exti19,
+        exti20,
+        exti21,
+        exti22,
+        exti23,
+        exti24,
+        exti25,
+        exti26,
+        exti27,
+        exti28,
+        exti29,
+        exti30,
+        exti31,
 
-        dma_ch1_irqhandler,     
-        dma_ch2_irqhandler,
-        dma_ch3_irqhandler,
-        dma_ch4_irqhandler,
-        dma_ch5_irqhandler,
-        dma_ch6_irqhandler,
-        dma_ch7_irqhandler,
+        dma_ch1,     
+        dma_ch2,
+        dma_ch3,
+        dma_ch4,
+        dma_ch5,
+        dma_ch6,
+        dma_ch7,
 
         // @brief THIS IS NOT AN INTERRUPT HANDLER. DO NOT SELECT THIS!!! 
         // This element must always be last and must not be assigned a value.
-        isr_count,      
+        list_count,      
     };
 
     // @brief Register the derived interrupt manager to specific interrupt handler function
@@ -100,7 +100,7 @@ public:
     virtual void ISR(void) = 0;
 
     // https://stackoverflow.com/questions/52135456/why-i-cant-call-a-static-member-variable-in-an-static-member-function-like-this
-    static inline std::array<std::unique_ptr<ISRManagerBaseSTM32G0>, static_cast<std::size_t>(InterruptList::isr_count) > ISRVectorTable;
+    static inline std::array<std::unique_ptr<ISRManagerBaseSTM32G0>, static_cast<std::size_t>(InterruptList::list_count) > ISRVectorTable;
 };
 
 // @brief The STM32G0 interrupt handlers
