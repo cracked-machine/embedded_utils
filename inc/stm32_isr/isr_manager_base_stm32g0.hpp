@@ -35,11 +35,11 @@ namespace isr::stm32g0
 // 2. Add entry to ISRVectorTableEnums to represent that interrupt
 // 3. Add code to the "extern C" interupt handler function to call the ISR() for that ISRVectorTableEnums.
 // 4. Create a derived class to implement ISR()
-class InterruptManagerBase
+class ISRManagerBaseSTM32G0
 {
 public:
     // @brief Construct a new Interrupt Manager Base object
-    InterruptManagerBase() = default;
+    ISRManagerBaseSTM32G0() = default;
 
     // @brief ISR that can be selected by derived classes implementing a specific type of ISR manager.
     enum class ISRVectorTableEnums
@@ -56,13 +56,13 @@ public:
     // @brief Register the derived interrupt manager to specific interrupt handler function
     // @param interrupt_number 
     // @param intThisPtr 
-    static void register_handler(ISRVectorTableEnums interrupt_number, std::unique_ptr<InterruptManagerBase> &interrupt_manager_instance);
+    static void register_handler(ISRVectorTableEnums interrupt_number, std::unique_ptr<ISRManagerBaseSTM32G0> &interrupt_manager_instance);
     
     // @brief 
     virtual void ISR(void) = 0;
 
     // https://stackoverflow.com/questions/52135456/why-i-cant-call-a-static-member-variable-in-an-static-member-function-like-this
-    static inline std::array<std::unique_ptr<InterruptManagerBase>, static_cast<std::size_t>(ISRVectorTableEnums::isr_count) > ISRVectorTable;
+    static inline std::array<std::unique_ptr<ISRManagerBaseSTM32G0>, static_cast<std::size_t>(ISRVectorTableEnums::isr_count) > ISRVectorTable;
 };
 
 // @brief The STM32G0 interrupt handler for EXTI4_15
