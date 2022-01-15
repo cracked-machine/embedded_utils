@@ -32,7 +32,7 @@
 namespace isr::stm32g0
 {
 
-void ISRManagerBaseSTM32G0::register_handler(ISRVectorTableEnums interrupt_number, std::unique_ptr<ISRManagerBaseSTM32G0> &interrupt_manager_instance)
+void ISRManagerBaseSTM32G0::register_handler(InterruptList interrupt_number, std::unique_ptr<ISRManagerBaseSTM32G0> &interrupt_manager_instance)
 {
     assert(static_cast<size_t>(interrupt_number) < ISRManagerBaseSTM32G0::ISRVectorTable.size());
 
@@ -42,22 +42,22 @@ void ISRManagerBaseSTM32G0::register_handler(ISRVectorTableEnums interrupt_numbe
 
 extern "C" void EXTI4_15_IRQHandler(void)
 {
-    // Do not assign a value to ISRManagerBaseSTM32G0::ISRVectorTableEnums::isr_count
-    static_assert( static_cast<std::size_t>(ISRManagerBaseSTM32G0::ISRVectorTableEnums::exti5_irqhandler) < ISRManagerBaseSTM32G0::ISRVectorTable.size());
+    // Do not assign a value to ISRManagerBaseSTM32G0::InterruptList::isr_count
+    static_assert( static_cast<std::size_t>(ISRManagerBaseSTM32G0::InterruptList::exti5_irqhandler) < ISRManagerBaseSTM32G0::ISRVectorTable.size());
 
     // call the ISR() of the registered interrupt class
     if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_5))
     {
-        ISRManagerBaseSTM32G0::ISRVectorTable[ static_cast<int>(ISRManagerBaseSTM32G0::ISRVectorTableEnums::exti5_irqhandler) ]->ISR();
+        ISRManagerBaseSTM32G0::ISRVectorTable[ static_cast<int>(ISRManagerBaseSTM32G0::InterruptList::exti5_irqhandler) ]->ISR();
     }
 }
 
 extern "C" void DMA1_Channel1_IRQHandler(void)
 {
-    // Do not assign a value to ISRManagerBaseSTM32G0::ISRVectorTableEnums::isr_count
-    static_assert( static_cast<std::size_t>(ISRManagerBaseSTM32G0::ISRVectorTableEnums::dma_ch1_irqhandler) < ISRManagerBaseSTM32G0::ISRVectorTable.size());
+    // Do not assign a value to ISRManagerBaseSTM32G0::InterruptList::isr_count
+    static_assert( static_cast<std::size_t>(ISRManagerBaseSTM32G0::InterruptList::dma_ch1_irqhandler) < ISRManagerBaseSTM32G0::ISRVectorTable.size());
     
-    ISRManagerBaseSTM32G0::ISRVectorTable[ static_cast<int>(ISRManagerBaseSTM32G0::ISRVectorTableEnums::dma_ch1_irqhandler) ]->ISR();
+    ISRManagerBaseSTM32G0::ISRVectorTable[ static_cast<int>(ISRManagerBaseSTM32G0::InterruptList::dma_ch1_irqhandler) ]->ISR();
 }
 
 
