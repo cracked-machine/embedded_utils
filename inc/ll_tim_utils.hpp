@@ -48,6 +48,25 @@ static void ll_delay_microsecond(TIM_HANDLE *tim_handle, uint32_t delay_us)
     while (LL_TIM_GetCounter(tim_handle) < delay_us);
 }
 
+template<typename TIM_HANDLE>
+static void ll_get_usecs(TIM_HANDLE *tim_handle, uint32_t &value_usecs, bool reset = false)
+{
+    if (reset)
+    {
+        // ensure the timer is disabled before setup
+        if (LL_TIM_IsEnabledCounter(tim_handle)) { LL_TIM_DisableCounter(tim_handle); }
+        // setup the timer to 1 us resolution (depending on the system clock frequency)
+        LL_TIM_SetPrescaler(tim_handle, SystemCoreClock / 1000000UL);
+        // allow largest possible timeout
+        LL_TIM_SetAutoReload(tim_handle, 0xFFFF-1);
+        // reset CNT
+        LL_TIM_SetCounter(tim_handle, 0);
+        // start the timer and wait for the timeout
+        LL_TIM_EnableCounter(tim_handle);
+    }
+    value_usecs = LL_TIM_GetCounter(tim_handle);
+}
+
 } // namespace stm32::tim
 
 #endif // __LL_TIM_UTILS_HPP__
