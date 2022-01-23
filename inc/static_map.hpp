@@ -24,6 +24,11 @@
 #ifndef __STATIC_MAP_HPP__
 #define __STATIC_MAP_HPP__
 
+#include <algorithm>
+#include <array>
+
+// @brief For working example see https://godbolt.org/z/nbEbP9ez3
+
 namespace noarch::containers
 {
 
@@ -54,6 +59,6 @@ struct StaticMap {
     }
 };
 
-} // namespace noarch::static_map
+} // namespace oarch::containers
 
 #endif // __STATIC_MAP_HPP__
