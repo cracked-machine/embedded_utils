@@ -20,17 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef __CONTROLLED_BASE_HPP__
-#define __CONTROLLED_BASE_HPP__
+#ifndef __ALLOCATION_RESTRICTED_BASE_HPP__
+#define __ALLOCATION_RESTRICTED_BASE_HPP__
 
 #include <new>
 
 // All dyanmic allocation is disabled
-class ControlledBase
+class AllocationRestrictedBase
 {
 
 public: 
-    ControlledBase() = default;
+    AllocationRestrictedBase() = default;
     
     // prevent dynamic allocation of this class
     void* operator new(std::size_t size) noexcept = delete;
@@ -39,14 +39,14 @@ public:
     void operator delete[](void* ptr) noexcept = delete;
 
     // prevent copy of this class
-    ControlledBase &operator=(const ControlledBase&) = delete;
-    ControlledBase(const ControlledBase&) = delete;
+    AllocationRestrictedBase &operator=(const AllocationRestrictedBase&) = delete;
+    AllocationRestrictedBase(const AllocationRestrictedBase&) = delete;
 
     // prevent move of this class
-    ControlledBase &operator=(ControlledBase&& other) = delete;
-    ControlledBase(ControlledBase&& other) = delete;
+    AllocationRestrictedBase &operator=(AllocationRestrictedBase&& other) = delete;
+    AllocationRestrictedBase(AllocationRestrictedBase&& other) = delete;
 
-    ~ControlledBase() = default;
+    ~AllocationRestrictedBase() = default;
 
 };
 
@@ -67,4 +67,4 @@ inline void * operator new (std::size_t)
 
 
 
-#endif // __CONTROLLED_BASE_HPP__
+#endif // __ALLOCATION_RESTRICTED_BASE_HPP__
