@@ -48,7 +48,7 @@ namespace noarch::bit_manip
 // @param source The source bitset container to copy from
 // @param msb_offset how many bits offset from the target MSB does the copy begin
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-void add_bitset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset) 
+void insert_bitset_at_offset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset) 
 {
     // iterate over the source bitset pattern
     for (uint16_t idx = 0; idx < source.size(); idx++)
