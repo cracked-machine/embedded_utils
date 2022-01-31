@@ -20,30 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef __LL_SPI_UTILS_HPP__
-#define __LL_SPI_UTILS_HPP__
+#ifndef __TIMER_MANAGER_HPP__
+#define __TIMER_MANAGER_HPP__
+
+#if defined(USE_SSD1306_HAL_DRIVER) || defined(USE_SSD1306_LL_DRIVER)
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wvolatile"
+		#include "main.h"
+		#include "tim.h"	
+	#pragma GCC diagnostic pop
+#endif
 
 #include <memory>
-
-namespace stm32::spi
+#include <allocation_restricted_base.hpp>
+namespace stm32
 {
 
+class TimerManager : public AllocationRestrictedBase
+{
 
-// @brief Check and retry (with timeout) the SPIx_SR TXE register.
-// @param spi_handle Pointer to the CMSIS mem-mapped SPI device
-// @param delay_us The timeout
-// @return true if TX FIFO is empty, false if TX FIFO is full
-bool ll_wait_for_txe_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
+public:
 
-// @brief Check and retry (with timeout) the SPIx_SR BSY register.
-// @param spi_handle Pointer to the CMSIS mem-mapped SPI device
-// @param delay_us The timeout
-// @return true if SPI bus is busy, false if SPI bus is not busy.
-bool ll_wait_for_bsy_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
-
-} // namespace stm32::spi
+    static void delay_microsecond(uint32_t delay_us);
+    static void get_usecs(uint32_t &value_usecs);
+private:
+    TimerManager();
+    static void reset();
+    static inline std::unique_ptr<TIM_TypeDef> m_timer{TIM14};
 
 
+};
 
+} // namespace stm32
 
-#endif // __LL_SPI_UTILS_HPP__
+#endif // __TIMER_MANAGER_HPP__

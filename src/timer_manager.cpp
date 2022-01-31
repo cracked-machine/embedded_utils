@@ -20,30 +20,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef __LL_SPI_UTILS_HPP__
-#define __LL_SPI_UTILS_HPP__
+#include <timer_manager.hpp>
 
-#include <memory>
-
-namespace stm32::spi
+namespace stm32
 {
 
+TimerManager::TimerManager() 
+{
+    reset();
+}
 
-// @brief Check and retry (with timeout) the SPIx_SR TXE register.
-// @param spi_handle Pointer to the CMSIS mem-mapped SPI device
-// @param delay_us The timeout
-// @return true if TX FIFO is empty, false if TX FIFO is full
-bool ll_wait_for_txe_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
+void TimerManager::reset()
+{
+    // ensure the timer is disabled before setup
+    if (LL_TIM_IsEnabledCounter(m_timer.get())) { LL_TIM_DisableCounter(m_timer.get()); }
+    // setup the timer to 1 us resolution (depending on the system clock frequency)
+    LL_TIM_SetPrescaler(m_timer.get(), SystemCoreClock / 1000000UL);
+    // allow largest possible timeout
+    LL_TIM_SetAutoReload(m_timer.get(), 0xFFFF-1);
+    // reset CNT
+    LL_TIM_SetCounter(m_timer.get(), 0);
+    // start the timer and wait for the timeout
+    LL_TIM_EnableCounter(m_timer.get());    
+}
 
-// @brief Check and retry (with timeout) the SPIx_SR BSY register.
-// @param spi_handle Pointer to the CMSIS mem-mapped SPI device
-// @param delay_us The timeout
-// @return true if SPI bus is busy, false if SPI bus is not busy.
-bool ll_wait_for_bsy_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
+void TimerManager::delay_microsecond(uint32_t delay_us)
+{
+    // @TODO change the prescaler to allow longer delays, clamp for now
+    if (delay_us > 0xFFFE) { delay_us = 0xFFFE; }
+    
+    // setup the timer for timeout function
+    reset();
 
-} // namespace stm32::spi
+    while (LL_TIM_GetCounter(m_timer.get()) < delay_us);
+}
 
+void TimerManager::get_usecs(uint32_t &value_usecs)
+{
 
+    value_usecs = LL_TIM_GetCounter(m_timer.get());
+}
 
-
-#endif // __LL_SPI_UTILS_HPP__
+} // namespace stm32:

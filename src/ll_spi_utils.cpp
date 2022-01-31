@@ -31,7 +31,7 @@
 #endif
 
 #include <ll_spi_utils.hpp>
-
+#include <timer_manager.hpp>
 namespace stm32::spi
 {
 
@@ -47,7 +47,8 @@ bool ll_wait_for_txe_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t del
     if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
     {
         // give TX FIFO a chance to clear before checking again
-        tim::ll_delay_microsecond(TIM14, delay_us);
+        // tim::ll_delay_microsecond(TIM14, delay_us);
+        stm32::TimerManager::delay_microsecond(delay_us);
         if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
         { 
             return false;
@@ -67,7 +68,8 @@ bool ll_wait_for_bsy_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t del
     if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
     {
         // give SPI bus a chance to finish sending data before checking again
-        tim::ll_delay_microsecond(TIM14, delay_us);
+        // tim::ll_delay_microsecond(TIM14, delay_us);
+        stm32::TimerManager::delay_microsecond(delay_us);
         if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
         { 
             return false;

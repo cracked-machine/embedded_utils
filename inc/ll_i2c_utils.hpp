@@ -25,7 +25,6 @@
 
 #include <cstdint>
 #include <array>
-#include <ll_tim_utils.hpp>
 #include <memory>
 
 namespace stm32::i2c
