@@ -33,22 +33,35 @@
 
 #include <memory>
 #include <allocation_restricted_base.hpp>
+
+
 namespace stm32
 {
 
+// @brief Object to manage timer instance used for microsecond timeouts and debouncing
 class TimerManager : public AllocationRestrictedBase
 {
 
 public:
+    // @brief Set up the timer instance once and only once. Call this in main() setup.
+    // @param timer The pointer to TIM_TypeDef
+    static void initialise(TIM_TypeDef *timer);
 
+    // @brief wait for a microsecond delay
+    // @param delay_us the delay to wait in microseconds
     static void delay_microsecond(uint32_t delay_us);
-    static void get_usecs(uint32_t &value_usecs);
+
+    // @brief Get the current count of the timer
+    // @param value_usecs The count value returned
+    static uint32_t get_count();
+    
 private:
-    TimerManager();
+    // @brief Setup the timer
     static void reset();
-    static inline std::unique_ptr<TIM_TypeDef> m_timer{TIM14};
-
-
+    // @brief Loop here if something is wrong. i.e. m_timer is nullptr
+    static void error_handler();
+    // @brief The timer instance
+    static inline std::unique_ptr<TIM_TypeDef> m_timer;
 };
 
 } // namespace stm32

@@ -25,13 +25,18 @@
 namespace stm32
 {
 
-TimerManager::TimerManager() 
+void TimerManager::initialise(TIM_TypeDef *timer)
 {
+    if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
+    else { error_handler(); }
     reset();
 }
 
 void TimerManager::reset()
 {
+    // wait in limbo if not initialised
+    if (m_timer == nullptr) { error_handler(); }
+
     // ensure the timer is disabled before setup
     if (LL_TIM_IsEnabledCounter(m_timer.get())) { LL_TIM_DisableCounter(m_timer.get()); }
     // setup the timer to 1 us resolution (depending on the system clock frequency)
@@ -46,6 +51,9 @@ void TimerManager::reset()
 
 void TimerManager::delay_microsecond(uint32_t delay_us)
 {
+    // wait in limbo if not initialised
+    if (m_timer == nullptr) { error_handler(); }
+
     // @TODO change the prescaler to allow longer delays, clamp for now
     if (delay_us > 0xFFFE) { delay_us = 0xFFFE; }
     
@@ -55,10 +63,18 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
     while (LL_TIM_GetCounter(m_timer.get()) < delay_us);
 }
 
-void TimerManager::get_usecs(uint32_t &value_usecs)
+uint32_t TimerManager::get_count()
 {
+    if (!LL_TIM_IsEnabledCounter(m_timer.get())) { LL_TIM_EnableCounter(m_timer.get()); }
+    return LL_TIM_GetCounter(m_timer.get());
+}
 
-    value_usecs = LL_TIM_GetCounter(m_timer.get());
+void TimerManager::error_handler()
+{
+    while(1)
+    {
+        // stay here to allow stack trace to be shown in debugger...
+    }
 }
 
 } // namespace stm32:
