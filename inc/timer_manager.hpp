@@ -23,7 +23,9 @@
 #ifndef __TIMER_MANAGER_HPP__
 #define __TIMER_MANAGER_HPP__
 
-#if defined(USE_SSD1306_HAL_DRIVER) || defined(USE_SSD1306_LL_DRIVER)
+#if defined(X86_UNIT_TESTING_ONLY)
+    // unit tests
+#else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
 		#include "main.h"

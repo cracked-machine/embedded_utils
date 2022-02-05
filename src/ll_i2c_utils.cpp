@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#if defined(USE_SSD1306_HAL_DRIVER) || defined(USE_SSD1306_LL_DRIVER)
-
+#if defined(X86_UNIT_TESTING_ONLY)
+#else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
 		#include "main.h"
