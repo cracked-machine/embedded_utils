@@ -33,13 +33,13 @@ namespace stm32::spi
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device
 // @param delay_us The timeout
 // @return true if TX FIFO is empty, false if TX FIFO is full
-bool ll_wait_for_txe_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
+bool ll_wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
 
 // @brief Check and retry (with timeout) the SPIx_SR BSY register.
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device
 // @param delay_us The timeout
 // @return true if SPI bus is busy, false if SPI bus is not busy.
-bool ll_wait_for_bsy_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us = 100);
+bool ll_wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
 
 } // namespace stm32::spi
 

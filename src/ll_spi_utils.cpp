@@ -35,7 +35,7 @@
 namespace stm32::spi
 {
 
-bool ll_wait_for_txe_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us)
+bool ll_wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
 
     if (spi_handle == nullptr)
@@ -58,7 +58,7 @@ bool ll_wait_for_txe_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t del
     return true;
 }        
 
-bool ll_wait_for_bsy_flag(std::unique_ptr<SPI_TypeDef> &spi_handle, uint32_t delay_us)
+bool ll_wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
     if (spi_handle == nullptr)
     {
