@@ -36,7 +36,7 @@ void TimerManager::reset()
 {
     // wait in limbo if not initialised
     if (m_timer == nullptr) { error_handler(); }
-
+#if not defined(X86_UNIT_TESTING_ONLY)
     // ensure the timer is disabled before setup
     if (LL_TIM_IsEnabledCounter(m_timer.get())) { LL_TIM_DisableCounter(m_timer.get()); }
     // setup the timer to 1 us resolution (depending on the system clock frequency)
@@ -47,6 +47,7 @@ void TimerManager::reset()
     LL_TIM_SetCounter(m_timer.get(), 0);
     // start the timer and wait for the timeout
     LL_TIM_EnableCounter(m_timer.get());    
+#endif
 }
 
 void TimerManager::delay_microsecond(uint32_t delay_us)
@@ -59,14 +60,19 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
     
     // setup the timer for timeout function
     reset();
-
+#if not defined(X86_UNIT_TESTING_ONLY)
     while (LL_TIM_GetCounter(m_timer.get()) < delay_us);
+#endif
 }
 
 uint32_t TimerManager::get_count()
 {
+#if not defined(X86_UNIT_TESTING_ONLY)
     if (!LL_TIM_IsEnabledCounter(m_timer.get())) { LL_TIM_EnableCounter(m_timer.get()); }
     return LL_TIM_GetCounter(m_timer.get());
+#else
+    return 1;
+#endif
 }
 
 void TimerManager::error_handler()

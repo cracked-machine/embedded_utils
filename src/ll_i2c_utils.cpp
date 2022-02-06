@@ -36,11 +36,11 @@
 namespace stm32::i2c
 {
 
-Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t addr, MsgType type )
+Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle [[maybe_unused]], uint8_t addr [[maybe_unused]], MsgType type [[maybe_unused]])
 {	
+#if not defined(X86_UNIT_TESTING_ONLY)
 	// setup the common transaction options
 	LL_I2C_SetMasterAddressingMode(i2c_handle.get(), LL_I2C_ADDRESSING_MODE_7BIT);
-	
 	LL_I2C_SetSlaveAddr(i2c_handle.get(), addr);
 	
 	if (type == MsgType::PROBE)
@@ -76,25 +76,26 @@ Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t addr, MsgType
 	{
 		return Status::NACK;
 	}
-
+#endif
 	return Status::ACK;
 
 }
 
 
 
-Status receive_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t &rx_byte)
+Status receive_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle [[maybe_unused]], uint8_t &rx_byte [[maybe_unused]])
 {
-
+#if not defined(X86_UNIT_TESTING_ONLY)
 	rx_byte = LL_I2C_ReceiveData8(i2c_handle.get());
+#endif
 	return Status::ACK;	
 
 }
 
 
-Status send_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t tx_byte)
+Status send_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle [[maybe_unused]], uint8_t tx_byte [[maybe_unused]])
 {
-
+#if not defined(X86_UNIT_TESTING_ONLY)
 	LL_I2C_TransmitData8(i2c_handle.get(), tx_byte);
 	while (!LL_I2C_IsActiveFlag_TXE(i2c_handle.get()))
 	{
@@ -105,7 +106,7 @@ Status send_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t tx_byte)
 	{
 		return Status::NACK;
 	}
-		
+#endif
 	return Status::ACK;
 }
 

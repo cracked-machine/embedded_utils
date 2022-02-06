@@ -42,6 +42,7 @@ bool ll_wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
     {
         return false;
     }
+#if not defined(X86_UNIT_TESTING_ONLY)
 
     // The TXE flag is set when transmission TXFIFO has enough space to store data to send.
     if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
@@ -55,6 +56,9 @@ bool ll_wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
         }
         
     }
+#else
+    delay_us++;
+#endif
     return true;
 }        
 
@@ -64,6 +68,7 @@ bool ll_wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
     {
         return false;
     }
+#if not defined(X86_UNIT_TESTING_ONLY)
     // When BSY is set, it indicates that a data transfer is in progress on the SPI
     if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
     {
@@ -75,6 +80,9 @@ bool ll_wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
             return false;
         }
     }    
+#else   
+    delay_us++;
+#endif
     return true; 
 }   
 

@@ -27,6 +27,11 @@
 #include <array>
 #include <memory>
 
+#if defined(X86_UNIT_TESTING_ONLY)
+	// only used when unit testing on x86
+	#include <mock_cmsis.hpp>
+#endif
+
 namespace stm32::i2c
 {
 
@@ -72,7 +77,7 @@ Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, B
 	Status res = Status::ACK;
 	for (uint8_t &byte : buffer)
 	{
-
+#if not defined(X86_UNIT_TESTING_ONLY)
 		LL_I2C_TransmitData8(i2c_handle.get(), byte);
 		while (!LL_I2C_IsActiveFlag_TXE(i2c_handle.get()))
 		{
@@ -83,7 +88,7 @@ Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, B
 		{
 			res = Status::NACK;
 		}
-	
+#endif	
 	}
 	
 	return res;
@@ -104,8 +109,9 @@ Status send_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t tx_byte);
 template<std::size_t BUFFER_SIZE>
 Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, BUFFER_SIZE> &buffer)
 {
-
+#if not defined(X86_UNIT_TESTING_ONLY)
 	buffer.at(0) = LL_I2C_ReceiveData8(i2c_handle.get());
+#endif
 	return Status::ACK;	
 
 }

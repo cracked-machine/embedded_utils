@@ -23,6 +23,11 @@
 #ifndef __LL_SPI_UTILS_HPP__
 #define __LL_SPI_UTILS_HPP__
 
+#if defined(X86_UNIT_TESTING_ONLY)
+	// only used when unit testing on x86
+	#include <mock_cmsis.hpp>
+#endif
+
 #include <memory>
 
 namespace stm32::spi
