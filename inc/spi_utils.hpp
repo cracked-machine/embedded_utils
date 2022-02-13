@@ -20,15 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef __LL_SPI_UTILS_HPP__
-#define __LL_SPI_UTILS_HPP__
+#ifndef __SPI_UTILS_HPP__
+#define __SPI_UTILS_HPP__
 
 #if defined(X86_UNIT_TESTING_ONLY)
 	// only used when unit testing on x86
 	#include <mock_cmsis.hpp>
 #endif
-
-#include <memory>
 
 namespace stm32::spi
 {
@@ -38,17 +36,17 @@ namespace stm32::spi
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device
 // @param delay_us The timeout
 // @return true if TX FIFO is empty, false if TX FIFO is full
-bool ll_wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
+bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
 
 // @brief Check and retry (with timeout) the SPIx_SR BSY register.
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device
 // @param delay_us The timeout
 // @return true if SPI bus is busy, false if SPI bus is not busy.
-bool ll_wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
+bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
 
 } // namespace stm32::spi
 
 
 
 
-#endif // __LL_SPI_UTILS_HPP__
+#endif // __SPI_UTILS_HPP__

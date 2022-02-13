@@ -30,59 +30,57 @@
 
 #endif
 
-#include <ll_spi_utils.hpp>
+#include <spi_utils.hpp>
 #include <timer_manager.hpp>
 namespace stm32::spi
 {
 
-bool ll_wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
+bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
 
     if (spi_handle == nullptr)
     {
         return false;
     }
-#if not defined(X86_UNIT_TESTING_ONLY)
+    #if not defined(X86_UNIT_TESTING_ONLY)
 
-    // The TXE flag is set when transmission TXFIFO has enough space to store data to send.
-    if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
-    {
-        // give TX FIFO a chance to clear before checking again
-        // tim::ll_delay_microsecond(TIM14, delay_us);
-        stm32::TimerManager::delay_microsecond(delay_us);
+        // The TXE flag is set when transmission TXFIFO has enough space to store data to send.
         if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
-        { 
-            return false;
+        {
+            // give TX FIFO a chance to clear before checking again
+            stm32::TimerManager::delay_microsecond(delay_us);
+            if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
+            { 
+                return false;
+            }
+            
         }
-        
-    }
-#else
-    delay_us++;
-#endif
+    #else
+        delay_us++;
+    #endif
     return true;
 }        
 
-bool ll_wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
+bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
     if (spi_handle == nullptr)
     {
         return false;
     }
-#if not defined(X86_UNIT_TESTING_ONLY)
-    // When BSY is set, it indicates that a data transfer is in progress on the SPI
-    if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
-    {
-        // give SPI bus a chance to finish sending data before checking again
-        // tim::ll_delay_microsecond(TIM14, delay_us);
-        stm32::TimerManager::delay_microsecond(delay_us);
+    #if not defined(X86_UNIT_TESTING_ONLY)
+        // When BSY is set, it indicates that a data transfer is in progress on the SPI
         if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
-        { 
-            return false;
-        }
-    }    
-#else   
-    delay_us++;
-#endif
+        {
+            // give SPI bus a chance to finish sending data before checking again
+            stm32::TimerManager::delay_microsecond(delay_us);
+            if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
+            { 
+                return false;
+            }
+        }    
+    #else   
+        delay_us++;
+    #endif
     return true; 
 }   
 
