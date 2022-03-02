@@ -20,16 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#if defined(X86_UNIT_TESTING_ONLY)
-#else
-	#pragma GCC diagnostic push
-	#pragma GCC diagnostic ignored "-Wvolatile"
-		#include "main.h"
-		#include "i2c.h"	
-	#pragma GCC diagnostic pop
-
-#endif
-
 #include <ll_i2c_utils.hpp>
 #include <timer_manager.hpp>
 

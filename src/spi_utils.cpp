@@ -20,15 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#if defined(X86_UNIT_TESTING_ONLY)
-#else
-	#pragma GCC diagnostic push
-	#pragma GCC diagnostic ignored "-Wvolatile"
-		#include "main.h"
-		#include "spi.h"	
-	#pragma GCC diagnostic pop
-
-#endif
 
 #include <spi_utils.hpp>
 #include <timer_manager.hpp>

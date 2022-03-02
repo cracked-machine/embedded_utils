@@ -30,6 +30,11 @@
 #if defined(X86_UNIT_TESTING_ONLY)
 	// only used when unit testing on x86
 	#include <mock_cmsis.hpp>
+#else
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wvolatile"
+        #include <stm32g0xx_ll_i2c.h>
+	#pragma GCC diagnostic pop	
 #endif
 
 namespace stm32::i2c

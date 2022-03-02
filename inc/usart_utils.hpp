@@ -26,6 +26,13 @@
 #if defined(X86_UNIT_TESTING_ONLY)
 	// only used when unit testing on x86
 	#include <mock_cmsis.hpp>
+	#include <iostream>
+#else
+	#pragma GCC diagnostic push
+	#pragma GCC diagnostic ignored "-Wvolatile"
+		#include <stm32g0xx_ll_usart.h>	
+	#pragma GCC diagnostic pop
+    
 #endif
 
 
