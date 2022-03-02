@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef __LL_I2C_UTILS_HPP__
-#define __LL_I2C_UTILS_HPP__
+#ifndef __I2C_UTILS_HPP__
+#define __I2C_UTILS_HPP__
 
 #include <cstdint>
 #include <array>

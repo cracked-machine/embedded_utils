@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <ll_i2c_utils.hpp>
+#include <i2c_utils.hpp>
 #include <timer_manager.hpp>
 
 namespace stm32::i2c

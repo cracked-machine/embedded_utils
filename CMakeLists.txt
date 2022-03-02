@@ -1,6 +1,6 @@
 target_sources(${BUILD_NAME} PRIVATE
     # put source files here
-    src/ll_i2c_utils.cpp
+    src/i2c_utils.cpp
     src/spi_utils.cpp
     src/usart_utils.cpp
     src/allocation_restricted_base.cpp
