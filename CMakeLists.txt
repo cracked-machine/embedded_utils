@@ -3,7 +3,7 @@ target_sources(${BUILD_NAME} PRIVATE
     src/i2c_utils.cpp
     src/spi_utils.cpp
     src/usart_utils.cpp
-    src/allocation_restricted_base.cpp
+    src/restricted_base.cpp
     src/timer_manager.cpp
 )
 

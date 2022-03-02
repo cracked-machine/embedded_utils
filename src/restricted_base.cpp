@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <allocation_restricted_base.hpp>
+#include <restricted_base.hpp>
 
 void invalid_allocation_error_handler()
 {
@@ -33,7 +33,7 @@ void invalid_allocation_error_handler()
 
 
 
-// void* AllocationRestrictedBase::operator new(size_t size [[maybe_unused]]) noexcept
+// void* RestrictedBase::operator new(size_t size [[maybe_unused]]) noexcept
 // {
 //     while(true)
 //     {
@@ -45,7 +45,7 @@ void invalid_allocation_error_handler()
 
 // }
 
-// void AllocationRestrictedBase::operator delete(void* ptr) noexcept
+// void RestrictedBase::operator delete(void* ptr) noexcept
 // {
 //     while(true)
 //     {

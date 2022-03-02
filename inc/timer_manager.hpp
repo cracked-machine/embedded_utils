@@ -35,14 +35,14 @@
 #endif
 
 #include <memory>
-#include <allocation_restricted_base.hpp>
+#include <restricted_base.hpp>
 
 
 namespace stm32
 {
 
 // @brief Object to manage timer instance used for microsecond timeouts and debouncing
-class TimerManager : public AllocationRestrictedBase
+class TimerManager : public RestrictedBase
 {
 
 public:
