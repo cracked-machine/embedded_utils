@@ -9,5 +9,5 @@ target_sources(${BUILD_NAME} PRIVATE
 
 target_include_directories(${BUILD_NAME} PRIVATE 
     inc
-    inc/stm32_isr
+
 )
