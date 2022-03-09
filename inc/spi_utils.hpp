@@ -27,7 +27,13 @@
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
+	// add groups for device family
+	#if defined (STM32G071xx) || defined (STM32G081xx) || defined (STM32G070xx) \
+	|| defined (STM32G030xx) || defined (STM32G031xx) || defined (STM32G041xx) \
+	|| defined (STM32G0B0xx) || defined (STM32G0B1xx) || defined (STM32G0C1xx) \
+	|| defined (STM32G050xx) || defined (STM32G051xx) || defined (STM32G061xx)		
         #include <stm32g0xx_ll_spi.h>
+	#endif
 	#pragma GCC diagnostic pop
 
 #endif
