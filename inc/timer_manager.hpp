@@ -35,7 +35,6 @@
 	|| defined (STM32G0B0xx) || defined (STM32G0B1xx) || defined (STM32G0C1xx) \
 	|| defined (STM32G050xx) || defined (STM32G051xx) || defined (STM32G061xx)	    
         #include <stm32g0xx.h>
-        #include <stm32g0xx_ll_utils.h>
     #endif
 	#pragma GCC diagnostic pop
 #endif
