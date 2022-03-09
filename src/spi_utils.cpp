@@ -26,6 +26,24 @@
 namespace stm32::spi
 {
 
+void enable_spi(SPI_TypeDef *spi_handle, bool enable)
+{
+    if (enable)
+    {
+        spi_handle->CR1 = spi_handle->CR1 | SPI_CR1_SPE;
+    }
+    else
+    {
+        spi_handle->CR1 = spi_handle->CR1 & ~SPI_CR1_SPE;
+    }
+}
+
+void transmit_byte(SPI_TypeDef *spi_handle, uint8_t byte)
+{
+    volatile uint8_t *spidr = ((volatile uint8_t *)&spi_handle->DR);
+    *spidr = byte;	    
+}
+
 bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
 

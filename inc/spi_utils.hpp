@@ -32,7 +32,7 @@
 	|| defined (STM32G030xx) || defined (STM32G031xx) || defined (STM32G041xx) \
 	|| defined (STM32G0B0xx) || defined (STM32G0B1xx) || defined (STM32G0C1xx) \
 	|| defined (STM32G050xx) || defined (STM32G051xx) || defined (STM32G061xx)		
-        #include <stm32g0xx_ll_spi.h>
+		#include <stm32g0xx.h>
 	#endif
 	#pragma GCC diagnostic pop
 
@@ -41,6 +41,9 @@
 namespace stm32::spi
 {
 
+void enable_spi(SPI_TypeDef *spi_handle, bool enable = true);
+
+void transmit_byte(SPI_TypeDef *spi_handle, uint8_t byte);
 
 // @brief Check and retry (with timeout) the SPIx_SR TXE register.
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device
