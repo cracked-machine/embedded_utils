@@ -108,9 +108,7 @@ Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte)
 	// wait for TX FIFO to be transmitted before continuing
 	while (((i2c_handle->ISR & I2C_ISR_TXE) == I2C_ISR_TXE) == false)
 	{
-		// flush the TX FIFO if timeout expires
-		TimerManager::delay_microsecond(1000);
-		i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_TXE;
+		// do nothing
 	}
 	// check if slave device responded with NACK
 	if (((i2c_handle->ISR & I2C_ISR_NACKF) == I2C_ISR_NACKF) == true)
