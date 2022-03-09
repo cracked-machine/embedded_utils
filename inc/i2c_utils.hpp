@@ -33,99 +33,72 @@
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
-        #include <stm32g0xx_ll_i2c.h>
+		#include <stm32g0xx.h>
 	#pragma GCC diagnostic pop	
 #endif
 
 namespace stm32::i2c
 {
 
-// @brief The I2C bus transaction status
+/// @brief The I2C bus transaction status
 enum class Status
 {
-    // @brief Slave device recognised the address
+    /// @brief Slave device recognised the address
     ACK,
-    // @brief Slave device is busy
+    /// @brief Slave device is busy
     BUSY,
-    // @brief Slave device did not recognise the address
+    /// @brief Slave device did not recognise the address
     NACK,
 
 };
 
-// @brief Specify the type of message to send with send_addr() function
+/// @brief Specify the type of message to send with send_addr() function
 enum class MsgType
 {
-	// @brief Send STOP after adddress. Use this to test if a slave device is present
+	/// @brief Send STOP after adddress. Use this to test if a slave device is present
 	PROBE,
-	// @brief Sends r/w bit high and sends a repeated START condition. Use this to change direction after WRITE.
+	/// @brief Sends r/w bit high and sends a repeated START condition. Use this to change direction after WRITE.
     READ,
-	// @brief Sends r/w bit low and keeps bus open for further writes
+	/// @brief Sends r/w bit low and keeps bus open for further writes
     WRITE
 };
 
-// @brief Send the address byte to the I2C slave device
-// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
-// @param addr The address byte to send to the slave device
-// @param type PROBE: send STOP after adddress, WRITE: r/w bit low and keep open, READ: r/w bit high + repeated START
-// @return Status The I2C slave device response
-Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t addr, MsgType type );
+/// @brief Send the address byte to the I2C slave device
+/// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+/// @param addr The address byte to send to the slave device
+/// @param type PROBE: send STOP after adddress, WRITE: r/w bit low and keep open, READ: r/w bit high + repeated START
+/// @return Status The I2C slave device response
+Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type );
 
+/// @brief Write single data byte to I2C_TXDR register (transmit to the I2C slave device) 
+/// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+/// @param buffer_byte Data byte to transmit
+/// @return Status The I2C slave device response
+Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte);
 
-// @brief Write multiple data bytes to I2C_TXDR register (transmit to the I2C slave device) without waiting for ACK 
-// @tparam BUFFER_SIZE The size of the buffer
-// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
-// @param buffer data byte(s) to transmit
-// @return Status The I2C slave device response
-template<std::size_t BUFFER_SIZE>
-Status send_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, BUFFER_SIZE> &buffer)
-{
-	Status res = Status::ACK;
-	for (uint8_t &byte : buffer)
-	{
-#if not defined(X86_UNIT_TESTING_ONLY)
-		LL_I2C_TransmitData8(i2c_handle.get(), byte);
-		while (!LL_I2C_IsActiveFlag_TXE(i2c_handle.get()))
-		{
-			// wait for byte to be sent
-		}
-		// command was not recognised by slave device
-		if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle.get()) == SET) )
-		{
-			res = Status::NACK;
-		}
-#endif	
-	}
-	
-	return res;
-}
+/// @brief Read single byte from I2C_RXDR register (Received from the I2C slave device)
+/// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
+/// @param buffer_byte Data byte to receive
+/// @return Status The I2C slave device response
+Status receive_byte(I2C_TypeDef* i2c_handle, uint8_t &rx_byte);
 
-// @brief Write single data byte to I2C_TXDR register (transmit to the I2C slave device) 
-// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
-// @param buffer_byte Data byte to transmit
-// @return Status The I2C slave device response
-Status send_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t tx_byte);
+/// @brief Restart/Start generation now
+/// Restart generated if AUTOEND is disabled
+/// @param i2c_handle pointer to I2C Interface
+void generate_start_condition(I2C_TypeDef* i2c_handle);
 
+/// @brief Stop generation after current byte transfer
+/// @param i2c_handle pointer to I2C Interface
+void generate_stop_condition(I2C_TypeDef* i2c_handle);
 
-// @brief Read multiple data bytes from I2C_RXDR register (Received from the I2C slave device) without waiting for ACK
-// @tparam BUFFER_SIZE The size of the buffer
-// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
-// @param buffer Data byte(s) to receive
-// @return Status The I2C slave device response
-template<std::size_t BUFFER_SIZE>
-Status receive_data(std::unique_ptr<I2C_TypeDef> &i2c_handle, std::array<uint8_t, BUFFER_SIZE> &buffer)
-{
-#if not defined(X86_UNIT_TESTING_ONLY)
-	buffer.at(0) = LL_I2C_ReceiveData8(i2c_handle.get());
-#endif
-	return Status::ACK;	
+/// @brief Set numbytes for the transmit/receive
+/// Changing these bits when the START bit is set is not allowed.
+/// @param i2c_handle pointer to I2C Interface
+/// @param nbytes The number of bytes to be transmitted/received. This field is don’t care in slave mode
+void set_numbytes(I2C_TypeDef* i2c_handle, uint32_t nbytes);
 
-}
-
-// @brief Read single byte from I2C_RXDR register (Received from the I2C slave device)
-// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
-// @param buffer_byte Data byte to receive
-// @return Status The I2C slave device response
-Status receive_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle, uint8_t &rx_byte);
+void send_ack(I2C_TypeDef* i2c_handle);
+void send_nack(I2C_TypeDef* i2c_handle);
 
 }   // namespace stm32::i2c
 

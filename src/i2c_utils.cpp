@@ -26,77 +26,125 @@
 namespace stm32::i2c
 {
 
-Status send_addr(std::unique_ptr<I2C_TypeDef> &i2c_handle [[maybe_unused]], uint8_t addr [[maybe_unused]], MsgType type [[maybe_unused]])
+Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
 {	
 #if not defined(X86_UNIT_TESTING_ONLY)
-	// setup the common transaction options
-	LL_I2C_SetMasterAddressingMode(i2c_handle.get(), LL_I2C_ADDRESSING_MODE_7BIT);
-	LL_I2C_SetSlaveAddr(i2c_handle.get(), addr);
+
+	// Set the master to operate in 7-bit addressing mode. Clear ADD10 bit[11] 
+	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_ADD10);
+
+	// Set the address for the slave device. Set SADD bits[7:1].
+	// The bits SADD[9],SADD[8] and SADD[0] are don't care. 
+	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_SADD);
+	i2c_handle->CR2 = i2c_handle->CR2 | (addr << 0);	
 	
-	if (type == MsgType::PROBE)
+	if (type == MsgType::PROBE) // generate START with AUTO-END enabled
 	{
-		// generate START with AUTO-END enabled
-		LL_I2C_SetTransferRequest(i2c_handle.get(), LL_I2C_REQUEST_WRITE);
-		LL_I2C_EnableAutoEndMode(i2c_handle.get());
+		// Master requests a write transfer
+		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_RD_WRN);
+		
+		// Enable AUTOEND Mode. A STOP condition is automatically sent when NBYTES data are transferred.
+		i2c_handle->CR2 = i2c_handle->CR2 | I2C_CR2_AUTOEND;
+		
 	}
-	else if (type == MsgType::WRITE)
+	else if (type == MsgType::WRITE) // generate START with AUTO-END disabled
 	{
-		// generate START with AUTO-END disabled
-		LL_I2C_SetTransferRequest(i2c_handle.get(), LL_I2C_REQUEST_WRITE);
-		LL_I2C_DisableReloadMode(i2c_handle.get());
-		LL_I2C_DisableAutoEndMode(i2c_handle.get());
+		// Master requests a write transfer
+		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_RD_WRN);
+		
+		// Disable RELOAD Mode. The transfer is completed after the NBYTES data transfer (STOP or RESTART follows).
+		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_RELOAD);
+		
+		// Disable AUTOEND Mode. TC flag is set when NBYTES data are transferred, stretching SCL low.
+		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_AUTOEND);
 	}
-	else if (type == MsgType::READ)
+	else if (type == MsgType::READ) // generate REPEATED START
 	{
-		// generate REPEATED START
-		LL_I2C_SetTransferRequest(i2c_handle.get(), LL_I2C_REQUEST_READ);		
-		LL_I2C_DisableReloadMode(i2c_handle.get());
-		LL_I2C_DisableAutoEndMode(i2c_handle.get());		
+		
+		// Master requests a read transfer
+		i2c_handle->CR2 = i2c_handle->CR2 | (I2C_CR2_RD_WRN);	
+		
+		// Disable RELOAD Mode. The transfer is completed after the NBYTES data transfer (STOP or RESTART follows).
+		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_RELOAD);
+		
+		// Disable AUTOEND Mode. TC flag is set when NBYTES data are transferred, stretching SCL low.
+		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_AUTOEND);	
 	}
 
-	// send the address byte to slave
-	LL_I2C_GenerateStartCondition(i2c_handle.get());
+	// Generate the restart/start condition
+	generate_start_condition(i2c_handle);
 
 	// give slave a chance to respond
 	stm32::TimerManager::delay_microsecond(1000);
 
-	// addr was not recognised by slave device
-	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle.get()) == SET) )
+	// check if addr was not recognised by slave device
+	if ( (i2c_handle->ISR & I2C_ISR_NACKF) == I2C_ISR_NACKF )
 	{
 		return Status::NACK;
 	}
 #endif
+	// otherwise slave device is happy
 	return Status::ACK;
 
 }
 
 
 
-Status receive_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle [[maybe_unused]], uint8_t &rx_byte [[maybe_unused]])
+Status receive_byte(I2C_TypeDef* i2c_handle, uint8_t &rx_byte)
 {
 #if not defined(X86_UNIT_TESTING_ONLY)
-	rx_byte = LL_I2C_ReceiveData8(i2c_handle.get());
+	rx_byte = i2c_handle->RXDR & I2C_RXDR_RXDATA;
 #endif
 	return Status::ACK;	
 
 }
 
 
-Status send_byte(std::unique_ptr<I2C_TypeDef> &i2c_handle [[maybe_unused]], uint8_t tx_byte [[maybe_unused]])
+Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte)
 {
 #if not defined(X86_UNIT_TESTING_ONLY)
-	LL_I2C_TransmitData8(i2c_handle.get(), tx_byte);
-	while (!LL_I2C_IsActiveFlag_TXE(i2c_handle.get()))
+	i2c_handle->TXDR = tx_byte;
+	
+	// wait for TX FIFO to be transmitted before continuing
+	while (((i2c_handle->ISR & I2C_ISR_TXE) == I2C_ISR_TXE) == false)
 	{
-		// wait for byte to be sent
+		// flush the TX FIFO if timeout expires
+		TimerManager::delay_microsecond(1000);
+		i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_TXE;
 	}
-	// command was not recognised by slave device
-	if ( (LL_I2C_IsActiveFlag_NACK(i2c_handle.get()) == SET) )
+	// check if slave device responded with NACK
+	if (((i2c_handle->ISR & I2C_ISR_NACKF) == I2C_ISR_NACKF) == true)
 	{
 		return Status::NACK;
 	}
 #endif
 	return Status::ACK;
+}
+
+void generate_stop_condition(I2C_TypeDef* i2c_handle)
+{
+	i2c_handle->CR2 = i2c_handle->CR2 | (I2C_CR2_STOP);
+}
+
+void generate_start_condition(I2C_TypeDef* i2c_handle)
+{
+	i2c_handle->CR2 = i2c_handle->CR2 | (I2C_CR2_START);
+}
+
+void set_numbytes(I2C_TypeDef* i2c_handle, uint32_t nbytes)
+{
+	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_NBYTES);
+	i2c_handle->CR2 = i2c_handle->CR2 | (nbytes << I2C_CR2_NBYTES_Pos);
+}
+
+void send_ack(I2C_TypeDef* i2c_handle)
+{
+	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_NACK);
+}
+
+void send_nack(I2C_TypeDef* i2c_handle)
+{
+	i2c_handle->CR2 = i2c_handle->CR2 | (I2C_CR2_NACK);
 }
 
 } // namespace stm32::i2c
