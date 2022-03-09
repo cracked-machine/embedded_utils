@@ -30,7 +30,13 @@
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
-		#include <stm32g0xx_ll_usart.h>	
+	// add groups for device family
+	#if defined (STM32G071xx) || defined (STM32G081xx) || defined (STM32G070xx) \
+	|| defined (STM32G030xx) || defined (STM32G031xx) || defined (STM32G041xx) \
+	|| defined (STM32G0B0xx) || defined (STM32G0B1xx) || defined (STM32G0C1xx) \
+	|| defined (STM32G050xx) || defined (STM32G051xx) || defined (STM32G061xx)		
+		#include <stm32g0xx.h>	
+	#endif
 	#pragma GCC diagnostic pop
     
 #endif
@@ -39,6 +45,9 @@
 namespace stm32::usart
 {
 
+void enable_usart(USART_TypeDef *usart_handle);
+
+void transmit_byte(USART_TypeDef *usart_handle, uint8_t byte);
 
 // @brief Check and retry (with timeout) the SPIx_SR TXE register.
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device

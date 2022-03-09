@@ -26,6 +26,16 @@
 namespace stm32::usart
 {
 
+void enable_usart(USART_TypeDef *usart_handle)
+{
+    usart_handle->CR1 = usart_handle->CR1 | USART_CR1_UE;
+}
+
+void transmit_byte(USART_TypeDef *usart_handle, uint8_t byte)
+{
+    usart_handle->TDR = byte;
+}
+
 bool wait_for_tc_flag(USART_TypeDef *usart_handle, uint32_t delay_us)
 {
 
