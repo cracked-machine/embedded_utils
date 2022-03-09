@@ -36,17 +36,26 @@ void TimerManager::reset()
 {
     // wait in limbo if not initialised
     if (m_timer == nullptr) { error_handler(); }
+
 #if not defined(X86_UNIT_TESTING_ONLY)
+
     // ensure the timer is disabled before setup
-    if (LL_TIM_IsEnabledCounter(m_timer.get())) { LL_TIM_DisableCounter(m_timer.get()); }
+    if ( (m_timer.get()->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
+    { 
+        m_timer.get()->CR1 = m_timer.get()->CR1 & ~(TIM_CR1_CEN); 
+    }
     // setup the timer to 1 us resolution (depending on the system clock frequency)
-    LL_TIM_SetPrescaler(m_timer.get(), SystemCoreClock / 1000000UL);
+    m_timer.get()->PSC = SystemCoreClock / 1000000UL;
+
     // allow largest possible timeout
-    LL_TIM_SetAutoReload(m_timer.get(), 0xFFFF-1);
+    m_timer.get()->ARR = 0xFFFF-1;
+    
     // reset CNT
-    LL_TIM_SetCounter(m_timer.get(), 0);
+    m_timer.get()->CNT = 0;
+    
     // start the timer and wait for the timeout
-    LL_TIM_EnableCounter(m_timer.get());    
+    m_timer.get()->CR1 = m_timer.get()->CR1 | (TIM_CR1_CEN); 
+
 #endif
 }
 
@@ -61,15 +70,19 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
     // setup the timer for timeout function
     reset();
 #if not defined(X86_UNIT_TESTING_ONLY)
-    while (LL_TIM_GetCounter(m_timer.get()) < delay_us);
+    while (m_timer.get()->CNT < delay_us);
 #endif
 }
 
 uint32_t TimerManager::get_count()
 {
 #if not defined(X86_UNIT_TESTING_ONLY)
-    if (!LL_TIM_IsEnabledCounter(m_timer.get())) { LL_TIM_EnableCounter(m_timer.get()); }
-    return LL_TIM_GetCounter(m_timer.get());
+    // make sure timer is running
+    if ( (m_timer.get()->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
+    { 
+        m_timer.get()->CR1 = m_timer.get()->CR1 | (TIM_CR1_CEN); 
+    }
+    return m_timer.get()->CNT;
 #else
     return 1;
 #endif
