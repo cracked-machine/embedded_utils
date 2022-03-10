@@ -64,6 +64,19 @@ inline void * operator new (std::size_t)
 }
 
 
+// This definition must be in header so it can be seen 
+// (and must be inline to prevent multiple definition linker errors)
+inline void operator delete (void *p [[maybe_unused]])  
+{
+    invalid_allocation_error_handler();    
+}
+
+// This definition must be in header so it can be seen 
+// (and must be inline to prevent multiple definition linker errors)
+inline void operator delete (void *p [[maybe_unused]], std::size_t s [[maybe_unused]])  
+{
+    invalid_allocation_error_handler();    
+}
 
 
 
