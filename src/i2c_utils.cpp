@@ -109,6 +109,7 @@ Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte)
 	while (((i2c_handle->ISR & I2C_ISR_TXE) == I2C_ISR_TXE) == false)
 	{
 		// do nothing
+		stm32::TimerManager::delay_microsecond(10);
 	}
 	// check if slave device responded with NACK
 	if (((i2c_handle->ISR & I2C_ISR_NACKF) == I2C_ISR_NACKF) == true)
