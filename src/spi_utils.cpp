@@ -38,10 +38,13 @@ void enable_spi(SPI_TypeDef *spi_handle, bool enable)
     }
 }
 
-void transmit_byte(SPI_TypeDef *spi_handle, uint8_t byte)
+void send_byte(SPI_TypeDef *spi_handle, uint8_t byte)
 {
     volatile uint8_t *spidr = ((volatile uint8_t *)&spi_handle->DR);
     *spidr = byte;	    
+    // check the data has left the SPI FIFO
+    while (!stm32::spi::wait_for_txe_flag(spi_handle, 10));
+    while (!stm32::spi::wait_for_bsy_flag(spi_handle, 10));     
 }
 
 bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
@@ -92,6 +95,13 @@ bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
     #endif
     return true; 
 }   
+
+void set_prescaler(SPI_TypeDef *spi_handle, uint32_t new_value) 
+{ 
+    spi_handle->CR1 = spi_handle->CR1 & ~(SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0);
+    spi_handle->CR1 = spi_handle->CR1 | (new_value);
+}
+
 
 
 } // namespace stm32::spi

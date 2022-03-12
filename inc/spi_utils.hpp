@@ -43,7 +43,7 @@ namespace stm32::spi
 
 void enable_spi(SPI_TypeDef *spi_handle, bool enable = true);
 
-void transmit_byte(SPI_TypeDef *spi_handle, uint8_t byte);
+void send_byte(SPI_TypeDef *spi_handle, uint8_t byte);
 
 // @brief Check and retry (with timeout) the SPIx_SR TXE register.
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device
@@ -56,6 +56,9 @@ bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
 // @param delay_us The timeout
 // @return true if SPI bus is busy, false if SPI bus is not busy.
 bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
+
+
+void set_prescaler(SPI_TypeDef *spi_handle, uint32_t new_value);
 
 } // namespace stm32::spi
 
