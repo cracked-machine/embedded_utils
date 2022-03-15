@@ -26,7 +26,7 @@
 #include <array>
 #include <cstring>
 
-// https://godbolt.org/z/Y3W4vGz7T
+// https://godbolt.org/z/r4TevWxcz
 
 namespace noarch::containers
 {
@@ -40,19 +40,17 @@ public:
     // convenience alias
     using string_t = std::array<char, CAPACITY>;
     
+    StaticString() 
+    {
+        std::memset(m_string.data(), 45, CAPACITY);
+    }
+
     /// @brief Construct a StaticString object from literal c-string
     /// @param str The c-string literal input
     StaticString(const char (&str)[CAPACITY])
     {
-        m_string.fill(32);
         std::memcpy(m_string.data(), str, m_string.size());
     }
-    /// @brief Replace the existing text with new text
-    /// @param str The new string literal 
-    void set(const char str[CAPACITY])
-    {
-        std::memcpy(m_string.data(), str, m_string.size());
-    }    
 
     /// @brief Add all std::array arg, starting at offset.
     /// Note, characters extending past the CAPACITY limit will be truncated.
@@ -62,6 +60,12 @@ public:
     template <std::size_t... SIZES>
     void join(int offset, StaticString<SIZES>&... static_strings)
     {
+        uint8_t size{SIZES...};
+        // if input size and offset exceed output bounds then crop is a positive value
+        int16_t crop = (size + offset) - m_string.size();
+        // otherwise crop is negative, so don't use it
+        if (crop < 0) { crop = 0; }
+
         std::size_t index{0};
         ((std::copy_n(static_strings.array().begin(), SIZES, m_string.begin() + offset + index), index += SIZES), ...);
     }     
@@ -74,11 +78,27 @@ public:
     template <std::size_t... SIZES>
     void join(int offset, const std::array<char, SIZES>&... arrays)
     {
-        // std::array<char, (SIZES + ...)> result;
+        uint8_t size{SIZES...};
+        // if input size and offset exceed output bounds then crop is a positive value
+        int16_t crop = (size + offset) - m_string.size();
+        // otherwise crop is negative, so don't use it
+        if (crop < 0) { crop = 0; }
+
         std::size_t index{0};
 
-        ((std::copy_n(arrays.begin(), SIZES, m_string.begin() + offset + index), index += SIZES), ...);
+        ((std::copy_n(arrays.begin(), SIZES - crop, m_string.begin() + offset + index), index += SIZES), ...);
     }      
+
+    template<std::size_t SIZE>
+    void join(int offset, const char (&str)[SIZE])
+    {
+        // if input size and offset exceed output bounds then crop is a positive value
+        int16_t crop = (SIZE + offset) - m_string.size();
+        // otherwise crop is negative, so don't use it    
+        if (crop < 0) { crop = 0; }
+
+        std::copy_n(str, SIZE - crop, m_string.begin() + offset);
+    }
 
     /// @brief Set the num object
     /// @tparam ANY_UNSIGNED_INT 
