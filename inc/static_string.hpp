@@ -26,31 +26,69 @@
 #include <array>
 #include <cstring>
 
-// https://godbolt.org/z/oTYo448zG
+// https://godbolt.org/z/Y3W4vGz7T
 
 namespace noarch::containers
 {
 
 /// @brief Statically allocated string using std::array
-/// @tparam SIZE Should be n+1 to allow for null-termination. This size cannot be exceeded once set.
-template<std::size_t SIZE>
+/// @tparam CAPACITY Should be n+1 to allow for null-termination. This size cannot be exceeded once set.
+template<std::size_t CAPACITY>
 class StaticString
 {
 public:
     // convenience alias
-    using string_t = std::array<char, SIZE>;
+    using string_t = std::array<char, CAPACITY>;
     
     /// @brief Construct a StaticString object from literal c-string
     /// @param str The c-string literal input
-    StaticString(const char str[SIZE])
+    StaticString(const char (&str)[CAPACITY])
     {
+        m_string.fill(32);
         std::memcpy(m_string.data(), str, m_string.size());
     }
-
-    void set(const char str[SIZE])
+    /// @brief Replace the existing text with new text
+    /// @param str The new string literal 
+    void set(const char str[CAPACITY])
     {
         std::memcpy(m_string.data(), str, m_string.size());
     }    
+
+    /// @brief Add all std::array arg, starting at offset.
+    /// Note, characters extending past the CAPACITY limit will be truncated.
+    /// @tparam SIZES size of the StaticString parameters.
+    /// @param offset add from this index position onwards. 
+    /// @param static_str The StaticString object to add. Must not be const.
+    template <std::size_t... SIZES>
+    void join(int offset, StaticString<SIZES>&... static_strings)
+    {
+        std::size_t index{0};
+        ((std::copy_n(static_strings.array().begin(), SIZES, m_string.begin() + offset + index), index += SIZES), ...);
+    }     
+
+    /// @brief Add all StaticString arg, starting at offset.
+    /// Note, characters extending past the CAPACITY limit will be truncated.
+    /// @tparam SIZES size of the std::array parameters.
+    /// @param offset add from this index position onwards. 
+    /// @param array The std::array object to add.
+    template <std::size_t... SIZES>
+    void join(int offset, const std::array<char, SIZES>&... arrays)
+    {
+        // std::array<char, (SIZES + ...)> result;
+        std::size_t index{0};
+
+        ((std::copy_n(arrays.begin(), SIZES, m_string.begin() + offset + index), index += SIZES), ...);
+    }      
+
+    /// @brief Set the num object
+    /// @tparam ANY_UNSIGNED_INT 
+    /// @param value 
+    template<typename ANY_UNSIGNED_INT>
+    void set_num(ANY_UNSIGNED_INT value)
+    {
+        put_digit_at(value, 0);
+        std::reverse(m_string.begin(), m_string.end());
+    }
 
     /// @brief Get the std::array member
     /// @return string_t& 
@@ -58,6 +96,18 @@ public:
 private:
     
     string_t m_string;
+
+    void put_digit_at(int val, uint8_t offset)
+    {
+        offset++;
+        if(val >= 10)
+            put_digit_at(val / 10, offset);
+
+        uint8_t digit = val % 10;
+        if (offset < m_string.size())
+            m_string.at(offset) = digit;
+        
+    }       
 };
 
 } // namespace noarch::containers
