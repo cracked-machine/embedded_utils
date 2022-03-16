@@ -26,7 +26,7 @@
 #include <array>
 #include <cstring>
 
-// https://godbolt.org/z/r4TevWxcz
+// https://godbolt.org/z/Psf7c8a1o
 
 namespace noarch::containers
 {
@@ -40,13 +40,14 @@ public:
     // convenience alias
     using string_t = std::array<char, CAPACITY>;
     
+    /// @brief Default construct and fill the object with hypens. 
     StaticString() 
     {
         std::memset(m_string.data(), 45, CAPACITY);
     }
 
-    /// @brief Construct a StaticString object from literal c-string
-    /// @param str The c-string literal input
+    /// @brief Construct with literal string.
+    /// @param str The c-string literal input. Must be of length = CAPACITY-1
     StaticString(const char (&str)[CAPACITY])
     {
         std::memcpy(m_string.data(), str, m_string.size());
@@ -58,7 +59,7 @@ public:
     /// @param offset add from this index position onwards. 
     /// @param static_str The StaticString object to add. Must not be const.
     template <std::size_t... SIZES>
-    void join(int offset, StaticString<SIZES>&... static_strings)
+    void concat(int offset, StaticString<SIZES>&... static_strings)
     {
         uint8_t size{SIZES...};
         // if input size and offset exceed output bounds then crop is a positive value
@@ -76,7 +77,7 @@ public:
     /// @param offset add from this index position onwards. 
     /// @param array The std::array object to add.
     template <std::size_t... SIZES>
-    void join(int offset, const std::array<char, SIZES>&... arrays)
+    void concat(int offset, const std::array<char, SIZES>&... arrays)
     {
         uint8_t size{SIZES...};
         // if input size and offset exceed output bounds then crop is a positive value
@@ -89,8 +90,12 @@ public:
         ((std::copy_n(arrays.begin(), SIZES - crop, m_string.begin() + offset + index), index += SIZES), ...);
     }      
 
+    /// @brief concat a string literal
+    /// @tparam SIZE The size of the literal
+    /// @param offset The offset position in the string to add the literal
+    /// @param str The string literal
     template<std::size_t SIZE>
-    void join(int offset, const char (&str)[SIZE])
+    void concat(int offset, const char (&str)[SIZE])
     {
         // if input size and offset exceed output bounds then crop is a positive value
         int16_t crop = (SIZE + offset) - m_string.size();
@@ -100,34 +105,78 @@ public:
         std::copy_n(str, SIZE - crop, m_string.begin() + offset);
     }
 
-    /// @brief Set the num object
-    /// @tparam ANY_UNSIGNED_INT 
-    /// @param value 
-    template<typename ANY_UNSIGNED_INT>
-    void set_num(ANY_UNSIGNED_INT value)
+    /// @brief concat an integer into the string
+    /// @tparam WIDTH The integer width, 8-, 16-, 32-bit
+    /// @param offset The offset position in the string to add the integer
+    /// @param number The integer value. 
+    template<typename WIDTH>
+    void concat_int(int offset, WIDTH number)
     {
-        put_digit_at(value, 0);
-        std::reverse(m_string.begin(), m_string.end());
+        // create a temp storage array based on the max number digits for this number
+        std::array<char, std::numeric_limits<WIDTH>::digits10 + 1> temp;
+        // fill it with an empty marker '#'
+        std::memset(temp.data(), '#', temp.size());
+        // now extract each digit from 'number' and add it to the temp storage array
+        for (uint8_t extract_idx = 0; number > 0; extract_idx++)
+        {
+            switch(number % 10)
+            {
+                case 0:
+                    temp[extract_idx] = '0';
+                    break;
+                case 1:
+                    temp[extract_idx] = '1';
+                    break;
+                case 2:
+                    temp[extract_idx] = '2';
+                    break;                
+                case 3:
+                    temp[extract_idx] = '3';
+                    break;
+                case 4:
+                    temp[extract_idx] = '4';
+                    break;
+                case 5:
+                    temp[extract_idx] = '5';
+                    break;
+                case 6:
+                    temp[extract_idx] = '6';
+                    break;
+                case 7:
+                    temp[extract_idx] = '7';
+                    break;
+                case 8:
+                    temp[extract_idx] = '8';
+                    break;
+                case 9:
+                    temp[extract_idx] = '9';
+                    break;
+            }
+
+            number /= 10;
+        }
+
+        // temp storage array is in reverse order. Correct the order and 
+        // filter out any '#' empty markers before writing char into m_string.
+        size_t forward_idx = offset;
+        for(int8_t reverse_idx = temp.size()-1; reverse_idx > -1; reverse_idx--)
+        {
+            if (temp[reverse_idx] != '#')
+            {   
+                m_string[forward_idx] = temp[reverse_idx];
+                forward_idx++;           
+            }
+        }
     }
+
 
     /// @brief Get the std::array member
     /// @return string_t& 
     string_t& array() { return m_string; }
+
 private:
     
     string_t m_string;
-
-    void put_digit_at(int val, uint8_t offset)
-    {
-        offset++;
-        if(val >= 10)
-            put_digit_at(val / 10, offset);
-
-        uint8_t digit = val % 10;
-        if (offset < m_string.size())
-            m_string.at(offset) = digit;
-        
-    }       
 };
 
 } // namespace noarch::containers
