@@ -39,7 +39,7 @@
 	#pragma GCC diagnostic pop
 #endif
 
-#include <memory>
+// #include <memory>
 #include <restricted_base.hpp>
 
 
@@ -69,7 +69,8 @@ private:
     // @brief Loop here if something is wrong. i.e. m_timer is nullptr
     static void error_handler();
     // @brief The timer instance
-    static inline std::unique_ptr<TIM_TypeDef> m_timer;
+    // static inline std::unique_ptr<TIM_TypeDef> m_timer;
+    static inline TIM_TypeDef* m_timer;
 };
 
 } // namespace stm32

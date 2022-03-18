@@ -27,7 +27,8 @@ namespace stm32
 
 void TimerManager::initialise(TIM_TypeDef *timer)
 {
-    if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
+    // if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
+    if (m_timer == nullptr) { m_timer = timer; }
     else { error_handler(); }
     reset();
 }
@@ -40,21 +41,21 @@ void TimerManager::reset()
 #if not defined(X86_UNIT_TESTING_ONLY)
 
     // ensure the timer is disabled before setup
-    if ( (m_timer.get()->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
+    if ( (m_timer->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
     { 
-        m_timer.get()->CR1 = m_timer.get()->CR1 & ~(TIM_CR1_CEN); 
+        m_timer->CR1 = m_timer->CR1 & ~(TIM_CR1_CEN); 
     }
     // setup the timer to 1 us resolution (depending on the system clock frequency)
-    m_timer.get()->PSC = SystemCoreClock / 1000000UL;
+    m_timer->PSC = SystemCoreClock / 1000000UL;
 
     // allow largest possible timeout
-    m_timer.get()->ARR = 0xFFFF-1;
+    m_timer->ARR = 0xFFFF-1;
     
     // reset CNT
-    m_timer.get()->CNT = 0;
+    m_timer->CNT = 0;
     
     // start the timer and wait for the timeout
-    m_timer.get()->CR1 = m_timer.get()->CR1 | (TIM_CR1_CEN); 
+    m_timer->CR1 = m_timer->CR1 | (TIM_CR1_CEN); 
 
 #endif
 }
@@ -70,7 +71,7 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
     // setup the timer for timeout function
     reset();
 #if not defined(X86_UNIT_TESTING_ONLY)
-    while (m_timer.get()->CNT < delay_us);
+    while (m_timer->CNT < delay_us);
 #endif
 }
 
@@ -78,11 +79,11 @@ uint32_t TimerManager::get_count()
 {
 #if not defined(X86_UNIT_TESTING_ONLY)
     // make sure timer is running
-    if ( (m_timer.get()->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
+    if ( (m_timer->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
     { 
-        m_timer.get()->CR1 = m_timer.get()->CR1 | (TIM_CR1_CEN); 
+        m_timer->CR1 = m_timer->CR1 | (TIM_CR1_CEN); 
     }
-    return m_timer.get()->CNT;
+    return m_timer->CNT;
 #else
     return 1;
 #endif
