@@ -25,6 +25,7 @@
 
 #include <array>
 #include <cstring>
+#include <limits>
 
 // https://godbolt.org/z/Psf7c8a1o
 
@@ -68,7 +69,8 @@ public:
         if (crop < 0) { crop = 0; }
 
         std::size_t index{0};
-        ((std::copy_n(static_strings.array().begin(), SIZES, m_string.begin() + offset + index), index += SIZES), ...);
+        // ((std::copy_n(static_strings.array().begin(), SIZES, m_string.begin() + offset + index), index += SIZES), ...);
+        ((std::memcpy(m_string.begin() + offset + index, static_strings.array().begin(), SIZES - crop), index += SIZES), ...);
     }     
 
     /// @brief Add all StaticString arg, starting at offset.
@@ -87,7 +89,8 @@ public:
 
         std::size_t index{0};
 
-        ((std::copy_n(arrays.begin(), SIZES - crop, m_string.begin() + offset + index), index += SIZES), ...);
+        // ((std::copy_n(arrays.begin(), SIZES - crop, m_string.begin() + offset + index), index += SIZES), ...);
+        ((std::memcpy(m_string.begin() + offset + index, arrays.array().begin(), SIZES - crop), index += SIZES), ...);
     }      
 
     /// @brief concat a string literal
@@ -102,7 +105,8 @@ public:
         // otherwise crop is negative, so don't use it    
         if (crop < 0) { crop = 0; }
 
-        std::copy_n(str, SIZE - crop, m_string.begin() + offset);
+        // std::copy_n(str, SIZE - crop, m_string.begin() + offset);
+        std::memcpy(m_string.begin() + offset, str, SIZE - crop);
     }
 
     /// @brief concat an integer into the string
