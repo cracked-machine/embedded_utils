@@ -24,10 +24,10 @@
 #ifndef __STATIC_MAP_HPP__
 #define __STATIC_MAP_HPP__
 
-#include <algorithm>
+// #include <algorithm>
 #include <array>
 
-// @brief For working example see https://godbolt.org/z/nbEbP9ez3
+// @brief For working example see https://godbolt.org/z/deza1Ecnn
 
 namespace noarch::containers
 {
@@ -48,12 +48,19 @@ struct StaticMap {
     Value* find_key(const Key &key) {
 
         // @brief if key is found return iterator to array item 
-        auto itr = std::find_if(begin(data), end(data), [&key](auto &v) 
-        { 
-            return v.first == key; 
-        });
-        // return the value if the key was found
-        if (itr != end(data)) { return &itr->second; } 
+        // auto itr = std::find_if(begin(data), end(data), [&key](auto &v) 
+        // { 
+        //     return v.first == key; 
+        // });
+        // // return the value if the key was found
+        // if (itr != end(data)) { return &itr->second; } 
+        for (std::pair<Key, Value> &pair : data)
+        {
+            if (pair.first == key)
+            {
+                return &pair.second;
+            }
+        }
         // or return nullptr as the search completed without match
         return nullptr;
     }
