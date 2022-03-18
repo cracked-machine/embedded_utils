@@ -25,7 +25,7 @@
 
 #include <cstdint>
 #include <array>
-#include <memory>
+// #include <memory>
 
 #if defined(X86_UNIT_TESTING_ONLY)
 	// only used when unit testing on x86
