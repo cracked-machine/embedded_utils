@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.13)
 # configure the build
 set(CMAKE_CXX_STANDARD  20)
 set(TARGET_TYPE GNU)
-include(linux.cmake)
+include(tests/linux.cmake)
 project(EMBEDDED_UTILS_TEST_SUITE VERSION 0.1 DESCRIPTION "EMBEDDED_UTILS_TEST_SUITE")
 add_executable(${BUILD_NAME} "")
 add_subdirectory(tests)
