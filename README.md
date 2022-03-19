@@ -1,5 +1,18 @@
 # Contents:
 
+## Running Units Tests
+
+It is recommended to use VSCode and "CMake Tools" extension with Test Suite, but if you insist on using the CLI:
+
+- Configure the testsuite:
+`cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/bin/x86_64-linux-gnu-gcc-10 -Bbuild -G Ninja .`
+- Build the testsuite
+`cmake --build build --config Debug --target all --`
+- Run the testsuite
+`./build/test_suite`
+- Clean the testsuite
+`cmake --build build --config Debug --target clean --`
+
 ### 1. Allocation Restricted Base
 
 This is a base class intended to enforce a "static allocation" policy. 

@@ -26,6 +26,8 @@
 namespace stm32::spi
 {
 
+// we can't unit test this without mocking
+#ifndef X86_UNIT_TESTING_ONLY
 void enable_spi(SPI_TypeDef *spi_handle, bool enable)
 {
     if (enable)
@@ -101,7 +103,7 @@ void set_prescaler(SPI_TypeDef *spi_handle, uint32_t new_value)
     spi_handle->CR1 = spi_handle->CR1 & ~(SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0);
     spi_handle->CR1 = spi_handle->CR1 | (new_value);
 }
-
+#endif // X86_UNIT_TESTING_ONLY
 
 
 } // namespace stm32::spi

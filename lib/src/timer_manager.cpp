@@ -24,7 +24,8 @@
 
 namespace stm32
 {
-
+// we can't unit test this without mocking
+#ifndef X86_UNIT_TESTING_ONLY
 void TimerManager::initialise(TIM_TypeDef *timer)
 {
     // if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
@@ -96,5 +97,6 @@ void TimerManager::error_handler()
         // stay here to allow stack trace to be shown in debugger...
     }
 }
+#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32:

@@ -26,7 +26,9 @@
 namespace stm32::i2c
 {
 
-Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
+// we can't unit test this without mocking
+#ifndef X86_UNIT_TESTING_ONLY
+Status send_addr(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t addr [[maybe_unused]], MsgType type [[maybe_unused]])
 {	
 #if not defined(X86_UNIT_TESTING_ONLY)
 
@@ -90,7 +92,7 @@ Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
 
 
 
-Status receive_byte(I2C_TypeDef* i2c_handle, uint8_t &rx_byte)
+Status receive_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t &rx_byte [[maybe_unused]])
 {
 #if not defined(X86_UNIT_TESTING_ONLY)
 	rx_byte = i2c_handle->RXDR & I2C_RXDR_RXDATA;
@@ -100,7 +102,7 @@ Status receive_byte(I2C_TypeDef* i2c_handle, uint8_t &rx_byte)
 }
 
 
-Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte)
+Status send_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t tx_byte [[maybe_unused]])
 {
 #if not defined(X86_UNIT_TESTING_ONLY)
 	i2c_handle->TXDR = tx_byte;
@@ -145,5 +147,6 @@ void send_nack(I2C_TypeDef* i2c_handle)
 {
 	i2c_handle->CR2 = i2c_handle->CR2 | (I2C_CR2_NACK);
 }
+#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32::i2c

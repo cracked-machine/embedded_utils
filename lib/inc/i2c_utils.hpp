@@ -29,7 +29,6 @@
 
 #if defined(X86_UNIT_TESTING_ONLY)
 	// only used when unit testing on x86
-	#include <mock_cmsis.hpp>
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
@@ -69,6 +68,8 @@ enum class MsgType
     WRITE
 };
 
+// we can't unit test this without mocking
+#ifndef X86_UNIT_TESTING_ONLY
 /// @brief Send the address byte to the I2C slave device
 /// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
 /// @param addr The address byte to send to the slave device
@@ -105,6 +106,8 @@ void set_numbytes(I2C_TypeDef* i2c_handle, uint32_t nbytes);
 
 void send_ack(I2C_TypeDef* i2c_handle);
 void send_nack(I2C_TypeDef* i2c_handle);
+#endif // X86_UNIT_TESTING_ONLY
+
 
 }   // namespace stm32::i2c
 
