@@ -1,3 +1,5 @@
+# Used by unit tests only
+
 message("\n** Configuring Host Environment for CTest**")
 message("** Selected Kit: ${CMAKE_C_COMPILER} **")
 message("** Selected Kit: ${CMAKE_CXX_COMPILER} **\n")

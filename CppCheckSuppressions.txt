@@ -1,0 +1,8 @@
+// false positives or badly configured cppcheck? answers on a postcard...
+unusedFunction:/home/chris/Projects/Embedded/BassStation/StepSequencer_SW/embedded_utils/src/spi_utils.cpp
+unusedFunction:/home/chris/Projects/Embedded/BassStation/StepSequencer_SW/embedded_utils/src/i2c_utils.cpp
+unusedFunction:/home/chris/Projects/Embedded/BassStation/StepSequencer_SW/embedded_utils/src/usart_utils.cpp
+unusedFunction:/home/chris/Projects/Embedded/BassStation/StepSequencer_SW/embedded_utils/src/timer_manager.cpp
+
+useStlAlgorithm:/home/chris/Projects/Embedded/BassStation/StepSequencer_SW/embedded_utils/inc/static_map.hpp
+useStlAlgorithm:/home/chris/Projects/Embedded/BassStation/StepSequencer_SW/embedded_utils/inc/static_string.hpp
