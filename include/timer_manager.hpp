@@ -42,13 +42,13 @@
 // #include <memory>
 #include <restricted_base.hpp>
 
-#define LL_MAX_DELAY                  0xFFFFFFFFU
 
-void        LL_mDelay(uint32_t Delay);
 
 namespace stm32
 {
 
+#define LL_MAX_DELAY                  0xFFFFFFFFU
+void        delay_millisecond(uint32_t Delay);
 
 // @brief Object to manage timer instance used for microsecond timeouts and debouncing
 class TimerManager : public RestrictedBase

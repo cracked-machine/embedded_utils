@@ -26,7 +26,7 @@ namespace stm32
 {
 
 
-void LL_mDelay(uint32_t Delay)
+void delay_millisecond(uint32_t Delay)
 {
   __IO uint32_t  tmp = SysTick->CTRL;  /* Clear the COUNTFLAG first */
    uint32_t tmpDelay; /* MISRAC2012-Rule-17.8 */
