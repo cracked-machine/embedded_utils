@@ -26,8 +26,6 @@
 namespace stm32::usart
 {
 
-// we can't unit test this without mocking
-#ifndef X86_UNIT_TESTING_ONLY
 void enable_usart(USART_TypeDef *usart_handle)
 {
     usart_handle->CR1 = usart_handle->CR1 | USART_CR1_UE;
@@ -86,6 +84,5 @@ bool wait_for_bsy_flag(USART_TypeDef *usart_handle, uint32_t delay_us)
     #endif
     return true; 
 }   
-#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32::spi

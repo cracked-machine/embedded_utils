@@ -24,8 +24,30 @@
 
 namespace stm32
 {
-// we can't unit test this without mocking
-#ifndef X86_UNIT_TESTING_ONLY
+
+
+void LL_mDelay(uint32_t Delay)
+{
+  __IO uint32_t  tmp = SysTick->CTRL;  /* Clear the COUNTFLAG first */
+   uint32_t tmpDelay; /* MISRAC2012-Rule-17.8 */
+  /* Add this code to indicate that local variable is not used */
+  ((void)tmp);
+  tmpDelay  = Delay;
+  /* Add a period to guaranty minimum wait */
+  if (tmpDelay  < LL_MAX_DELAY)
+  {
+    tmpDelay ++;
+  }
+
+  while (tmpDelay  != 0U)
+  {
+    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    {
+      tmpDelay --;
+    }
+  }
+}
+
 void TimerManager::initialise(TIM_TypeDef *timer)
 {
     // if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
@@ -39,7 +61,6 @@ void TimerManager::reset()
     // wait in limbo if not initialised
     if (m_timer == nullptr) { error_handler(); }
 
-#if not defined(X86_UNIT_TESTING_ONLY)
 
     // ensure the timer is disabled before setup
     if ( (m_timer->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
@@ -58,7 +79,7 @@ void TimerManager::reset()
     // start the timer and wait for the timeout
     m_timer->CR1 = m_timer->CR1 | (TIM_CR1_CEN); 
 
-#endif
+
 }
 
 void TimerManager::delay_microsecond(uint32_t delay_us)
@@ -78,16 +99,13 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
 
 uint32_t TimerManager::get_count()
 {
-#if not defined(X86_UNIT_TESTING_ONLY)
     // make sure timer is running
     if ( (m_timer->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
     { 
         m_timer->CR1 = m_timer->CR1 | (TIM_CR1_CEN); 
     }
     return m_timer->CNT;
-#else
-    return 1;
-#endif
+
 }
 
 void TimerManager::error_handler()
@@ -97,6 +115,5 @@ void TimerManager::error_handler()
         // stay here to allow stack trace to be shown in debugger...
     }
 }
-#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32:

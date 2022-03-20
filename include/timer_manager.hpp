@@ -42,6 +42,9 @@
 // #include <memory>
 #include <restricted_base.hpp>
 
+#define LL_MAX_DELAY                  0xFFFFFFFFU
+
+void        LL_mDelay(uint32_t Delay);
 
 namespace stm32
 {
