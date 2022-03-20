@@ -24,8 +24,9 @@
 #define __USART_UTILS_HPP__
 
 #if defined(X86_UNIT_TESTING_ONLY)
-	// only used when unit testing on x86
 	#include <iostream>
+	// This file should contain USART bit definitions 
+	#include <mock_cmsis.hpp>
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
@@ -44,9 +45,6 @@
 namespace stm32::usart
 {
 
-// we can't unit test this without mocking
-#ifndef X86_UNIT_TESTING_ONLY
-
 void enable_usart(USART_TypeDef *usart_handle);
 
 void transmit_byte(USART_TypeDef *usart_handle, uint8_t byte);
@@ -62,8 +60,6 @@ bool wait_for_tc_flag(USART_TypeDef *usart_handle, uint32_t delay_us = 100);
 // @param delay_us The timeout
 // @return true if SPI bus is busy, false if SPI bus is not busy.
 bool wait_for_bsy_flag(USART_TypeDef *usart_handle, uint32_t delay_us = 100);
-
-#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32::usart
 

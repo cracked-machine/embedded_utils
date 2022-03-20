@@ -24,6 +24,8 @@
 #define __SPI_UTILS_HPP__
 
 #if defined(X86_UNIT_TESTING_ONLY)
+	// this file should contain SPI bit definitions
+	#include <mock_cmsis.hpp>
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
@@ -40,8 +42,7 @@
 
 namespace stm32::spi
 {
-// we can't unit test these without mocking
-#ifndef X86_UNIT_TESTING_ONLY
+
 void enable_spi(SPI_TypeDef *spi_handle, bool enable = true);
 
 void send_byte(SPI_TypeDef *spi_handle, uint8_t byte);
@@ -60,7 +61,6 @@ bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us = 100);
 
 
 void set_prescaler(SPI_TypeDef *spi_handle, uint32_t new_value);
-#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32::spi
 

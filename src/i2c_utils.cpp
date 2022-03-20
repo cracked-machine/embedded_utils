@@ -27,7 +27,6 @@ namespace stm32::i2c
 {
 
 // we can't unit test this without mocking
-#ifndef X86_UNIT_TESTING_ONLY
 Status send_addr(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t addr [[maybe_unused]], MsgType type [[maybe_unused]])
 {	
 #if not defined(X86_UNIT_TESTING_ONLY)
@@ -147,6 +146,5 @@ void send_nack(I2C_TypeDef* i2c_handle)
 {
 	i2c_handle->CR2 = i2c_handle->CR2 | (I2C_CR2_NACK);
 }
-#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32::i2c

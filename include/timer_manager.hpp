@@ -24,7 +24,8 @@
 #define __TIMER_MANAGER_HPP__
 
 #if defined(X86_UNIT_TESTING_ONLY)
-    // unit tests
+    // This file should contain TIM bit definitions
+    #include <mock_cmsis.hpp>
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
@@ -45,8 +46,7 @@
 namespace stm32
 {
 
-// we can't unit test this without mocking
-#ifndef X86_UNIT_TESTING_ONLY
+
 // @brief Object to manage timer instance used for microsecond timeouts and debouncing
 class TimerManager : public RestrictedBase
 {
@@ -73,8 +73,6 @@ private:
     // static inline std::unique_ptr<TIM_TypeDef> m_timer;
     static inline TIM_TypeDef* m_timer;
 };
-
-#endif // X86_UNIT_TESTING_ONLY
 
 } // namespace stm32
 
