@@ -43,22 +43,18 @@ bool wait_for_tc_flag(USART_TypeDef *usart_handle, uint32_t delay_us)
     {
         return false;
     }
-    #if not defined(X86_UNIT_TESTING_ONLY)
-
-        // Check the previous tranmission has completed
+    // Check the previous tranmission has completed
+    if ((usart_handle->ISR & USART_ISR_TC) != (USART_ISR_TC))
+    {
+        // if not then wait before checking again
+        stm32::TimerManager::delay_microsecond(delay_us);
         if ((usart_handle->ISR & USART_ISR_TC) != (USART_ISR_TC))
-        {
-            // if not then wait before checking again
-            stm32::TimerManager::delay_microsecond(delay_us);
-            if ((usart_handle->ISR & USART_ISR_TC) != (USART_ISR_TC))
-            { 
-                return false;
-            }
-            
+        { 
+            return false;
         }
-    #else
-        delay_us++;
-    #endif
+        
+    }
+
     return true;
 }        
 
@@ -68,20 +64,16 @@ bool wait_for_bsy_flag(USART_TypeDef *usart_handle, uint32_t delay_us)
     {
         return false;
     }
-    #if not defined(X86_UNIT_TESTING_ONLY)
-        // When BSY is set, it indicates that a data transfer is in progress on the USART
+    // When BSY is set, it indicates that a data transfer is in progress on the USART
+    if ((usart_handle->ISR & USART_ISR_BUSY) == (USART_ISR_BUSY))
+    {
+        // give USART bus a chance to finish sending data before checking again
+        stm32::TimerManager::delay_microsecond(delay_us);
         if ((usart_handle->ISR & USART_ISR_BUSY) == (USART_ISR_BUSY))
-        {
-            // give USART bus a chance to finish sending data before checking again
-            stm32::TimerManager::delay_microsecond(delay_us);
-            if ((usart_handle->ISR & USART_ISR_BUSY) == (USART_ISR_BUSY))
-            { 
-                return false;
-            }
-        }    
-    #else   
-        delay_us++;
-    #endif
+        { 
+            return false;
+        }
+    }    
     return true; 
 }   
 

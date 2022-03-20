@@ -92,9 +92,7 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
     
     // setup the timer for timeout function
     reset();
-#if not defined(X86_UNIT_TESTING_ONLY)
     while (m_timer->CNT < delay_us);
-#endif
 }
 
 uint32_t TimerManager::get_count()

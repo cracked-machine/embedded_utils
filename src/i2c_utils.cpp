@@ -29,8 +29,6 @@ namespace stm32::i2c
 // we can't unit test this without mocking
 Status send_addr(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t addr [[maybe_unused]], MsgType type [[maybe_unused]])
 {	
-#if not defined(X86_UNIT_TESTING_ONLY)
-
 	// Set the master to operate in 7-bit addressing mode. Clear ADD10 bit[11] 
 	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_ADD10);
 
@@ -83,7 +81,6 @@ Status send_addr(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t addr [[maybe_
 	{
 		return Status::NACK;
 	}
-#endif
 	// otherwise slave device is happy
 	return Status::ACK;
 
@@ -93,9 +90,8 @@ Status send_addr(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t addr [[maybe_
 
 Status receive_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t &rx_byte [[maybe_unused]])
 {
-#if not defined(X86_UNIT_TESTING_ONLY)
 	rx_byte = i2c_handle->RXDR & I2C_RXDR_RXDATA;
-#endif
+
 	return Status::ACK;	
 
 }
@@ -103,7 +99,6 @@ Status receive_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t &rx_byte [
 
 Status send_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t tx_byte [[maybe_unused]])
 {
-#if not defined(X86_UNIT_TESTING_ONLY)
 	i2c_handle->TXDR = tx_byte;
 	
 	// wait for TX FIFO to be transmitted before continuing
@@ -117,7 +112,6 @@ Status send_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t tx_byte [[may
 	{
 		return Status::NACK;
 	}
-#endif
 	return Status::ACK;
 }
 
