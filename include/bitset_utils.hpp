@@ -24,7 +24,7 @@
 #define __BITSET_UTILS_HPP__
 
 // used for x86-based testing
-#ifdef USE_COUT
+#ifdef X86_UNIT_TESTING_ONLY
     #include <iostream>
 #endif
 
@@ -66,15 +66,16 @@ void insert_bitset_at_offset(std::bitset<TARGET_SIZE> &target,  const std::bitse
     }
 }
 
-// @brief Takes each 8bits from source_bitset and puts into successive bytes from target_array.
-// User must ensure: target_array.size() > source_bitset.size() * 8.
+// @brief Converts bits to same sized byte array LSB first. 0101 becomes 1010. 
+// Oversized bitsets are truncated, undersized bitsets are zero-padded
 // @tparam TARGET_SIZE The size of the target_array std::array
 // @tparam SOURCE_SIZE The size of the source_bitset std::bitset
 // @param target_array The std::array object copied to. Caution, all pre-existing contents is destroyed.
 // @param source_bitset The std::bitset object copied from. 
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-void bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const std::bitset<SOURCE_SIZE> &source_bitset)
+bool bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const std::bitset<SOURCE_SIZE> &source_bitset)
 {
+    
     // 8-bit byte
     const uint8_t word_size_bits = 8; 
 
@@ -100,8 +101,14 @@ void bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const s
                 target_array[byte_array_idx] |= (source_bitset.test(pattern_idx) << bit_offset_within_byte);
                 bit_offset_within_byte--;
             }
+            else
+            {
+                target_array[byte_array_idx] |= 0;
+                bit_offset_within_byte--;
+            }
         }        
     }
+    return true;
 }
 
 // @brief Print out the provided bitset as bytes
@@ -121,7 +128,7 @@ void print_bits(std::bitset<BITSET_SIZE> &pattern [[maybe_unused]])
         }
         SEGGER_RTT_printf(0, "\n");       
     #endif
-    #ifdef USE_COUT
+    #ifdef X86_UNIT_TESTING_ONLY
         for (uint16_t idx = 0; idx < pattern.size(); idx++)
         {
             if (idx % 8 == 0)
@@ -132,7 +139,7 @@ void print_bits(std::bitset<BITSET_SIZE> &pattern [[maybe_unused]])
             {
                 std::cout << std::endl;
             }
-            std::cout << pattern.test(idx);
+            std::cout << std::noboolalpha << pattern.test(idx);
         }
         std::cout << std::endl;
     #endif

@@ -24,27 +24,44 @@
 #define __BYTE_UTILS_HPP__
 
 #include <stdint.h>
-
+#ifdef X86_UNIT_TESTING_ONLY
+    #include <iostream>
+    #include <iomanip>
+#endif
 
 namespace noarch::byte_manip
 {
 
 template<std::size_t BYTE_ARRAY_SIZE> 
-void print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
+bool print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
 {
-    #ifdef USE_RTT
-        for (uint16_t idx = 0; idx < bytes.size(); idx++)
-        {
-            
-                if (idx % 16 == 0)
+    if (bytes.empty())
+    {
+        return false;
+    }
+    for (uint16_t idx = 0; idx < bytes.size(); idx++)
+    {
+        
+            if (idx % 16 == 0)
+            {
+                #if defined(USE_RTT)
                     SEGGER_RTT_printf(0, "\n"); 
-
+                #elif defined(X86_UNIT_TESTING_ONLY)
+                    std::cout << std::endl;
+                #endif
+            }
+            #if defined(USE_RTT)
                 SEGGER_RTT_printf(0, "0x%02x ", +bytes[idx]);
-            
-        }
+            #elif defined(X86_UNIT_TESTING_ONLY)
+                std::cout << " 0x" << std::setfill('0') << std::setw(2) << std::hex << +bytes[idx];
+            #endif
+    }
+    #if defined(USE_RTT)
         SEGGER_RTT_printf(0, "\n");       
-    #endif    
-    
+    #elif defined(X86_UNIT_TESTING_ONLY)
+        std::cout << std::endl;
+    #endif
+    return true;
 }
 
 }   // namespace noarch::byte_manip
