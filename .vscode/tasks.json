@@ -6,7 +6,8 @@
         {
             "label": "run binary",
             "type": "process",
-            "command": "${workspaceRoot}/build/test_suite"
+            "command": "${workspaceRoot}/build/test_suite",
+            "problemMatcher": []
         },
         {
             "label": "create report",
@@ -31,7 +32,13 @@
         {
             "label": "coverage report",
             "dependsOrder": "sequence",
-            "dependsOn": ["run binary", "create report", "convert html to pdf", "delete html", "open report"]
+            "dependsOn": [
+                "run binary",
+                "create report",
+                "convert html to pdf",
+                "delete html",
+                "open report"
+            ]
         }
     ]
 }

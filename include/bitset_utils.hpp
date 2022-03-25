@@ -41,15 +41,20 @@ namespace noarch::bit_manip
 {
 
 
-// @brief Adds each bit from source std::bitset to target std::bitset with msb_offset
+// @brief Adds source std::bitset to target std::bitset with msb_offset
 // @tparam TARGET_SIZE The size of the source bitset container
 // @tparam SOURCE_SIZE The size of the target bitset container
 // @param target The target bitset container to copy into 
 // @param source The source bitset container to copy from
-// @param msb_offset how many bits offset from the target MSB does the copy begin
+// @param msb_offset insertion index starting from the right-most position
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-void insert_bitset_at_offset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset) 
+bool insert_bitset_at_offset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset) 
 {
+    // protect against oversized msb_offset or SOURCE params
+    if (msb_offset + SOURCE_SIZE > TARGET_SIZE)
+    {
+        return false;
+    }
     // iterate over the source bitset pattern
     for (uint16_t idx = 0; idx < source.size(); idx++)
     {
@@ -64,6 +69,7 @@ void insert_bitset_at_offset(std::bitset<TARGET_SIZE> &target,  const std::bitse
             target.set(msb_offset + (source.size() - 1) - idx , false);
         }
     }
+    return true;
 }
 
 // @brief Converts bits to same sized byte array LSB first. 0101 becomes 1010. 
