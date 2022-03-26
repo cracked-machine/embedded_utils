@@ -1,6 +1,8 @@
-# Contents:
 
-## Running Units Tests on X86
+
+See the [wiki](https://github.com/cracked-machine/embedded_utils/wiki) for code reference
+
+#### Running Units Tests on X86
 
 Running `cmake` in the root directory will invoke the tests.
 It is recommended to use VSCode and "CMake Tools" extension with Test Suite, but if you insist on using the CLI:
@@ -14,7 +16,7 @@ It is recommended to use VSCode and "CMake Tools" extension with Test Suite, but
 - Clean the testsuite
 `cmake --build build --config Debug --target clean --`
 
-## Adding this library to your STM32 Project
+#### Adding this library to your STM32 Project
 
 Include this repo into your project as a submodule and add the following line to your top-level CMakeFiles.txt:
 
