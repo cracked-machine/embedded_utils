@@ -47,13 +47,6 @@ struct StaticMap {
     // @return Value* Pointer to the value element, or nullptr if not found
     Value* find_key(const Key &key) {
 
-        // @brief if key is found return iterator to array item 
-        // auto itr = std::find_if(begin(data), end(data), [&key](auto &v) 
-        // { 
-        //     return v.first == key; 
-        // });
-        // // return the value if the key was found
-        // if (itr != end(data)) { return &itr->second; } 
         for (std::pair<Key, Value> &pair : data)
         {
             if (pair.first == key)
