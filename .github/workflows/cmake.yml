@@ -68,7 +68,7 @@ jobs:
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --json --json-pretty -o ./coverage/coverage.json  
         ls -la ./coverage
         sudo curl -Os https://uploader.codecov.io/latest/linux/codecov
-        chmod +x codecov
+        sudo chmod +x codecov
         ./codecov
 
     - name: Archive XML code coverage results
