@@ -26,6 +26,12 @@ jobs:
         sudo apt -y install \
           gcovr \
           ninja-build    
+        git clone https://github.com/catchorg/Catch2.git
+        pushd Catch2
+        cmake -Bbuild -H. -DBUILD_TESTING=OFF
+        sudo cmake --build build/ --target install
+        popd 
+        uname -a
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
