@@ -1,5 +1,5 @@
 [![CMake](https://github.com/cracked-machine/embedded_utils/actions/workflows/cmake.yml/badge.svg)](https://github.com/cracked-machine/embedded_utils/actions/workflows/cmake.yml)
-![Codecov](https://img.shields.io/codecov/c/github/cracked-machine/embedded_utils)
+[![Codecov](https://img.shields.io/codecov/c/github/cracked-machine/embedded_utils)](https://app.codecov.io/gh/cracked-machine/embedded_utils)
 
 
 See the [wiki](https://github.com/cracked-machine/embedded_utils/wiki) for documentation / reference
