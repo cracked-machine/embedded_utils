@@ -32,6 +32,9 @@ jobs:
         sudo cmake --build build/ --target install
         popd 
         uname -a
+        curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
+        chmod +x codecov
+        
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -56,12 +59,7 @@ jobs:
         pwd
         ls -la
         ./test_suite 
-
-    - name: Test2
-      run: |
-        pushd ./build
-        ctest -C ${{env.BUILD_TYPE}} --extra-verbose
-        popd     
+   
     
     - name: Coverage
       run: |
@@ -69,6 +67,7 @@ jobs:
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty -o ./coverage/coverage.xml  
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --json --json-pretty -o ./coverage/coverage.json  
         ls -la ./coverage
+        ./codecov
 
     - name: Archive XML code coverage results
       uses: actions/upload-artifact@v3
