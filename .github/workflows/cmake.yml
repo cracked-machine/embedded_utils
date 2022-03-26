@@ -73,14 +73,14 @@ jobs:
         ls -la ./codecov
         ./codecov
 
-    # - name: Archive XML code coverage results
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: xml-code-coverage-report
-    #     path: ./coverage/coverage.xml
+    - name: Archive XML code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: xml-code-coverage-report
+        path: ./coverage/coverage.xml
 
-    # - name: Archive JSON code coverage results
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: json-code-coverage-report
-    #     path: ./coverage/coverage.json
+    - name: Archive JSON code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: json-code-coverage-report
+        path: ./coverage/coverage.json
