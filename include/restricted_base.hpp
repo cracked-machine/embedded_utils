@@ -54,6 +54,7 @@ public:
 // so it can be caught by debugger
 void invalid_allocation_error_handler();
 
+#ifndef X86_UNIT_TESTING_ONLY
 // This definition must be in header so it can be seen 
 // (and must be inline to prevent multiple definition linker errors)
 inline void * operator new (std::size_t)  
@@ -62,7 +63,7 @@ inline void * operator new (std::size_t)
     invalid_allocation_error_handler();
     return p;
 }
-
+#endif
 
 // This definition must be in header so it can be seen 
 // (and must be inline to prevent multiple definition linker errors)
