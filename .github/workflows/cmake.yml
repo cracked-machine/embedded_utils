@@ -23,7 +23,9 @@ jobs:
     - name: Setup
       run: |
         sudo apt -y update
-        sudo apt -y install gcovr
+        sudo apt -y install \
+          gcovr \
+          ninja-build    
         git clone https://github.com/catchorg/Catch2.git
         pushd Catch2
         cmake -Bbuild -H. -DBUILD_TESTING=OFF
