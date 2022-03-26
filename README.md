@@ -1,4 +1,4 @@
-
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cracked-machine/embedded_utils/CMake?style=plastic)
 
 See the [wiki](https://github.com/cracked-machine/embedded_utils/wiki) for code reference
 
