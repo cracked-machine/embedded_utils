@@ -46,7 +46,7 @@ jobs:
         ls -la
         ./test_suite      
     
-    -name: gcovr
+    - name: gcovr
       run: |
         rm coverage/*
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty -o coverage/coverage.xml  
