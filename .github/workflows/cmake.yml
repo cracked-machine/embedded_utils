@@ -55,3 +55,9 @@ jobs:
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty -o ./coverage/coverage.xml  
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --json --json-pretty -o ./coverage/coverage.json  
         ls -la ./coverage
+
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-report
+        path: ./coverage/coverage.xml
