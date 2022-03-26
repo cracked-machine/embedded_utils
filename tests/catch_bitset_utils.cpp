@@ -15,6 +15,11 @@ TEST_CASE("insert_bitset_at_offset - zero msb_offset", "[bitset_utils]")
     
     REQUIRE(noarch::bit_manip::insert_bitset_at_offset(target, source, 0));
     REQUIRE(target == expected_output);
+
+    // reset back to 00000000 and check
+    REQUIRE(noarch::bit_manip::insert_bitset_at_offset(target, source.flip(), 0));
+    REQUIRE(target == 0);
+
 }
 
 /// @brief Insert at -1 offset (wraps around to 65535, which is handled by input checks)
@@ -67,6 +72,10 @@ TEST_CASE("insert_bitset_at_offset - offset_index_at_limit_for_source_size", "[b
 
     REQUIRE(noarch::bit_manip::insert_bitset_at_offset(target, source, offset_index_at_limit_for_source_size));
     REQUIRE(target == expected_output);
+
+    // reset back to 00000000 and check
+    REQUIRE(noarch::bit_manip::insert_bitset_at_offset(target, source.flip(), offset_index_at_limit_for_source_size));
+    REQUIRE(target == 0);    
 
 }
 
