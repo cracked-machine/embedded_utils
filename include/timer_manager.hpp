@@ -57,7 +57,7 @@ class TimerManager : public RestrictedBase
 public:
     // @brief Set up the timer instance once and only once. Call this in main() setup.
     // @param timer The pointer to TIM_TypeDef
-    static void initialise(TIM_TypeDef *timer);
+    static bool initialise(TIM_TypeDef *timer);
 
     // @brief wait for a microsecond delay
     // @param delay_us the delay to wait in microseconds
@@ -71,7 +71,7 @@ private:
     // @brief Setup the timer
     static void reset();
     // @brief Loop here if something is wrong. i.e. m_timer is nullptr
-    static void error_handler();
+    static bool error_handler();
     // @brief The timer instance
     // static inline std::unique_ptr<TIM_TypeDef> m_timer;
     static inline TIM_TypeDef* m_timer;

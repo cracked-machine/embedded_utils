@@ -48,12 +48,19 @@ void delay_millisecond(uint32_t Delay)
   }
 }
 
-void TimerManager::initialise(TIM_TypeDef *timer)
+bool TimerManager::initialise(TIM_TypeDef *timer)
 {
     // if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
     if (m_timer == nullptr) { m_timer = timer; }
-    else { error_handler(); }
+    else 
+    { 
+        if (!error_handler()) 
+        {
+            return false;
+        }
+    }
     reset();
+    return true;
 }
 
 void TimerManager::reset()
@@ -106,12 +113,16 @@ uint32_t TimerManager::get_count()
 
 }
 
-void TimerManager::error_handler()
+bool TimerManager::error_handler()
 {
-    while(1)
-    {
-        // stay here to allow stack trace to be shown in debugger...
-    }
+    #ifdef X86_UNIT_TESTING_ONLY
+        return false;
+    #else
+        while(1)
+        {
+            // stay here to allow stack trace to be shown in debugger...
+        }
+    #endif
 }
 
 } // namespace stm32:

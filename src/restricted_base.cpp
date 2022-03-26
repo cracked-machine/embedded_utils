@@ -24,10 +24,12 @@
 
 void invalid_allocation_error_handler()
 {
+
     while(true)
     {
         // 
     }
+
 }
 
 
