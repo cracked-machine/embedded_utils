@@ -67,7 +67,7 @@ jobs:
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty -o ./coverage/coverage.xml  
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --json --json-pretty -o ./coverage/coverage.json  
         ls -la ./coverage
-        curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
+        curl -Os curl -Os https://uploader.codecov.io/latest/linux/codecov
         chmod +x codecov
         ./codecov
 
