@@ -4,41 +4,59 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run binary",
+            "label": "CMake: Configure",
+            "type": "shell",
+            "command": "cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/bin/x86_64-linux-gnu-gcc-10 -Bbuild -G Ninja ."
+        },
+        {
+            "label": "CMake: Clean Rebuild",
+            "type": "shell",
+            "command": "cmake --build build --config Debug --target clean --; cmake --build build --config Debug --target all --"
+        },
+        {
+            "label": "Run",
             "type": "process",
             "command": "${workspaceRoot}/build/test_suite",
             "problemMatcher": []
         },
         {
-            "label": "create report",
+            "label": "Create HTML report",
             "type": "shell",
             "command": "rm coverage/*; gcovr  -r . -e build -e '(.+)/tests/(.+)' --html --html-details -o coverage/index.html"
         },
         {
-            "label": "convert html to pdf",
+            "label": "Create XML report",
+            "type": "shell",
+            "command": "rm coverage/*; gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty  -o coverage/coverage.xml"
+        },
+        {
+            "label": "Convert HTML to PDF",
             "type": "shell",
             "command": "wkhtmltopdf ${workspaceRoot}/coverage/index.html ${workspaceRoot}/coverage/*.html ${workspaceRoot}/coverage/code.pdf"
         },
         {
-            "label": "delete html",
+            "label": "Delete HTML",
             "type": "shell",
             "command": "rm ${workspaceRoot}/coverage/*.html"
         },
         {
-            "label": "open report",
+            "label": "Open coverage report",
             "type": "shell",
             "command": "firefox ${workspaceRoot}/coverage/code.pdf"
         },
         {
-            "label": "coverage report",
+            "label": "Complete All Tasks",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "run binary",
-                "create report",
-                "convert html to pdf",
-                "delete html",
-                "open report"
-            ]
+                "CMake: Configure",
+                "CMake: Clean Rebuild",
+                "Run",
+                "Create HTML report",
+                "Convert HTML to PDF",
+                "Delete HTML",
+                "Open coverage report"
+            ],
+            "problemMatcher": []
         }
     ]
 }

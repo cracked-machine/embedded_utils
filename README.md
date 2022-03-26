@@ -1,20 +1,13 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cracked-machine/embedded_utils/CMake?style=plastic)
+[![CMake](https://github.com/cracked-machine/embedded_utils/actions/workflows/cmake.yml/badge.svg)](https://github.com/cracked-machine/embedded_utils/actions/workflows/cmake.yml)
 
-See the [wiki](https://github.com/cracked-machine/embedded_utils/wiki) for code reference
+See the [wiki](https://github.com/cracked-machine/embedded_utils/wiki) for documentation / reference
 
+See `.vscode/tasks.json` for details on the individual toolchain commands.
 #### Running Units Tests on X86
 
-Running `cmake` in the root directory will invoke the tests.
-It is recommended to use VSCode and "CMake Tools" extension with Test Suite, but if you insist on using the CLI:
-
-- Configure the testsuite:
-`cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/bin/x86_64-linux-gnu-gcc-10 -Bbuild -G Ninja .`
-- Build the testsuite
-`cmake --build build --config Debug --target all --`
-- Run the testsuite
+When you run the default CMake build, the output is linked with the Catch2 library. To run the testsuite use the command:
 `./build/test_suite`
-- Clean the testsuite
-`cmake --build build --config Debug --target clean --`
+
 
 #### Adding this library to your STM32 Project
 

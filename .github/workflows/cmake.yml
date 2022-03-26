@@ -52,5 +52,6 @@ jobs:
     - name: Coverage
       run: |
         rm coverage/*
-        gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty -o coverage/coverage.xml  
-        gcovr  -r . -e build -e '(.+)/tests/(.+)' --json --json-pretty -o coverage/coverage.json  
+        gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty -o ./coverage/coverage.xml  
+        gcovr  -r . -e build -e '(.+)/tests/(.+)' --json --json-pretty -o ./coverage/coverage.json  
+        ls -la ./coverage
