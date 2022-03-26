@@ -4,6 +4,11 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Cleanup GCOVR files",
+            "type": "shell",
+            "command": "rm -rf build/CMakeFiles/test_suite.dir/"
+        },
+        {
             "label": "CMake: Configure",
             "type": "shell",
             "command": "cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/bin/x86_64-linux-gnu-gcc-10 -Bbuild -G Ninja ."
@@ -45,9 +50,21 @@
             "command": "firefox ${workspaceRoot}/coverage/code.pdf"
         },
         {
+            "label": "CheckTest",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Cleanup GCOVR files",
+                "CMake: Configure",
+                "CMake: Clean Rebuild",
+                "Run"
+            ],
+            "problemMatcher": []
+        },
+        {
             "label": "Complete All Tasks",
             "dependsOrder": "sequence",
             "dependsOn": [
+                "Cleanup GCOVR files",
                 "CMake: Configure",
                 "CMake: Clean Rebuild",
                 "Run",
