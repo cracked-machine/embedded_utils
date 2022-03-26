@@ -25,15 +25,15 @@ jobs:
         sudo apt -y update
         sudo apt -y install \
           gcovr \
-          ninja-build    
+          ninja-build 
+          curl   
         git clone https://github.com/catchorg/Catch2.git
         pushd Catch2
         cmake -Bbuild -H. -DBUILD_TESTING=OFF
         sudo cmake --build build/ --target install
         popd 
         uname -a
-        curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
-        chmod +x codecov
+
         
 
     - name: Configure CMake
@@ -67,6 +67,8 @@ jobs:
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty -o ./coverage/coverage.xml  
         gcovr  -r . -e build -e '(.+)/tests/(.+)' --json --json-pretty -o ./coverage/coverage.json  
         ls -la ./coverage
+        curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
+        chmod +x codecov
         ./codecov
 
     - name: Archive XML code coverage results
