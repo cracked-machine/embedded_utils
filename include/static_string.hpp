@@ -49,7 +49,7 @@ public:
 
     /// @brief Construct with literal string.
     /// @param str The c-string literal input. Must be of length = CAPACITY-1
-    // Allow implicit conversion from 'const char [CAPACITY]' to 'StaticString<CAPACITY>&'
+    // Not explicit. Allow implicit conversion from 'const char [CAPACITY]' to 'StaticString<CAPACITY>&'
     // cppcheck-suppress noExplicitConstructor
     StaticString(const char (&str)[CAPACITY])
     {
