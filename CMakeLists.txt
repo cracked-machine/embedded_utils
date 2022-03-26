@@ -13,7 +13,7 @@ if(CMAKE_PROJECT_NAME STREQUAL EMBEDDED_UTILS_TEST_SUITE)
     add_subdirectory(tests)
 
     # add catch2 test lib
-    find_package(Catch2 3 REQUIRED)
+    find_package(Catch2 REQUIRED)
     target_link_libraries(${BUILD_NAME} PRIVATE Catch2::Catch2WithMain)
 
 endif()
