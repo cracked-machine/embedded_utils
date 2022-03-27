@@ -26,8 +26,8 @@
 namespace stm32::i2c
 {
 
-// we can't unit test this without mocking
-Status send_addr(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t addr [[maybe_unused]], MsgType type [[maybe_unused]])
+
+Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
 {	
 	// Set the master to operate in 7-bit addressing mode. Clear ADD10 bit[11] 
 	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_ADD10);
@@ -83,12 +83,11 @@ Status send_addr(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t addr [[maybe_
 	}
 	// otherwise slave device is happy
 	return Status::ACK;
-
 }
 
 
 
-Status receive_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t &rx_byte [[maybe_unused]])
+Status receive_byte(I2C_TypeDef* i2c_handle, uint8_t &rx_byte)
 {
 	rx_byte = i2c_handle->RXDR & I2C_RXDR_RXDATA;
 
@@ -97,7 +96,7 @@ Status receive_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t &rx_byte [
 }
 
 
-Status send_byte(I2C_TypeDef* i2c_handle [[maybe_unused]], uint8_t tx_byte [[maybe_unused]])
+Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte)
 {
 	i2c_handle->TXDR = tx_byte;
 	

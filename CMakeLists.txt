@@ -6,9 +6,11 @@ project(EMBEDDED_UTILS_TEST_SUITE VERSION 0.1 DESCRIPTION "EMBEDDED_UTILS_TEST_S
 # if this is the main project then configure the build for test_suite only
 if(CMAKE_PROJECT_NAME STREQUAL EMBEDDED_UTILS_TEST_SUITE)
     include(cmake/linux.cmake)
+
     # include(cmake/cppcheck.cmake)
     # BUILD_NAME is set in cmake/linux.cmake
     add_executable(${BUILD_NAME} "")
+
     target_compile_features(${BUILD_NAME} PUBLIC cxx_std_20)
     add_subdirectory(tests)
 
