@@ -50,15 +50,22 @@ void delay_millisecond(uint32_t Delay)
 
 bool TimerManager::initialise(TIM_TypeDef *timer)
 {
-    // if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
-    if (m_timer == nullptr) { m_timer = timer; }
-    else 
-    { 
+
+    if (timer == nullptr)
+    {
         if (!error_handler()) 
         {
             return false;
-        }
+        }        
     }
+
+    // stop the timer before re-assigning the pointer
+    if (m_timer != nullptr)
+    {
+        m_timer->CR1 = m_timer->CR1 & ~(TIM_CR1_CEN); 
+    }
+    m_timer = timer; 
+
     reset();
     return true;
 }
@@ -89,7 +96,7 @@ void TimerManager::reset()
 
 }
 
-void TimerManager::delay_microsecond(uint32_t delay_us)
+bool TimerManager::delay_microsecond(uint32_t delay_us)
 {
     // wait in limbo if not initialised
     if (m_timer == nullptr) { error_handler(); }
@@ -100,6 +107,7 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
     // setup the timer for timeout function
     reset();
     while (m_timer->CNT < delay_us);
+    return true;
 }
 
 uint32_t TimerManager::get_count()

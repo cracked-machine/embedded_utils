@@ -61,7 +61,7 @@ public:
 
     // @brief wait for a microsecond delay
     // @param delay_us the delay to wait in microseconds
-    static void delay_microsecond(uint32_t delay_us);
+    static bool delay_microsecond(uint32_t delay_us);
 
     // @brief Get the current count of the timer
     // @param value_usecs The count value returned
@@ -70,7 +70,7 @@ public:
 private:
     // @brief Setup the timer
     static void reset();
-    // @brief Loop here if something is wrong. i.e. m_timer is nullptr
+    // @brief Loop here if something is wrong. Return false during x86 tests.
     static bool error_handler();
     // @brief The timer instance
     // static inline std::unique_ptr<TIM_TypeDef> m_timer;

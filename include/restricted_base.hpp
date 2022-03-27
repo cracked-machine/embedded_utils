@@ -63,7 +63,7 @@ inline void * operator new (std::size_t)
     invalid_allocation_error_handler();
     return p;
 }
-#endif
+
 
 // This definition must be in header so it can be seen 
 // (and must be inline to prevent multiple definition linker errors)
@@ -78,7 +78,7 @@ inline void operator delete (void *p [[maybe_unused]], std::size_t s [[maybe_unu
 {
     invalid_allocation_error_handler();    
 }
-
+#endif
 
 
 #endif // __RESTRICTED_BASE_HPP__
