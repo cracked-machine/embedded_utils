@@ -28,37 +28,46 @@ namespace stm32
 
 void delay_millisecond(uint32_t Delay)
 {
-  __IO uint32_t  tmp = SysTick->CTRL;  /* Clear the COUNTFLAG first */
-   uint32_t tmpDelay; /* MISRAC2012-Rule-17.8 */
-  /* Add this code to indicate that local variable is not used */
-  ((void)tmp);
-  tmpDelay  = Delay;
-  /* Add a period to guaranty minimum wait */
-  if (tmpDelay  < LL_MAX_DELAY)
-  {
-    tmpDelay ++;
-  }
-
-  while (tmpDelay  != 0U)
-  {
-    if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+    [[maybe_unused]] __IO uint32_t  tmp = SysTick->CTRL;  /* Clear the COUNTFLAG first */
+    uint32_t tmpDelay; /* MISRAC2012-Rule-17.8 */
+    tmpDelay  = Delay;
+    /* Add a period to guaranty minimum wait */
+    if (tmpDelay  < LL_MAX_DELAY)
     {
-      tmpDelay --;
+        tmpDelay ++;
     }
-  }
+
+    while (tmpDelay  != 0U)
+    {
+        if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
+        {
+            tmpDelay --;
+        }
+        // simulate the "Clear on read by application or debugger."
+        #ifdef X86_UNIT_TESTING_ONLY
+            SysTick->CTRL = SysTick->CTRL & ~SysTick_CTRL_COUNTFLAG_Msk;
+        #endif
+    }
 }
 
 bool TimerManager::initialise(TIM_TypeDef *timer)
 {
-    // if (m_timer == nullptr) { m_timer = std::unique_ptr<TIM_TypeDef>(timer); }
-    if (m_timer == nullptr) { m_timer = timer; }
-    else 
-    { 
+
+    if (timer == nullptr)
+    {
         if (!error_handler()) 
         {
             return false;
-        }
+        }        
     }
+
+    // stop the timer before re-assigning the pointer
+    if (m_timer != nullptr)
+    {
+        m_timer->CR1 = m_timer->CR1 & ~(TIM_CR1_CEN); 
+    }
+    m_timer = timer; 
+
     reset();
     return true;
 }
@@ -89,7 +98,7 @@ void TimerManager::reset()
 
 }
 
-void TimerManager::delay_microsecond(uint32_t delay_us)
+bool TimerManager::delay_microsecond(uint32_t delay_us)
 {
     // wait in limbo if not initialised
     if (m_timer == nullptr) { error_handler(); }
@@ -100,17 +109,12 @@ void TimerManager::delay_microsecond(uint32_t delay_us)
     // setup the timer for timeout function
     reset();
     while (m_timer->CNT < delay_us);
+    return true;
 }
 
 uint32_t TimerManager::get_count()
 {
-    // make sure timer is running
-    if ( (m_timer->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
-    { 
-        m_timer->CR1 = m_timer->CR1 | (TIM_CR1_CEN); 
-    }
     return m_timer->CNT;
-
 }
 
 bool TimerManager::error_handler()

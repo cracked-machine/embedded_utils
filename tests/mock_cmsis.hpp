@@ -31,17 +31,18 @@ inline uint32_t SystemCoreClock = 64000000UL;
 
 typedef struct
 {
-  __IOM uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
-  __IOM uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
-  __IOM uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
-  __IM  uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
+  __IOM uint32_t CTRL {0x00000004};                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
+  __IOM uint32_t LOAD {0x00000000};                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
+  __IOM uint32_t VAL {0x00000000};                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
+  __IM  uint32_t CALIB {0x80000000};                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
 } SysTick_Type;
 
 
 /* Memory mapping of Core Hardware */
 #define SCS_BASE            (0xE000E000UL)                            /*!< System Control Space Base Address */
 #define SysTick_BASE        (SCS_BASE +  0x0010UL)                    /*!< SysTick Base Address */
-#define SysTick             ((SysTick_Type   *)     SysTick_BASE  )   /*!< SysTick configuration struct */
+// modifiable so that SysTick can be instantiated by Unit Tests
+inline auto SysTick          =     ((SysTick_Type   *)     SysTick_BASE  );   /*!< SysTick configuration struct */
 
 /* SysTick Control / Status Register Definitions */
 #define SysTick_CTRL_COUNTFLAG_Pos         16U                                            /*!< SysTick CTRL: COUNTFLAG Position */
@@ -54,7 +55,7 @@ typedef struct
 #define SysTick_CTRL_TICKINT_Msk           (1UL << SysTick_CTRL_TICKINT_Pos)              /*!< SysTick CTRL: TICKINT Mask */
 
 #define SysTick_CTRL_ENABLE_Pos             0U                                            /*!< SysTick CTRL: ENABLE Position */
-#define SysTick_CTRL_ENABLE_Msk            (1UL /*<< SysTick_CTRL_ENABLE_Pos*/)           /*!< SysTick CTRL: ENABLE Mask */
+#define SysTick_CTRL_ENABLE_Msk            (1UL << SysTick_CTRL_ENABLE_Pos)           /*!< SysTick CTRL: ENABLE Mask */
 
 /* SysTick Reload Register Definitions */
 #define SysTick_LOAD_RELOAD_Pos             0U                                            /*!< SysTick LOAD: RELOAD Position */
@@ -601,33 +602,33 @@ typedef struct
   */
 typedef struct
 {
-  __IO uint32_t CR1;         /*!< TIM control register 1,                   Address offset: 0x00 */
-  __IO uint32_t CR2;         /*!< TIM control register 2,                   Address offset: 0x04 */
-  __IO uint32_t SMCR;        /*!< TIM slave mode control register,          Address offset: 0x08 */
-  __IO uint32_t DIER;        /*!< TIM DMA/interrupt enable register,        Address offset: 0x0C */
-  __IO uint32_t SR;          /*!< TIM status register,                      Address offset: 0x10 */
-  __IO uint32_t EGR;         /*!< TIM event generation register,            Address offset: 0x14 */
-  __IO uint32_t CCMR1;       /*!< TIM capture/compare mode register 1,      Address offset: 0x18 */
-  __IO uint32_t CCMR2;       /*!< TIM capture/compare mode register 2,      Address offset: 0x1C */
-  __IO uint32_t CCER;        /*!< TIM capture/compare enable register,      Address offset: 0x20 */
-  __IO uint32_t CNT;         /*!< TIM counter register,                     Address offset: 0x24 */
-  __IO uint32_t PSC;         /*!< TIM prescaler register,                   Address offset: 0x28 */
-  __IO uint32_t ARR;         /*!< TIM auto-reload register,                 Address offset: 0x2C */
-  __IO uint32_t RCR;         /*!< TIM repetition counter register,          Address offset: 0x30 */
-  __IO uint32_t CCR1;        /*!< TIM capture/compare register 1,           Address offset: 0x34 */
-  __IO uint32_t CCR2;        /*!< TIM capture/compare register 2,           Address offset: 0x38 */
-  __IO uint32_t CCR3;        /*!< TIM capture/compare register 3,           Address offset: 0x3C */
-  __IO uint32_t CCR4;        /*!< TIM capture/compare register 4,           Address offset: 0x40 */
-  __IO uint32_t BDTR;        /*!< TIM break and dead-time register,         Address offset: 0x44 */
-  __IO uint32_t DCR;         /*!< TIM DMA control register,                 Address offset: 0x48 */
-  __IO uint32_t DMAR;        /*!< TIM DMA address for full transfer,        Address offset: 0x4C */
-  __IO uint32_t OR1;         /*!< TIM option register,                      Address offset: 0x50 */
-  __IO uint32_t CCMR3;       /*!< TIM capture/compare mode register 3,      Address offset: 0x54 */
-  __IO uint32_t CCR5;        /*!< TIM capture/compare register5,            Address offset: 0x58 */
-  __IO uint32_t CCR6;        /*!< TIM capture/compare register6,            Address offset: 0x5C */
-  __IO uint32_t AF1;         /*!< TIM alternate function register 1,        Address offset: 0x60 */
-  __IO uint32_t AF2;         /*!< TIM alternate function register 2,        Address offset: 0x64 */
-  __IO uint32_t TISEL;       /*!< TIM Input Selection register,             Address offset: 0x68 */
+  __IO uint32_t CR1 {0x00000000};         /*!< TIM control register 1,                   Address offset: 0x00 */
+  __IO uint32_t CR2 {0x00000000};         /*!< TIM control register 2,                   Address offset: 0x04 */
+  __IO uint32_t SMCR {0x00000000};        /*!< TIM slave mode control register,          Address offset: 0x08 */
+  __IO uint32_t DIER {0x00000000};        /*!< TIM DMA/interrupt enable register,        Address offset: 0x0C */
+  __IO uint32_t SR {0x00000000};          /*!< TIM status register,                      Address offset: 0x10 */
+  __IO uint32_t EGR {0x00000000};         /*!< TIM event generation register,            Address offset: 0x14 */
+  __IO uint32_t CCMR1 {0x00000000};       /*!< TIM capture/compare mode register 1,      Address offset: 0x18 */
+  __IO uint32_t CCMR2 {0x00000000};       /*!< TIM capture/compare mode register 2,      Address offset: 0x1C */
+  __IO uint32_t CCER {0x00000000};        /*!< TIM capture/compare enable register,      Address offset: 0x20 */
+  __IO uint32_t CNT {0x00000000};         /*!< TIM counter register,                     Address offset: 0x24 */
+  __IO uint32_t PSC {0x00000000};         /*!< TIM prescaler register,                   Address offset: 0x28 */
+  __IO uint32_t ARR {0x00000000};         /*!< TIM auto-reload register,                 Address offset: 0x2C */
+  __IO uint32_t RCR {0x00000000};         /*!< TIM repetition counter register,          Address offset: 0x30 */
+  __IO uint32_t CCR1 {0x00000000};        /*!< TIM capture/compare register 1,           Address offset: 0x34 */
+  __IO uint32_t CCR2 {0x00000000};        /*!< TIM capture/compare register 2,           Address offset: 0x38 */
+  __IO uint32_t CCR3 {0x00000000};        /*!< TIM capture/compare register 3,           Address offset: 0x3C */
+  __IO uint32_t CCR4 {0x00000000};        /*!< TIM capture/compare register 4,           Address offset: 0x40 */
+  __IO uint32_t BDTR {0x00000000};        /*!< TIM break and dead-time register,         Address offset: 0x44 */
+  __IO uint32_t DCR {0x00000000};         /*!< TIM DMA control register,                 Address offset: 0x48 */
+  __IO uint32_t DMAR {0x00000000};        /*!< TIM DMA address for full transfer,        Address offset: 0x4C */
+  __IO uint32_t OR1 {0x00000000};         /*!< TIM option register,                      Address offset: 0x50 */
+  __IO uint32_t CCMR3 {0x00000000};       /*!< TIM capture/compare mode register 3,      Address offset: 0x54 */
+  __IO uint32_t CCR5 {0x00000000};        /*!< TIM capture/compare register5,            Address offset: 0x58 */
+  __IO uint32_t CCR6 {0x00000000};        /*!< TIM capture/compare register6,            Address offset: 0x5C */
+  __IO uint32_t AF1 {0x00000000};         /*!< TIM alternate function register 1,        Address offset: 0x60 */
+  __IO uint32_t AF2 {0x00000000};         /*!< TIM alternate function register 2,        Address offset: 0x64 */
+  __IO uint32_t TISEL {0x00000000};       /*!< TIM Input Selection register,             Address offset: 0x68 */
 } TIM_TypeDef;
 
 /******************************************************************************/
