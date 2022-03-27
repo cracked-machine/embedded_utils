@@ -160,3 +160,12 @@ TEST_CASE("i2c_utils - send_addr function", "[i2c_utils]")
     }    
 
 }
+
+TEST_CASE("i2c_utils - set_numbytes", "[i2c_utils]")
+{
+    I2C_TypeDef *i2c_handle = new I2C_TypeDef;
+    // set the mocked register
+    stm32::i2c::set_numbytes(i2c_handle, 2);
+    // read back the value
+    REQUIRE((i2c_handle->CR2 & (2 << I2C_CR2_NBYTES_Pos)));
+}
