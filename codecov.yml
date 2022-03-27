@@ -1,2 +1,11 @@
+codecov:
+  require_ci_to_pass: yes
+
 ignore:
   - "tests"
+
+coverage:
+  status:
+    patch:
+      default:
+        target: 80%  # new contributions should have a coverage at least equal to target
