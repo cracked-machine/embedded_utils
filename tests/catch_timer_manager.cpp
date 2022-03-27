@@ -97,6 +97,7 @@ TEST_CASE("Timer Manager - microsecond timer", "[timer_manager]")
 
 TEST_CASE("Timer Manager - Systick Delay", "[timer_manager]")
 {
+    // instantiate the global instance
     SysTick = new SysTick_Type;
     // enable the mocked SysTick counter
     SysTick->CTRL = SysTick->CTRL | 1UL << 0UL;
