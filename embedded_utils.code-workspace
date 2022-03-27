@@ -60,10 +60,14 @@
 			"cinttypes": "cpp",
 			"typeinfo": "cpp",
 			"variant": "cpp",
+<<<<<<< HEAD
 			"thread": "cpp",
 			"condition_variable": "cpp",
 			"future": "cpp",
 			"mutex": "cpp"
+=======
+			"thread": "cpp"
+>>>>>>> 071fda551d5a05def1fc6103cbb23d16beab733c
 		}
 	}
 }

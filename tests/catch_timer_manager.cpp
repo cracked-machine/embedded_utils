@@ -7,6 +7,7 @@
 #include <future>
 
 
+
 bool testfixture_systick_sim(SysTick_Type *systick)
 {
     using namespace std::chrono_literals;
@@ -107,4 +108,5 @@ TEST_CASE("Timer Manager - Systick Delay", "[timer_manager]")
     // disable the mocked SysTick counter
     SysTick->CTRL = SysTick->CTRL & ~(1UL << 0UL);
     REQUIRE(res.get());
+
 }

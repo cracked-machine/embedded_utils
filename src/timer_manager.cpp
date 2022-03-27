@@ -59,6 +59,7 @@ bool TimerManager::initialise(TIM_TypeDef *timer)
         {
             return false;
         }        
+
     }
 
     // stop the timer before re-assigning the pointer
@@ -66,6 +67,7 @@ bool TimerManager::initialise(TIM_TypeDef *timer)
     {
         m_timer->CR1 = m_timer->CR1 & ~(TIM_CR1_CEN); 
     }
+
     m_timer = timer; 
 
     reset();
