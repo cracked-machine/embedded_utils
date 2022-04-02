@@ -44,6 +44,8 @@ bool mock_spi_data_register(SPI_TypeDef *spi_handle)
 
 TEST_CASE("spi_utils - send_bytes")
 {
+    std::cout << "spi_utils - send_bytes" << std::endl;
+
     // Enable timer test fixture and start it in a new thread
     TIM_TypeDef *timer = new TIM_TypeDef;
     REQUIRE(stm32::TimerManager::initialise(timer));
@@ -56,7 +58,7 @@ TEST_CASE("spi_utils - send_bytes")
     spi_handle = new SPI_TypeDef;
 
     // setup the periph
-    std::cout << "spi_utils - enable_spi: true" << std::endl;
+
     stm32::spi::enable_spi(spi_handle, true);
     REQUIRE(spi_handle->CR1 & SPI_CR1_SPE_Msk);
 
@@ -74,10 +76,70 @@ TEST_CASE("spi_utils - send_bytes")
     // check the mock_spi_data_register function returned true 
     REQUIRE(spi_res.get());           
 
+    // don't forget to disable the timer for each SECTION test
+    timer->CR1 = 0;
 
+}
+
+TEST_CASE("spi_utils - wait_for_bsy_flag")
+{
+    std::cout << "spi_utils - wait_for_bsy_flag" << std::endl;
+
+    // Enable timer test fixture and start it in a new thread
+    TIM_TypeDef *timer = new TIM_TypeDef;
+    REQUIRE(stm32::TimerManager::initialise(timer));
+    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer);   
+
+    SECTION("wait_for_bsy_flag - SPI_SR_BSY not set")
+    {
+        SPI_TypeDef * spi_handle = new SPI_TypeDef;
+        spi_handle->SR = spi_handle->SR & ~SPI_SR_BSY;
+        REQUIRE(stm32::spi::wait_for_bsy_flag(spi_handle));
+    }
+
+    SECTION("wait_for_bsy_flag - SPI_SR_BSY is set")
+    {
+        SPI_TypeDef * spi_handle = new SPI_TypeDef;
+        spi_handle->SR = spi_handle->SR | SPI_SR_BSY;
+        REQUIRE_FALSE(stm32::spi::wait_for_bsy_flag(spi_handle));
+    }
 
     // don't forget to disable the timer for each SECTION test
     timer->CR1 = 0;
+
+    // check the mock_spi_data_register function returned true 
+    REQUIRE(tim_res.get()); 
+
+}
+
+TEST_CASE("spi_utils - wait_for_txe_flag")
+{
+    std::cout << "spi_utils - wait_for_txe_flag" << std::endl;
+
+    // Enable timer test fixture and start it in a new thread
+    TIM_TypeDef *timer = new TIM_TypeDef;
+    REQUIRE(stm32::TimerManager::initialise(timer));
+    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer);   
+
+    SECTION("wait_for_txe_flag - SPI_SR_TXE not set")
+    {
+        SPI_TypeDef * spi_handle = new SPI_TypeDef;
+        spi_handle->SR = spi_handle->SR & ~SPI_SR_TXE;
+        REQUIRE_FALSE(stm32::spi::wait_for_txe_flag(spi_handle));
+    }
+
+    SECTION("wait_for_txe_flag - SPI_SR_TXE is set")
+    {
+        SPI_TypeDef * spi_handle = new SPI_TypeDef;
+        spi_handle->SR = spi_handle->SR | SPI_SR_TXE;
+        REQUIRE(stm32::spi::wait_for_txe_flag(spi_handle));
+    }
+
+    // don't forget to disable the timer for each SECTION test
+    timer->CR1 = 0;
+
+    // check the mock_spi_data_register function returned true 
+    REQUIRE(tim_res.get()); 
 
 }
 
