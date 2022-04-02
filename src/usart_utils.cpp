@@ -26,23 +26,24 @@
 namespace stm32::usart
 {
 
-void enable_usart(USART_TypeDef *usart_handle)
+bool enable_usart(USART_TypeDef *usart_handle)
 {
+    if (usart_handle == nullptr) { return false; }
     usart_handle->CR1 = usart_handle->CR1 | USART_CR1_UE;
+    return true;
 }
 
-void transmit_byte(USART_TypeDef *usart_handle, uint8_t byte)
+bool transmit_byte(USART_TypeDef *usart_handle, uint8_t byte)
 {
+    if (usart_handle == nullptr) { return false; }
     usart_handle->TDR = byte;
+    return true;
 }
 
 bool wait_for_tc_flag(USART_TypeDef *usart_handle, uint32_t delay_us)
 {
 
-    if (usart_handle == nullptr)
-    {
-        return false;
-    }
+    if (usart_handle == nullptr) { return false; }
     // Check the previous tranmission has completed
     if ((usart_handle->ISR & USART_ISR_TC) != (USART_ISR_TC))
     {

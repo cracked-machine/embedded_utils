@@ -1555,18 +1555,18 @@ typedef struct
   */
 typedef struct
 {
-  __IO uint32_t CR1;         /*!< USART Control register 1,                 Address offset: 0x00  */
-  __IO uint32_t CR2;         /*!< USART Control register 2,                 Address offset: 0x04  */
-  __IO uint32_t CR3;         /*!< USART Control register 3,                 Address offset: 0x08  */
-  __IO uint32_t BRR;         /*!< USART Baud rate register,                 Address offset: 0x0C  */
-  __IO uint32_t GTPR;        /*!< USART Guard time and prescaler register,  Address offset: 0x10  */
-  __IO uint32_t RTOR;        /*!< USART Receiver Time Out register,         Address offset: 0x14  */
-  __IO uint32_t RQR;         /*!< USART Request register,                   Address offset: 0x18  */
-  __IO uint32_t ISR;         /*!< USART Interrupt and status register,      Address offset: 0x1C  */
-  __IO uint32_t ICR;         /*!< USART Interrupt flag Clear register,      Address offset: 0x20  */
-  __IO uint32_t RDR;         /*!< USART Receive Data register,              Address offset: 0x24  */
-  __IO uint32_t TDR;         /*!< USART Transmit Data register,             Address offset: 0x28  */
-  __IO uint32_t PRESC;       /*!< USART Prescaler register,                 Address offset: 0x2C  */
+  __IO uint32_t CR1 {0x00000000};         /*!< USART Control register 1,                 Address offset: 0x00  */
+  __IO uint32_t CR2 {0x00000000};         /*!< USART Control register 2,                 Address offset: 0x04  */
+  __IO uint32_t CR3 {0x00000000};         /*!< USART Control register 3,                 Address offset: 0x08  */
+  __IO uint32_t BRR {0x00000000};         /*!< USART Baud rate register,                 Address offset: 0x0C  */
+  __IO uint32_t GTPR {0x00000000};        /*!< USART Guard time and prescaler register,  Address offset: 0x10  */
+  __IO uint32_t RTOR {0x00000000};        /*!< USART Receiver Time Out register,         Address offset: 0x14  */
+  __IO uint32_t RQR {0x00000000};         /*!< USART Request register,                   Address offset: 0x18  */
+  __IO uint32_t ISR {0x00000000};         /*!< USART Interrupt and status register,      Address offset: 0x1C  */
+  __IO uint32_t ICR {0x00000000};         /*!< USART Interrupt flag Clear register,      Address offset: 0x20  */
+  __IO uint32_t RDR {0x00000000};         /*!< USART Receive Data register,              Address offset: 0x24  */
+  __IO uint32_t TDR {0x00000000};         /*!< USART Transmit Data register,             Address offset: 0x28  */
+  __IO uint32_t PRESC {0x00000000};       /*!< USART Prescaler register,                 Address offset: 0x2C  */
 } USART_TypeDef;
 
 /******************************************************************************/

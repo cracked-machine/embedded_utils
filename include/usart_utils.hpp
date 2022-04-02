@@ -45,9 +45,9 @@
 namespace stm32::usart
 {
 
-void enable_usart(USART_TypeDef *usart_handle);
+bool enable_usart(USART_TypeDef *usart_handle);
 
-void transmit_byte(USART_TypeDef *usart_handle, uint8_t byte);
+bool transmit_byte(USART_TypeDef *usart_handle, uint8_t byte);
 
 // @brief Check and retry (with timeout) the SPIx_SR TXE register.
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device
