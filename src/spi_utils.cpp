@@ -26,24 +26,20 @@
 namespace stm32::spi
 {
 
-void enable_spi(SPI_TypeDef *spi_handle, bool enable)
+bool enable_spi(SPI_TypeDef *spi_handle, bool enable)
 {
-    if (enable)
-    {
-        spi_handle->CR1 = spi_handle->CR1 | SPI_CR1_SPE;
-    }
-    else
-    {
-        spi_handle->CR1 = spi_handle->CR1 & ~SPI_CR1_SPE;
-    }
+    if (spi_handle == nullptr) { return false; }    
+    
+    if (enable) { spi_handle->CR1 = spi_handle->CR1 | SPI_CR1_SPE; }
+    else { spi_handle->CR1 = spi_handle->CR1 & ~SPI_CR1_SPE; }
+
+    return true;
 }
 
 bool send_byte(SPI_TypeDef *spi_handle, uint8_t byte)
 {
-    if (spi_handle == nullptr)
-    {
-        return false;
-    }    
+    if (spi_handle == nullptr) { return false; }    
+
     volatile uint8_t *spidr = ((volatile uint8_t *)&spi_handle->DR);
     *spidr = byte;	    
     // check the data has left the SPI FIFO
@@ -73,32 +69,26 @@ bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 
 bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
-    #ifdef X86_UNIT_TESTING_ONLY
-    std::cout << "init busy:" << spi_handle->SR << std::endl;
-    std::cout << "init busy:" << spi_handle->SR << std::endl;
-    // std::cout << "init busy:" << spi_handle->SR << std::endl;
-    #endif
     // When BSY is set, it indicates that a data transfer is in progress on the SPI
     if ((spi_handle->SR & SPI_SR_BSY) == SPI_SR_BSY)
     {
-        #ifdef X86_UNIT_TESTING_ONLY
-        std::cout << "outer busy:" << spi_handle->SR << std::endl;
-        #endif
         // give SPI bus a chance to finish sending data before checking again
         stm32::TimerManager::delay_microsecond(delay_us);
         if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
         { 
-            // std::cout << "inner busy:" << spi_handle->SR << std::endl;
             return false;
         }
     }    
     return true; 
 }   
 
-void set_prescaler(SPI_TypeDef *spi_handle, uint32_t new_value) 
+bool set_prescaler(SPI_TypeDef *spi_handle, uint32_t new_value) 
 { 
+    if (spi_handle == nullptr) { return false; }    
+
     spi_handle->CR1 = spi_handle->CR1 & ~(SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0);
     spi_handle->CR1 = spi_handle->CR1 | (new_value);
+    return true;
 }
 
 
