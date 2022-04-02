@@ -58,8 +58,8 @@ enum class Status
 
 };
 
-/// @brief Specify the type of message to send with send_addr() function
-enum class MsgType
+/// @brief Specify the type of message to send with initialise_slave_device() function
+enum class StartType
 {
 	/// @brief Send STOP after adddress. Use this to test if a slave device is present
 	PROBE,
@@ -69,13 +69,12 @@ enum class MsgType
     WRITE
 };
 
-// we can't unit test this without mocking
-/// @brief Send the address byte to the I2C slave device
+/// @brief Send the address byte to the I2C slave device and use start_type to generate a start condition
 /// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
 /// @param addr The address byte to send to the slave device
-/// @param type PROBE: send STOP after adddress, WRITE: r/w bit low and keep open, READ: r/w bit high + repeated START
+/// @param start_type PROBE: send STOP after adddress, WRITE: r/w bit low and keep open, READ: r/w bit high + repeated START
 /// @return Status The I2C slave device response
-Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type );
+Status initialise_slave_device(I2C_TypeDef* i2c_handle, uint8_t addr, StartType start_type );
 
 /// @brief Write single data byte to I2C_TXDR register (transmit to the I2C slave device) 
 /// @param i2c_handle The unique_ptr to the CMSIS memory-mapped I2C device
@@ -89,16 +88,16 @@ Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte);
 /// @return Status The I2C slave device response
 Status receive_byte(I2C_TypeDef* i2c_handle, uint8_t &rx_byte);
 
-/// @brief Restart/Start generation now
-/// Restart generated if AUTOEND is disabled
+/// @brief Generation restart/start condition now
+/// The type of generated start condition will depend on the start_type argument used with initialise_slave_device()
 /// @param i2c_handle pointer to I2C Interface
 void generate_start_condition(I2C_TypeDef* i2c_handle);
 
-/// @brief Stop generation after current byte transfer
+/// @brief Generate a stop condition after active transfer has completed.
 /// @param i2c_handle pointer to I2C Interface
 void generate_stop_condition(I2C_TypeDef* i2c_handle);
 
-/// @brief Set numbytes for the transmit/receive
+/// @brief Set the number of bytes for the tx/rx transaction
 /// Changing these bits when the START bit is set is not allowed.
 /// @param i2c_handle pointer to I2C Interface
 /// @param nbytes The number of bytes to be transmitted/received. This field is don’t care in slave mode

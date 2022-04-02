@@ -55,7 +55,7 @@ class TimerManager : public RestrictedBase
 {
 
 public:
-    // @brief Set up the timer instance once and only once. Call this in main() setup.
+    // @brief Set up the timer instance. This resets the TIM_TypeDef pointer if already set.
     // @param timer The pointer to TIM_TypeDef
     static bool initialise(TIM_TypeDef *timer);
 

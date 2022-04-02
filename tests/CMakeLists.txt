@@ -1,5 +1,4 @@
 target_sources(${BUILD_NAME} PRIVATE
-    catch_common.cpp
     catch_byte_utils.cpp
     catch_bitset_utils.cpp
     catch_static_map.cpp

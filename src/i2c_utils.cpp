@@ -27,7 +27,7 @@ namespace stm32::i2c
 {
 
 
-Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
+Status initialise_slave_device(I2C_TypeDef* i2c_handle, uint8_t addr, StartType start_type)
 {	
 	// Set the master to operate in 7-bit addressing mode. Clear ADD10 bit[11] 
 	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_ADD10);
@@ -37,7 +37,7 @@ Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
 	i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_SADD);
 	i2c_handle->CR2 = i2c_handle->CR2 | (addr << 0);	
 	
-	if (type == MsgType::PROBE) // generate START with AUTO-END enabled
+	if (start_type == StartType::PROBE) // generate START with AUTO-END enabled
 	{
 		// Master requests a write transfer
 		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_RD_WRN);
@@ -46,7 +46,7 @@ Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
 		i2c_handle->CR2 = i2c_handle->CR2 | I2C_CR2_AUTOEND;
 		
 	}
-	else if (type == MsgType::WRITE) // generate START with AUTO-END disabled
+	else if (start_type == StartType::WRITE) // generate START with AUTO-END disabled
 	{
 		// Master requests a write transfer
 		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_RD_WRN);
@@ -57,7 +57,7 @@ Status send_addr(I2C_TypeDef* i2c_handle, uint8_t addr, MsgType type)
 		// Disable AUTOEND Mode. TC flag is set when NBYTES data are transferred, stretching SCL low.
 		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_AUTOEND);
 	}
-	else if (type == MsgType::READ) // generate REPEATED START
+	else if (start_type == StartType::READ) // generate REPEATED START
 	{
 		
 		// Master requests a read transfer
@@ -100,14 +100,14 @@ Status send_byte(I2C_TypeDef* i2c_handle, uint8_t tx_byte)
 {
 	i2c_handle->TXDR = tx_byte;
 	
-	// wait for TX FIFO to be transmitted before continuing
-	while (((i2c_handle->ISR & I2C_ISR_TXE) == I2C_ISR_TXE) == false)
+	// wait for I2C_ISR_TXE (Transmit data register empty) before continuing
+	while (((i2c_handle->ISR & I2C_ISR_TXE) != I2C_ISR_TXE))
 	{
 		// do nothing
 		stm32::TimerManager::delay_microsecond(10);
 	}
 	// check if slave device responded with NACK
-	if (((i2c_handle->ISR & I2C_ISR_NACKF) == I2C_ISR_NACKF) == true)
+	if (((i2c_handle->ISR & I2C_ISR_NACKF) == I2C_ISR_NACKF))
 	{
 		return Status::NACK;
 	}
