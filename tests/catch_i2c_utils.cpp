@@ -178,10 +178,9 @@ TEST_CASE("i2c_utils - send_bytes", "[i2c_utils]")
 
 TEST_CASE("i2c_utils - initialise_slave_device function", "[i2c_utils]")
 {
-    // enable timer test fixture
+    // Enable timer test fixture and start it in a new thread
     TIM_TypeDef *timer = new TIM_TypeDef;
     REQUIRE(stm32::TimerManager::initialise(timer));
-    // start test fixture thread
     std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer); 
        
       

@@ -45,7 +45,7 @@ namespace stm32::spi
 
 void enable_spi(SPI_TypeDef *spi_handle, bool enable = true);
 
-void send_byte(SPI_TypeDef *spi_handle, uint8_t byte);
+bool send_byte(SPI_TypeDef *spi_handle, uint8_t byte);
 
 // @brief Check and retry (with timeout) the SPIx_SR TXE register.
 // @param spi_handle Pointer to the CMSIS mem-mapped SPI device

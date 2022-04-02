@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
+#include <iostream>
 #include <spi_utils.hpp>
 #include <timer_manager.hpp>
 namespace stm32::spi
@@ -38,22 +38,25 @@ void enable_spi(SPI_TypeDef *spi_handle, bool enable)
     }
 }
 
-void send_byte(SPI_TypeDef *spi_handle, uint8_t byte)
+bool send_byte(SPI_TypeDef *spi_handle, uint8_t byte)
 {
+    if (spi_handle == nullptr)
+    {
+        return false;
+    }    
     volatile uint8_t *spidr = ((volatile uint8_t *)&spi_handle->DR);
     *spidr = byte;	    
     // check the data has left the SPI FIFO
+    while (!stm32::spi::wait_for_bsy_flag(spi_handle, 10));
     while (!stm32::spi::wait_for_txe_flag(spi_handle, 10));
-    while (!stm32::spi::wait_for_bsy_flag(spi_handle, 10));     
+
+    return true;
 }
 
 bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
 
-    if (spi_handle == nullptr)
-    {
-        return false;
-    }
+
     // The TXE flag is set when transmission TXFIFO has enough space to store data to send.
     if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
     {
@@ -70,17 +73,22 @@ bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 
 bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
-    if (spi_handle == nullptr)
-    {
-        return false;
-    }
+    #ifdef X86_UNIT_TESTING_ONLY
+    std::cout << "init busy:" << spi_handle->SR << std::endl;
+    std::cout << "init busy:" << spi_handle->SR << std::endl;
+    // std::cout << "init busy:" << spi_handle->SR << std::endl;
+    #endif
     // When BSY is set, it indicates that a data transfer is in progress on the SPI
-    if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
+    if ((spi_handle->SR & SPI_SR_BSY) == SPI_SR_BSY)
     {
+        #ifdef X86_UNIT_TESTING_ONLY
+        std::cout << "outer busy:" << spi_handle->SR << std::endl;
+        #endif
         // give SPI bus a chance to finish sending data before checking again
         stm32::TimerManager::delay_microsecond(delay_us);
         if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
         { 
+            // std::cout << "inner busy:" << spi_handle->SR << std::endl;
             return false;
         }
     }    

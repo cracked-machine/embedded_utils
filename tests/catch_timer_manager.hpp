@@ -24,6 +24,7 @@
 #ifndef __CATCH_TIMER_MANAGER_HPP__
 #define __CATCH_TIMER_MANAGER_HPP__
 
+#include <timer_manager.hpp>
 #include <mock_cmsis.hpp>
 #include <thread>
 #include <iostream>
@@ -34,7 +35,7 @@
 /// See "Cortex-M0 Technical Ref Man - SysTick Control and Status Register"
 /// @param systick 
 /// @return false if null input, return true when fixture has terminated
-bool testfixture_systick_sim(SysTick_Type *systick);
+bool mock_systick(SysTick_Type *systick);
 
 /// @brief Simulate the timer counter (normally done by STM32 HW) 
 /// See STM32 Reference Manal Timer control register 1
