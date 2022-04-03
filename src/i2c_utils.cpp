@@ -57,7 +57,7 @@ Status initialise_slave_device(I2C_TypeDef* i2c_handle, uint8_t addr, StartType 
 		// Disable AUTOEND Mode. TC flag is set when NBYTES data are transferred, stretching SCL low.
 		i2c_handle->CR2 = i2c_handle->CR2 & ~(I2C_CR2_AUTOEND);
 	}
-	else if (start_type == StartType::READ) // generate REPEATED START
+	else // (start_type == StartType::READ) // generate REPEATED START
 	{
 		
 		// Master requests a read transfer
