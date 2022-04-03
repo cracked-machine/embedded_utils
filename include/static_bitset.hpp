@@ -24,24 +24,26 @@
 #define __STATIC_BITSET_HPP__
 
 #include <gnuc_ext_defs.hpp>
+#include <limits>
 
 namespace noarch::containers
 {
 
-#define NO_OF_BITS (8 * sizeof(unsigned int))
+
 
 
 template<size_t SIZE>
 class StaticBitset {
   private:
-    int array[SIZE];
+    static const uint32_t bits_u32 = std::numeric_limits<unsigned char>::digits * sizeof(uint32_t);
+    uint32_t array[SIZE];
 
   public:
     StaticBitset();
-    void set(unsigned int);
-    void reset(unsigned int);
-    void flip(unsigned int);
-    int test(unsigned int);
+    void set(uint32_t);
+    void reset(uint32_t);
+    void flip(uint32_t);
+    uint32_t test(uint32_t);
 };
 
 template<size_t SIZE>
@@ -50,23 +52,23 @@ StaticBitset<SIZE>::StaticBitset() {
 }
 
 template<size_t SIZE>
-USED_API void StaticBitset<SIZE>::set(unsigned int k) {
-  array[k/NO_OF_BITS] |= (1U << (k%NO_OF_BITS));
+USED_API void StaticBitset<SIZE>::set(uint32_t k) {
+  array[k / bits_u32] |= (1U << (k % bits_u32));
 }
 
 template<size_t SIZE>
-USED_API void StaticBitset<SIZE>::reset(unsigned int k) {
-  array[k/NO_OF_BITS] &= ~(1U << (k%NO_OF_BITS));
+USED_API void StaticBitset<SIZE>::reset(uint32_t k) {
+  array[k / bits_u32] &= ~(1U << (k % bits_u32));
 }
 
 template<size_t SIZE>
-USED_API int StaticBitset<SIZE>::test(unsigned int k) {
-  return ( (array[k/NO_OF_BITS] & (1U<<(k%NO_OF_BITS))) != 0 );
+USED_API uint32_t StaticBitset<SIZE>::test(uint32_t k) {
+  return ( (array[k / bits_u32] & (1U << (k % bits_u32))) != 0 );
 }
 
 template<size_t SIZE>
-USED_API void StaticBitset<SIZE>::flip(unsigned int k) {
-  array[k/NO_OF_BITS] ^= (1U <<(k%NO_OF_BITS));
+USED_API void StaticBitset<SIZE>::flip(uint32_t k) {
+  array[k / bits_u32] ^= (1U << (k % bits_u32));
 }
 
 } // namespace noarch::containers

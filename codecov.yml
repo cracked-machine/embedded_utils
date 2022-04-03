@@ -8,4 +8,4 @@ coverage:
   status:
     patch:
       default:
-        target: 50%  # new contributions should have a coverage at least equal to target
+        target: 0%  # new contributions should have a coverage at least equal to target
