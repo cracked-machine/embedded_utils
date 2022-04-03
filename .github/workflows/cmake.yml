@@ -23,9 +23,9 @@ jobs:
       run: |
         sudo apt -y update
         sudo apt -y install \
-          gcovr \
           ninja-build \
           curl   
+        pip3 install git+https://github.com/gcovr/gcovr.git
         git clone https://github.com/catchorg/Catch2.git
         pushd Catch2
         cmake -Bbuild -H. -DBUILD_TESTING=OFF

@@ -27,17 +27,26 @@
         {
             "label": "Create HTML report",
             "type": "shell",
-            "command": "rm coverage/*; gcovr  -r . -e build -e '(.+)/tests/(.+)' --html --html-details -o coverage/index.html"
+            "command": "gcovr",
+            "args": [
+                "-r", "${workspaceRoot}",
+                "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
+                "--html",
+                "--html-details",
+                "-o", "${workspaceRoot}/coverage/index.html",
+            ]
         },
         {
             "label": "Create XML report",
             "type": "shell",
-            "command": "rm coverage/*; gcovr  -r . -e build -e '(.+)/tests/(.+)' --xml --xml-pretty  -o coverage/coverage.xml"
-        },
-        {
-            "label": "Convert HTML to PDF",
-            "type": "shell",
-            "command": "wkhtmltopdf ${workspaceRoot}/coverage/index.html ${workspaceRoot}/coverage/*.html ${workspaceRoot}/coverage/code.pdf"
+            "command": "gcovr",
+            "args": [
+                "-r", "${workspaceRoot}",
+                "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
+                "--xml",
+                "--xml-pretty",
+                "-o", "coverage/coverage.xml",
+            ]
         },
         {
             "label": "Delete HTML",
