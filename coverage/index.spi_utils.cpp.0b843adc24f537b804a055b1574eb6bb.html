@@ -593,7 +593,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
     <tr>
       <th scope="row">Date:</th>
-      <td>2022-04-03 06:20:01</td>
+      <td>2022-04-03 06:22:55</td>
     </tr>
   </table>
 </div>
@@ -607,8 +607,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
     <tr>
       <th scope="row">Lines:</th>
-      <td>28</td>
-      <td>28</td>
+      <td>27</td>
+      <td>27</td>
       <td class="coverage-high">100.0%</td>
     </tr>
     <tr>
@@ -619,9 +619,9 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
     <tr>
       <th scope="row">Branches:</th>
-      <td>17</td>
-      <td>18</td>
-      <td class="coverage-high">94.4%</td>
+      <td>15</td>
+      <td>16</td>
+      <td class="coverage-high">93.8%</td>
     </tr>
   </table>
 </div>
@@ -663,24 +663,24 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
     <tr>
       <td>
-        <a href="#l78">stm32::spi::set_prescaler(SPI_TypeDef*, unsigned int)</a>
+        <a href="#l76">stm32::spi::set_prescaler(SPI_TypeDef*, unsigned int)</a>
       </td>
       <td>
-        <a href="#l78">78</a>
+        <a href="#l76">76</a>
       </td>
       <td>
-        <a href="#l78"> called 7 times</a>
+        <a href="#l76"> called 7 times</a>
       </td>
     </tr>
     <tr>
       <td>
-        <a href="#l66">stm32::spi::wait_for_bsy_flag(SPI_TypeDef*, unsigned int)</a>
+        <a href="#l64">stm32::spi::wait_for_bsy_flag(SPI_TypeDef*, unsigned int)</a>
       </td>
       <td>
-        <a href="#l66">66</a>
+        <a href="#l64">64</a>
       </td>
       <td>
-        <a href="#l66"> called 3 times</a>
+        <a href="#l64"> called 3 times</a>
       </td>
     </tr>
     <tr>
@@ -1174,8 +1174,8 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
         <details class="linebranchDetails">
         <summary class="linebranchSummary">2/2</summary>
         <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 0 taken 57 times.</div>
-          <div class="takenBranch">&check; Branch 1 taken 1 times.</div>
+          <div class="takenBranch">&check; Branch 0 taken 56 times.</div>
+          <div class="takenBranch">&check; Branch 1 taken 2 times.</div>
         </div>
         </details>
       </td>
@@ -1203,23 +1203,16 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="lineno"><a id="l57" href="#l57">57</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">57</td>
+      <td class="linecount coveredLine">56</td>
       <td class="src coveredLine"><span class="w">        </span><span class="n">stm32</span><span class="o">::</span><span class="n">TimerManager</span><span class="o">::</span><span class="n">delay_microsecond</span><span class="p">(</span><span class="n">delay_us</span><span class="p">);</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l58" href="#l58">58</a></td>
       <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/2</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 0 taken 56 times.</div>
-          <div class="takenBranch">&check; Branch 1 taken 1 times.</div>
-        </div>
-        </details>
       </td>
-      <td class="linecount coveredLine">57</td>
-      <td class="src coveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">spi_handle</span><span class="o">-&gt;</span><span class="n">SR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">SPI_SR_TXE</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="p">(</span><span class="n">SPI_SR_TXE</span><span class="p">))</span><span class="w"></span></td>
+      <td class="linecount coveredLine">56</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1227,27 +1220,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="p">{</span><span class="w"> </span></td>
+      <td class="src "><span class="w">        </span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l60" href="#l60">60</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">56</td>
-      <td class="src coveredLine"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l61" href="#l61">61</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l62" href="#l62">62</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1255,7 +1232,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l63" href="#l63">63</a></td>
+      <td class="lineno"><a id="l61" href="#l61">61</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">2</td>
@@ -1263,7 +1240,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l64" href="#l64">64</a></td>
+      <td class="lineno"><a id="l62" href="#l62">62</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1271,7 +1248,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l65" href="#l65">65</a></td>
+      <td class="lineno"><a id="l63" href="#l63">63</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1279,7 +1256,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l66" href="#l66">66</a></td>
+      <td class="lineno"><a id="l64" href="#l64">64</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">3</td>
@@ -1287,7 +1264,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l67" href="#l67">67</a></td>
+      <td class="lineno"><a id="l65" href="#l65">65</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1295,7 +1272,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l68" href="#l68">68</a></td>
+      <td class="lineno"><a id="l66" href="#l66">66</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1303,7 +1280,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l69" href="#l69">69</a></td>
+      <td class="lineno"><a id="l67" href="#l67">67</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
         <summary class="linebranchSummary">2/2</summary>
@@ -1318,7 +1295,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l70" href="#l70">70</a></td>
+      <td class="lineno"><a id="l68" href="#l68">68</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1326,7 +1303,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l71" href="#l71">71</a></td>
+      <td class="lineno"><a id="l69" href="#l69">69</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1334,7 +1311,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l72" href="#l72">72</a></td>
+      <td class="lineno"><a id="l70" href="#l70">70</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">1</td>
@@ -1342,7 +1319,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l73" href="#l73">73</a></td>
+      <td class="lineno"><a id="l71" href="#l71">71</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">1</td>
@@ -1350,7 +1327,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l74" href="#l74">74</a></td>
+      <td class="lineno"><a id="l72" href="#l72">72</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1358,7 +1335,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l75" href="#l75">75</a></td>
+      <td class="lineno"><a id="l73" href="#l73">73</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">2</td>
@@ -1366,7 +1343,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l76" href="#l76">76</a></td>
+      <td class="lineno"><a id="l74" href="#l74">74</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1374,7 +1351,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l77" href="#l77">77</a></td>
+      <td class="lineno"><a id="l75" href="#l75">75</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1382,7 +1359,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l78" href="#l78">78</a></td>
+      <td class="lineno"><a id="l76" href="#l76">76</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">7</td>
@@ -1390,7 +1367,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l79" href="#l79">79</a></td>
+      <td class="lineno"><a id="l77" href="#l77">77</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1398,7 +1375,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l80" href="#l80">80</a></td>
+      <td class="lineno"><a id="l78" href="#l78">78</a></td>
       <td class="linebranch">
         <details class="linebranchDetails">
         <summary class="linebranchSummary">2/2</summary>
@@ -1413,7 +1390,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l81" href="#l81">81</a></td>
+      <td class="lineno"><a id="l79" href="#l79">79</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1421,7 +1398,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l82" href="#l82">82</a></td>
+      <td class="lineno"><a id="l80" href="#l80">80</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">6</td>
@@ -1429,7 +1406,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l83" href="#l83">83</a></td>
+      <td class="lineno"><a id="l81" href="#l81">81</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">6</td>
@@ -1437,7 +1414,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l84" href="#l84">84</a></td>
+      <td class="lineno"><a id="l82" href="#l82">82</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount coveredLine">6</td>
@@ -1445,7 +1422,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l85" href="#l85">85</a></td>
+      <td class="lineno"><a id="l83" href="#l83">83</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1453,23 +1430,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
+      <td class="lineno"><a id="l84" href="#l84">84</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l85" href="#l85">85</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+
+    <tr class="source-line">
       <td class="lineno"><a id="l86" href="#l86">86</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l87" href="#l87">87</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l88" href="#l88">88</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1477,7 +1454,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l89" href="#l89">89</a></td>
+      <td class="lineno"><a id="l87" href="#l87">87</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>

@@ -55,10 +55,8 @@ bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
     {
         // give TX FIFO a chance to clear before checking again
         stm32::TimerManager::delay_microsecond(delay_us);
-        if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
-        { 
-            return false;
-        }
+        return false;
+        
     }
     return true;
 }        
