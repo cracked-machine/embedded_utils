@@ -43,7 +43,7 @@ public:
     using string_t = std::array<char, CAPACITY>;
     
     /// @brief Default construct and fill the object with hypens. 
-    StaticString() 
+    USED_API StaticString() 
     {
         std::memset(m_string.data(), 45, CAPACITY);
     }
@@ -52,7 +52,7 @@ public:
     /// @param str The c-string literal input. Must be of length = CAPACITY-1
     // Not explicit. Allow implicit conversion from 'const char [CAPACITY]' to 'StaticString<CAPACITY>&'
     // cppcheck-suppress noExplicitConstructor
-    StaticString(const char (&str)[CAPACITY])
+    USED_API StaticString(const char (&str)[CAPACITY])
     {
         std::memcpy(m_string.data(), str, m_string.size());
     }
