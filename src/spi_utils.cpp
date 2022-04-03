@@ -41,7 +41,7 @@ bool send_byte(SPI_TypeDef *spi_handle, uint8_t byte)
 
     volatile uint8_t *spidr = ((volatile uint8_t *)&spi_handle->DR);
     *spidr = byte;	    
-    // check the data has left the SPI FIFO
+    // wait for SPI periph ready-state
     while (!stm32::spi::wait_for_bsy_flag(spi_handle, 10));
     while (!stm32::spi::wait_for_txe_flag(spi_handle, 10));
 
@@ -50,8 +50,6 @@ bool send_byte(SPI_TypeDef *spi_handle, uint8_t byte)
 
 bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
 {
-
-
     // The TXE flag is set when transmission TXFIFO has enough space to store data to send.
     if ((spi_handle->SR & SPI_SR_TXE) != (SPI_SR_TXE))
     {
@@ -61,7 +59,6 @@ bool wait_for_txe_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
         { 
             return false;
         }
-        
     }
     return true;
 }        
@@ -73,10 +70,7 @@ bool wait_for_bsy_flag(SPI_TypeDef *spi_handle, uint32_t delay_us)
     {
         // give SPI bus a chance to finish sending data before checking again
         stm32::TimerManager::delay_microsecond(delay_us);
-        if ((spi_handle->SR & SPI_SR_BSY) == (SPI_SR_BSY))
-        { 
-            return false;
-        }
+        return false;
     }    
     return true; 
 }   
