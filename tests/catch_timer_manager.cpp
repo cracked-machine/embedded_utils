@@ -1,6 +1,7 @@
 #include <catch2/catch_all.hpp>
 #include <catch_timer_manager.hpp>
-
+#include <sys/mman.h>
+#include <signal.h>
 
 
 /// @brief Simulate the SysTick counter (normally done by ARM HW).
@@ -11,10 +12,8 @@ bool mock_systick(SysTick_Type *systick)
 {
     using namespace std::chrono_literals;
 
-    if (systick == nullptr)
-    {
-        return false;
-    }
+    if (systick == nullptr) { return false; }
+
     auto systick_enabled = (SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk);
     while ((systick->CTRL & systick_enabled) == systick_enabled)
     {
@@ -22,6 +21,8 @@ bool mock_systick(SysTick_Type *systick)
         std::cout << std::flush << ".";
         // simluate the counter by setting the COUNTFLAG
         systick->CTRL = systick->CTRL | SysTick_CTRL_COUNTFLAG_Msk;
+
+
     }
     std::cout << std::endl;
     return true;
@@ -50,6 +51,17 @@ bool mock_timer_count(TIM_TypeDef *timer)
     return true;
 }
 
+TEST_CASE("Timer Manager - microsecond timer: Null Input", "[timer_manager]")
+{
+    std::cout << "timer_manager - microsecond timer: Null Input" << std::endl;
+
+    SECTION("Null Input")
+    {
+        TIM_TypeDef *null_timer = nullptr;
+        REQUIRE_FALSE(stm32::TimerManager::initialise(null_timer));
+        REQUIRE_FALSE(stm32::TimerManager::delay_microsecond(10));
+    }
+}
 
 TEST_CASE("Timer Manager - Init and Reset", "[timer_manager]")
 {
@@ -76,42 +88,59 @@ TEST_CASE("Timer Manager - Init and Reset", "[timer_manager]")
     REQUIRE(timer2->CR1 == 1);
 }
 
+
 TEST_CASE("Timer Manager - microsecond timer", "[timer_manager]")
 {
     std::cout << "timer_manager - microsecond timer" << std::endl;
 
-    TIM_TypeDef *timer = new TIM_TypeDef;
-    REQUIRE(stm32::TimerManager::initialise(timer));
+ 
 
-    // start the testfixture that simulates HW timer counter
-    std::future<bool> res = std::async(std::launch::async, mock_timer_count, timer);
-    
-    // run the SUT; loops until 10ms is reached by timer counter
-    REQUIRE(stm32::TimerManager::delay_microsecond(10));
-    
-    // SUT has returned so simulate disabling of the HW Timer
-    timer->CR1 = 0;
-    
-    // TIM->CNT should match the time elapsed
-    REQUIRE(stm32::TimerManager::get_count() == 10);
+    SECTION("Instantiated Input")
+    {
 
-    // This will cause the testfixture to also return. Make sure it exited as expected.
-    REQUIRE(res.get());
-    
+        TIM_TypeDef *timer = new TIM_TypeDef;
+        REQUIRE(stm32::TimerManager::initialise(timer));
+
+        // start the testfixture that simulates HW timer counter
+        std::future<bool> res = std::async(std::launch::async, mock_timer_count, timer);
+        
+        // run the SUT; loops until 10ms is reached by timer counter
+        REQUIRE(stm32::TimerManager::delay_microsecond(10));
+        
+        // SUT has returned so simulate disabling of the HW Timer
+        timer->CR1 = 0;
+        
+        // TIM->CNT should match the time elapsed
+        REQUIRE(stm32::TimerManager::get_count() == 10);
+
+        // This will cause the testfixture to also return. Make sure it exited as expected.
+        REQUIRE(res.get());
+    }    
 }
 
 TEST_CASE("Timer Manager - Systick Delay", "[timer_manager]")
 {
     std::cout << "timer_manager - systick milisecond delay" << std::endl;
 
-    // instantiate the global instance
-    SysTick = new SysTick_Type;
     // enable the mocked SysTick counter
+    
+    SysTick = new SysTick_Type; 
+
+
+       
     SysTick->CTRL = SysTick->CTRL | 1UL << 0UL;
-    // start the testfixture that simulates SysTick timer counter
     std::future<bool> res = std::async(std::launch::async, mock_systick, SysTick);    
     
-    stm32::delay_millisecond(10);
+    // call the SUT function
+    SECTION("Zero delay")
+    {
+        stm32::delay_millisecond(0);
+    }
+    
+    SECTION("Normal delay")
+    {
+        stm32::delay_millisecond(10);
+    }    
     
     // disable the mocked SysTick counter
     SysTick->CTRL = SysTick->CTRL & ~(1UL << 0UL);

@@ -57,6 +57,7 @@ class TimerManager : public RestrictedBase
 public:
     // @brief Set up the timer instance. This resets the TIM_TypeDef pointer if already set.
     // @param timer The pointer to TIM_TypeDef
+    [[nodiscard("Return value discarded from TimerManager::initialise()")]] 
     static bool initialise(TIM_TypeDef *timer);
 
     // @brief wait for a microsecond delay
@@ -68,7 +69,7 @@ public:
     static uint32_t get_count();
     
 private:
-    // @brief Setup the timer
+    // @brief Reset the timer. Should only be called by stm32::TimerManager::initialise()
     static void reset();
     // @brief Loop here if something is wrong. Return false during x86 tests.
     static bool error_handler();

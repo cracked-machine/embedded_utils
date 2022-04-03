@@ -26,22 +26,19 @@ namespace stm32
 {
 
 
-void delay_millisecond(uint32_t Delay)
+void delay_millisecond(uint32_t delay_ms)
 {
-    [[maybe_unused]] __IO uint32_t  tmp = SysTick->CTRL;  /* Clear the COUNTFLAG first */
-    uint32_t tmpDelay; /* MISRAC2012-Rule-17.8 */
-    tmpDelay  = Delay;
-    /* Add a period to guaranty minimum wait */
-    if (tmpDelay  < LL_MAX_DELAY)
-    {
-        tmpDelay ++;
-    }
+    // Reading SysTick Control and Status Register clears the COUNTFLAG bit to 0
+    [[maybe_unused]] __IOM uint32_t  tmp = SysTick->CTRL;  
+    
+    // make sure we have a delay of at least 1
+    if (delay_ms == 0) {  delay_ms++; }
 
-    while (tmpDelay  != 0U)
+    while (delay_ms  != 0U)
     {
         if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) != 0U)
         {
-            tmpDelay --;
+            delay_ms --;
         }
         // simulate the "Clear on read by application or debugger."
         #ifdef X86_UNIT_TESTING_ONLY
@@ -50,17 +47,11 @@ void delay_millisecond(uint32_t Delay)
     }
 }
 
+
 bool TimerManager::initialise(TIM_TypeDef *timer)
 {
 
-    if (timer == nullptr)
-    {
-        if (!error_handler()) 
-        {
-            return false;
-        }        
-
-    }
+    if (timer == nullptr) { return false; }
 
     // stop the timer before re-assigning the pointer
     if (m_timer != nullptr)
@@ -76,10 +67,7 @@ bool TimerManager::initialise(TIM_TypeDef *timer)
 
 void TimerManager::reset()
 {
-    // wait in limbo if not initialised
-    if (m_timer == nullptr) { error_handler(); }
-
-
+    
     // ensure the timer is disabled before setup
     if ( (m_timer->CR1 & TIM_CR1_CEN) == TIM_CR1_CEN )
     { 
@@ -96,18 +84,16 @@ void TimerManager::reset()
     
     // start the timer and wait for the timeout
     m_timer->CR1 = m_timer->CR1 | (TIM_CR1_CEN); 
-
-
 }
 
 bool TimerManager::delay_microsecond(uint32_t delay_us)
 {
     // wait in limbo if not initialised
-    if (m_timer == nullptr) { error_handler(); }
+    if (m_timer == nullptr) { return false; }
 
     // @TODO change the prescaler to allow longer delays, clamp for now
     if (delay_us > 0xFFFE) { delay_us = 0xFFFE; }
-    
+
     // setup the timer for timeout function
     reset();
     while (m_timer->CNT < delay_us);
@@ -119,16 +105,16 @@ uint32_t TimerManager::get_count()
     return m_timer->CNT;
 }
 
-bool TimerManager::error_handler()
-{
-    #ifdef X86_UNIT_TESTING_ONLY
-        return false;
-    #else
-        while(1)
-        {
-            // stay here to allow stack trace to be shown in debugger...
-        }
-    #endif
-}
+// bool TimerManager::error_handler()
+// {
+//     #ifdef X86_UNIT_TESTING_ONLY
+//         return false;
+//     #else
+//         while(1)
+//         {
+//             // stay here to allow stack trace to be shown in debugger...
+//         }
+//     #endif
+// }
 
 } // namespace stm32:
