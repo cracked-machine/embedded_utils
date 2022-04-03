@@ -61,6 +61,7 @@
             "args": [
                 "-r", "${workspaceRoot}",
                 "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
+                "--exclude-unreachable-branches",
                 "--html-self-contained",
                 "--html-absolute-paths",
                 "--html",
@@ -75,7 +76,7 @@
             "args": [
                 "-r", "${workspaceRoot}",
                 "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
-                "--decisions",
+                "--exclude-unreachable-branches",
                 "--xml",
                 "--xml-pretty",
                 "-o", "coverage/coverage.xml",

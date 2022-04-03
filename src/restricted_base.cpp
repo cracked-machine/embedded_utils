@@ -22,16 +22,15 @@
 
 #include <restricted_base.hpp>
 
+#ifndef X86_UNIT_TESTING_ONLY
 void invalid_allocation_error_handler()
 {
-
     while(true)
     {
         // 
     }
-
 }
-
+#endif 
 
 
 
