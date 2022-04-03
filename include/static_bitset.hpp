@@ -20,45 +20,55 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#ifndef __STATIC_BITSET_HPP__
+#define __STATIC_BITSET_HPP__
 
-#ifndef __STATIC_MAP_HPP__
-#define __STATIC_MAP_HPP__
-
-// #include <algorithm>
-#include <array>
 #include <gnuc_ext_defs.hpp>
-// @brief For working example see https://godbolt.org/z/deza1Ecnn
 
 namespace noarch::containers
 {
 
-// @brief Associative container with contains key-value pairs that is allocated at compile-time
-// @tparam Key The Key
-// @tparam Value The Value
-// @tparam Size The size of the map/number of Key/Value pairs. Must be constant.
-template <typename Key, typename Value, std::size_t Size>
-struct StaticMap {
-    
-    // @brief The dictionary
-    std::array<std::pair<Key, Value>, Size> data;
+#define NO_OF_BITS (8 * sizeof(unsigned int))
 
-    // @brief access specified element
-    // @param key The key element to match
-    // @return Value* Pointer to the value element, or nullptr if not found
-    USED_API Value* find_key(const Key &key) {
 
-        for (std::pair<Key, Value> &pair : data)
-        {
-            if (pair.first == key)
-            {
-                return &pair.second;
-            }
-        }
-        // or return nullptr as the search completed without match
-        return nullptr;
-    }
+template<size_t SIZE>
+class StaticBitset {
+  private:
+    int array[SIZE];
+
+  public:
+    StaticBitset();
+    void set(unsigned int);
+    void reset(unsigned int);
+    void flip(unsigned int);
+    int test(unsigned int);
 };
+
+template<size_t SIZE>
+StaticBitset<SIZE>::StaticBitset() {
+  memset(array, 0, sizeof(array));
+}
+
+template<size_t SIZE>
+USED_API void StaticBitset<SIZE>::set(unsigned int k) {
+  array[k/NO_OF_BITS] |= (1U << (k%NO_OF_BITS));
+}
+
+template<size_t SIZE>
+USED_API void StaticBitset<SIZE>::reset(unsigned int k) {
+  array[k/NO_OF_BITS] &= ~(1U << (k%NO_OF_BITS));
+}
+
+template<size_t SIZE>
+USED_API int StaticBitset<SIZE>::test(unsigned int k) {
+  return ( (array[k/NO_OF_BITS] & (1U<<(k%NO_OF_BITS))) != 0 );
+}
+
+template<size_t SIZE>
+USED_API void StaticBitset<SIZE>::flip(unsigned int k) {
+  array[k/NO_OF_BITS] ^= (1U <<(k%NO_OF_BITS));
+}
 
 } // namespace noarch::containers
 
-#endif // __STATIC_MAP_HPP__
+#endif // __STATIC_BITSET_HPP__

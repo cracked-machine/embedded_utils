@@ -60,7 +60,7 @@
             "command": "gcovr",
             "args": [
                 "-r", "${workspaceRoot}",
-                "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
+                "-e", "tests/catch.*$",
                 "--exclude-unreachable-branches",
                 "--html-self-contained",
                 "--html-absolute-paths",
@@ -75,7 +75,7 @@
             "command": "gcovr",
             "args": [
                 "-r", "${workspaceRoot}",
-                "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
+                "-e", "tests/catch.*$",
                 "--exclude-unreachable-branches",
                 "--xml",
                 "--xml-pretty",

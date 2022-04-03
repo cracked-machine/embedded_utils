@@ -26,6 +26,7 @@
 #include <array>
 #include <cstring>
 #include <limits>
+#include <gnuc_ext_defs.hpp>
 
 // https://godbolt.org/z/Psf7c8a1o
 
@@ -62,7 +63,7 @@ public:
     /// @param offset add from this index position onwards. 
     /// @param static_str The StaticString object to add. Must not be const.
     template <std::size_t... SIZES>
-    void concat(int offset, StaticString<SIZES>&... static_strings)
+    USED_API void concat(int offset, StaticString<SIZES>&... static_strings)
     {
         uint8_t size{SIZES...};
         // if input size and offset exceed output bounds then crop is a positive value
@@ -81,7 +82,7 @@ public:
     /// @param offset add from this index position onwards. 
     /// @param array The std::array object to add.
     template <std::size_t... SIZES>
-    void concat(int offset, const std::array<char, SIZES>&... arrays)
+    USED_API void concat(int offset, const std::array<char, SIZES>&... arrays)
     {
         uint8_t size{SIZES...};
         // if input size and offset exceed output bounds then crop is a positive value
@@ -100,7 +101,7 @@ public:
     /// @param offset The offset position in the string to add the literal
     /// @param str The string literal
     template<std::size_t SIZE>
-    void concat(int offset, const char (&str)[SIZE])
+    USED_API void concat(int offset, const char (&str)[SIZE])
     {
         // if input size and offset exceed output bounds then crop is a positive value
         int16_t crop = (SIZE + offset) - m_string.size();
@@ -116,7 +117,7 @@ public:
     /// @param offset The offset position in the string to add the integer
     /// @param number The integer value. 
     template<typename WIDTH>
-    void concat_int(int offset, WIDTH number)
+    USED_API void concat_int(int offset, WIDTH number)
     {
         // create a temp storage array based on the max number digits for this number
         std::array<char, std::numeric_limits<WIDTH>::digits10 + 1> temp;
@@ -178,7 +179,7 @@ public:
 
     /// @brief Get the std::array member
     /// @return string_t& 
-    string_t& array() { return m_string; }
+    USED_API string_t& array() { return m_string; }
 
 private:
     

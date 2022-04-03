@@ -29,11 +29,13 @@
     #include <iomanip>
 #endif
 
+#include <gnuc_ext_defs.hpp>
+
 namespace noarch::byte_manip
 {
 
 template<std::size_t BYTE_ARRAY_SIZE> 
-bool print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
+USED_API bool print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
 {
     if (bytes.empty())
     {

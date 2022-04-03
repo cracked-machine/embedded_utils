@@ -22,9 +22,10 @@ set(CMAKE_SIZE			    size)
 # common build settings
 set(THREAD_FLAGS "-pthread")    # used to simulate peripheral updates
 set(STACK_USAGE "-fstack-usage -Wstack-usage=2048")
+set(COVERAGE_FLAGS "--coverage")
 set(WARNING_FLAGS "-Wall -Werror -Wextra -Wdouble-promotion -Wformat=2 -Wformat-overflow -Wundef -Wformat-truncation -Wfloat-equal -Wshadow")
-set(COMMON_FLAGS " ${THREAD_FLAGS} ${OPTIM_LVL} ${DEBUG_LVL} ${WARNING_FLAGS} ${STACK_USAGE} --coverage -pedantic  -fmessage-length=0 -ffunction-sections -fdata-sections -ffreestanding -fno-builtin")
-set(CMAKE_EXE_LINKER_FLAGS  " --coverage " CACHE INTERNAL "exe link flags")
+set(COMMON_FLAGS " ${THREAD_FLAGS} ${OPTIM_LVL} ${DEBUG_LVL} ${WARNING_FLAGS} ${STACK_USAGE} ${COVERAGE_FLAGS}  -pedantic  -fmessage-length=0 -ffunction-sections -fdata-sections -ffreestanding -fno-builtin")
+set(CMAKE_EXE_LINKER_FLAGS  "${COVERAGE_FLAGS} " CACHE INTERNAL "exe link flags")
 
 # C compiler settings
 set(C_FLAGS "")

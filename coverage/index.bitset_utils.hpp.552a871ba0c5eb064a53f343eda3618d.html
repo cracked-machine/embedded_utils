@@ -589,7 +589,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
     <tr>
       <th scope="row">File:</th>
-      <td>src/i2c_utils.cpp</td>
+      <td>include/bitset_utils.hpp</td>
     </tr>
     <tr>
       <th scope="row">Date:</th>
@@ -607,20 +607,20 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
     <tr>
       <th scope="row">Lines:</th>
-      <td>45</td>
-      <td>45</td>
+      <td>21</td>
+      <td>21</td>
       <td class="coverage-high">100.0%</td>
     </tr>
     <tr>
       <th scope="row">Functions:</th>
-      <td>8</td>
-      <td>8</td>
+      <td>2</td>
+      <td>2</td>
       <td class="coverage-high">100.0%</td>
     </tr>
     <tr>
       <th scope="row">Branches:</th>
-      <td>10</td>
-      <td>10</td>
+      <td>6</td>
+      <td>6</td>
       <td class="coverage-high">100.0%</td>
     </tr>
   </table>
@@ -641,90 +641,24 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
     <tr>
       <td>
-        <a href="#l122">stm32::i2c::generate_start_condition(I2C_TypeDef*)</a>
+        <a href="#l52">bool noarch::bit_manip::insert_bitset_at_offset&lt;8ul, 4ul&gt;(std::bitset&lt;8ul&gt;&amp;, std::bitset&lt;4ul&gt; const&amp;, unsigned short const&amp;)</a>
       </td>
       <td>
-        <a href="#l122">122</a>
+        <a href="#l52">52</a>
       </td>
       <td>
-        <a href="#l122"> called 6 times</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#l117">stm32::i2c::generate_stop_condition(I2C_TypeDef*)</a>
-      </td>
-      <td>
-        <a href="#l117">117</a>
-      </td>
-      <td>
-        <a href="#l117"> called 1 time</a>
+        <a href="#l52"> called 7 times</a>
       </td>
     </tr>
     <tr>
       <td>
-        <a href="#l30">stm32::i2c::initialise_slave_device(I2C_TypeDef*, unsigned char, stm32::i2c::StartType)</a>
+        <a href="#l52">bool noarch::bit_manip::insert_bitset_at_offset&lt;8ul, 9ul&gt;(std::bitset&lt;8ul&gt;&amp;, std::bitset&lt;9ul&gt; const&amp;, unsigned short const&amp;)</a>
       </td>
       <td>
-        <a href="#l30">30</a>
+        <a href="#l52">52</a>
       </td>
       <td>
-        <a href="#l30"> called 6 times</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#l90">stm32::i2c::receive_byte(I2C_TypeDef*, unsigned char&amp;)</a>
-      </td>
-      <td>
-        <a href="#l90">90</a>
-      </td>
-      <td>
-        <a href="#l90"> called 1 time</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#l133">stm32::i2c::send_ack(I2C_TypeDef*)</a>
-      </td>
-      <td>
-        <a href="#l133">133</a>
-      </td>
-      <td>
-        <a href="#l133"> called 1 time</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#l99">stm32::i2c::send_byte(I2C_TypeDef*, unsigned char)</a>
-      </td>
-      <td>
-        <a href="#l99">99</a>
-      </td>
-      <td>
-        <a href="#l99"> called 2 times</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#l138">stm32::i2c::send_nack(I2C_TypeDef*)</a>
-      </td>
-      <td>
-        <a href="#l138">138</a>
-      </td>
-      <td>
-        <a href="#l138"> called 1 time</a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#l127">stm32::i2c::set_numbytes(I2C_TypeDef*, unsigned int)</a>
-      </td>
-      <td>
-        <a href="#l127">127</a>
-      </td>
-      <td>
-        <a href="#l127"> called 1 time</a>
+        <a href="#l52"> called 1 time</a>
       </td>
     </tr>
   </table>
@@ -923,7 +857,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;i2c_utils.hpp&gt;</span><span class="cp"></span></td>
+      <td class="src "><span class="cp">#ifndef __BITSET_UTILS_HPP__</span></td>
     </tr>
 
     <tr class="source-line">
@@ -931,7 +865,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;timer_manager.hpp&gt;</span><span class="cp"></span></td>
+      <td class="src "><span class="cp">#define __BITSET_UTILS_HPP__</span></td>
     </tr>
 
     <tr class="source-line">
@@ -947,7 +881,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="k">namespace</span><span class="w"> </span><span class="nn">stm32</span><span class="o">::</span><span class="nn">i2c</span><span class="w"></span></td>
+      <td class="src "><span class="c1">// used for x86-based testing</span></td>
     </tr>
 
     <tr class="source-line">
@@ -955,7 +889,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="src "><span class="cp">#ifdef X86_UNIT_TESTING_ONLY</span></td>
     </tr>
 
     <tr class="source-line">
@@ -963,7 +897,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -971,15 +905,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="cp">#endif</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l30" href="#l30">30</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="n">Status</span><span class="w"> </span><span class="nf">initialise_slave_device</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">StartType</span><span class="w"> </span><span class="n">start_type</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "></td>
     </tr>
 
     <tr class="source-line">
@@ -987,7 +921,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w">	</span></td>
+      <td class="src "><span class="c1">// used for arm target debug mode only.</span></td>
     </tr>
 
     <tr class="source-line">
@@ -995,15 +929,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// Set the master to operate in 7-bit addressing mode. Clear ADD10 bit[11] </span></td>
+      <td class="src "><span class="cp">#ifdef USE_RTT</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l33" href="#l33">33</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_ADD10</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">  </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SEGGER_RTT.h&gt;</span><span class="cp"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1011,7 +945,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="cp">#endif</span></td>
     </tr>
 
     <tr class="source-line">
@@ -1019,7 +953,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// Set the address for the slave device. Set SADD bits[7:1].</span></td>
+      <td class="src "></td>
     </tr>
 
     <tr class="source-line">
@@ -1027,23 +961,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// The bits SADD[9],SADD[8] and SADD[0] are don&#39;t care. </span></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l37" href="#l37">37</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_SADD</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bitset&gt;</span><span class="cp"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l38" href="#l38">38</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">addr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">	</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span><span class="cp"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1051,281 +985,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span></td>
+      <td class="src "><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gnuc_ext_defs.hpp&gt;</span><span class="cp"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l40" href="#l40">40</a></td>
-      <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/2</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 0 taken 2 times.</div>
-          <div class="takenBranch">&check; Branch 1 taken 4 times.</div>
-        </div>
-        </details>
-      </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">start_type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">StartType</span><span class="o">::</span><span class="n">PROBE</span><span class="p">)</span><span class="w"> </span><span class="c1">// generate START with AUTO-END enabled</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l41" href="#l41">41</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">{</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l42" href="#l42">42</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Master requests a write transfer</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l43" href="#l43">43</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_RD_WRN</span><span class="p">);</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l44" href="#l44">44</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l45" href="#l45">45</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Enable AUTOEND Mode. A STOP condition is automatically sent when NBYTES data are transferred.</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l46" href="#l46">46</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">I2C_CR2_AUTOEND</span><span class="p">;</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l47" href="#l47">47</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l48" href="#l48">48</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">}</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l49" href="#l49">49</a></td>
-      <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/2</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 0 taken 2 times.</div>
-          <div class="takenBranch">&check; Branch 1 taken 2 times.</div>
-        </div>
-        </details>
-      </td>
-      <td class="linecount coveredLine">4</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">start_type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">StartType</span><span class="o">::</span><span class="n">WRITE</span><span class="p">)</span><span class="w"> </span><span class="c1">// generate START with AUTO-END disabled</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l50" href="#l50">50</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">{</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l51" href="#l51">51</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Master requests a write transfer</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l52" href="#l52">52</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_RD_WRN</span><span class="p">);</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l53" href="#l53">53</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l54" href="#l54">54</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Disable RELOAD Mode. The transfer is completed after the NBYTES data transfer (STOP or RESTART follows).</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l55" href="#l55">55</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_RELOAD</span><span class="p">);</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l56" href="#l56">56</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l57" href="#l57">57</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Disable AUTOEND Mode. TC flag is set when NBYTES data are transferred, stretching SCL low.</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l58" href="#l58">58</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_AUTOEND</span><span class="p">);</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l59" href="#l59">59</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">}</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l60" href="#l60">60</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="k">else</span><span class="w"> </span><span class="c1">// (start_type == StartType::READ) // generate REPEATED START</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l61" href="#l61">61</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">{</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l62" href="#l62">62</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l63" href="#l63">63</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Master requests a read transfer</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l64" href="#l64">64</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">I2C_CR2_RD_WRN</span><span class="p">);</span><span class="w">	</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l65" href="#l65">65</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l66" href="#l66">66</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Disable RELOAD Mode. The transfer is completed after the NBYTES data transfer (STOP or RESTART follows).</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l67" href="#l67">67</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_RELOAD</span><span class="p">);</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l68" href="#l68">68</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l69" href="#l69">69</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// Disable AUTOEND Mode. TC flag is set when NBYTES data are transferred, stretching SCL low.</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l70" href="#l70">70</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_AUTOEND</span><span class="p">);</span><span class="w">	</span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l71" href="#l71">71</a></td>
-      <td class="linebranch">
-      </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">}</span><span class="w"></span></td>
-    </tr>
-
-    <tr class="source-line">
-      <td class="lineno"><a id="l72" href="#l72">72</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
@@ -1333,19 +997,296 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     </tr>
 
     <tr class="source-line">
-      <td class="lineno"><a id="l73" href="#l73">73</a></td>
+      <td class="lineno"><a id="l41" href="#l41">41</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// Generate the restart/start condition</span></td>
+      <td class="src "><span class="k">namespace</span><span class="w"> </span><span class="nn">noarch</span><span class="o">::</span><span class="nn">bit_manip</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l42" href="#l42">42</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">{</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l43" href="#l43">43</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l44" href="#l44">44</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l45" href="#l45">45</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @brief Adds source std::bitset to target std::bitset with msb_offset</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l46" href="#l46">46</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @tparam TARGET_SIZE The size of the source bitset container</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l47" href="#l47">47</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @tparam SOURCE_SIZE The size of the target bitset container</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l48" href="#l48">48</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @param target The target bitset container to copy into </span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l49" href="#l49">49</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @param source The source bitset container to copy from</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l50" href="#l50">50</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @param msb_offset insertion index starting from the right-most position</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l51" href="#l51">51</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">TARGET_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">SOURCE_SIZE</span><span class="o">&gt;</span><span class="w"> </span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l52" href="#l52">52</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">16</td>
+      <td class="src coveredLine"><span class="n">USED_API</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">insert_bitset_at_offset</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="o">&lt;</span><span class="n">TARGET_SIZE</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target</span><span class="p">,</span><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="o">&lt;</span><span class="n">SOURCE_SIZE</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">source</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="o">&amp;</span><span class="n">msb_offset</span><span class="p">)</span><span class="w"> </span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l53" href="#l53">53</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">{</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l54" href="#l54">54</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="c1">// protect against oversized msb_offset or SOURCE params</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l55" href="#l55">55</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">2/2</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 0 taken 4 times.</div>
+          <div class="takenBranch">&check; Branch 1 taken 4 times.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount coveredLine">16</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">msb_offset</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SOURCE_SIZE</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">TARGET_SIZE</span><span class="p">)</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l56" href="#l56">56</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">{</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l57" href="#l57">57</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">8</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l58" href="#l58">58</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l59" href="#l59">59</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="c1">// iterate over the source bitset pattern</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l60" href="#l60">60</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">2/2</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 1 taken 16 times.</div>
+          <div class="takenBranch">&check; Branch 2 taken 4 times.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount coveredLine">40</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">idx</span><span class="o">++</span><span class="p">)</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l61" href="#l61">61</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">{</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l62" href="#l62">62</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="c1">// start from the common register msb and work backwards towards lsb,</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l63" href="#l63">63</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="c1">// ...minus the offset</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l64" href="#l64">64</a></td>
+      <td class="linebranch">
+        <details class="linebranchDetails">
+        <summary class="linebranchSummary">2/2</summary>
+        <div class="linebranchContents">
+          <div class="takenBranch">&check; Branch 1 taken 8 times.</div>
+          <div class="takenBranch">&check; Branch 2 taken 8 times.</div>
+        </div>
+        </details>
+      </td>
+      <td class="linecount coveredLine">32</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l65" href="#l65">65</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">{</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l66" href="#l66">66</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">16</td>
+      <td class="src coveredLine"><span class="w">            </span><span class="n">target</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">msb_offset</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l67" href="#l67">67</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l68" href="#l68">68</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="k">else</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l69" href="#l69">69</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">{</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l70" href="#l70">70</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">16</td>
+      <td class="src coveredLine"><span class="w">            </span><span class="n">target</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">msb_offset</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l71" href="#l71">71</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l72" href="#l72">72</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l73" href="#l73">73</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount coveredLine">8</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l74" href="#l74">74</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">generate_start_condition</span><span class="p">(</span><span class="n">i2c_handle</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">}</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1361,15 +1302,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// give slave a chance to respond</span></td>
+      <td class="src "><span class="c1">// @brief Converts bits to same sized byte array LSB first. 0101 becomes 1010. </span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l77" href="#l77">77</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">stm32</span><span class="o">::</span><span class="n">TimerManager</span><span class="o">::</span><span class="n">delay_microsecond</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// Oversized bitsets are truncated, undersized bitsets are zero-padded</span></td>
     </tr>
 
     <tr class="source-line">
@@ -1377,7 +1318,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="c1">// @tparam TARGET_SIZE The size of the target_array std::array</span></td>
     </tr>
 
     <tr class="source-line">
@@ -1385,22 +1326,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// check if addr was not recognised by slave device</span></td>
+      <td class="src "><span class="c1">// @tparam SOURCE_SIZE The size of the source_bitset std::bitset</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l80" href="#l80">80</a></td>
       <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/2</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 0 taken 3 times.</div>
-          <div class="takenBranch">&check; Branch 1 taken 3 times.</div>
-        </div>
-        </details>
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">ISR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_ISR_NACKF</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">I2C_ISR_NACKF</span><span class="w"> </span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @param target_array The std::array object copied to. Caution, all pre-existing contents is destroyed.</span></td>
     </tr>
 
     <tr class="source-line">
@@ -1408,23 +1342,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">{</span><span class="w"></span></td>
+      <td class="src "><span class="c1">// @param source_bitset The std::bitset object copied from. </span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l82" href="#l82">82</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">3</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="n">Status</span><span class="o">::</span><span class="n">NACK</span><span class="p">;</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">TARGET_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">SOURCE_SIZE</span><span class="o">&gt;</span><span class="w"> </span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l83" href="#l83">83</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount coveredLine">3</td>
+      <td class="src coveredLine"><span class="n">USED_API</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bitset_to_bytearray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="p">,</span><span class="w"> </span><span class="n">TARGET_SIZE</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">target_array</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="o">&lt;</span><span class="n">SOURCE_SIZE</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">source_bitset</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1432,15 +1366,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// otherwise slave device is happy</span></td>
+      <td class="src "><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l85" href="#l85">85</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">3</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="n">Status</span><span class="o">::</span><span class="n">ACK</span><span class="p">;</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span></td>
     </tr>
 
     <tr class="source-line">
@@ -1448,15 +1382,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">}</span><span class="w"></span></td>
+      <td class="src "><span class="w">    </span><span class="c1">// 8-bit byte</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l87" href="#l87">87</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="linecount coveredLine">3</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">word_size_bits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span></td>
     </tr>
 
     <tr class="source-line">
@@ -1472,15 +1406,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">    </span><span class="c1">// clear the array before starting</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l90" href="#l90">90</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="n">Status</span><span class="w"> </span><span class="nf">receive_byte</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rx_byte</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount coveredLine">3</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="n">target_array</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1488,31 +1422,31 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="src "></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l92" href="#l92">92</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">rx_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">RXDR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_RXDR_RXDATA</span><span class="p">;</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="c1">// iterate each byte in the array and fill it</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l93" href="#l93">93</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="linecount coveredLine">8</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">byte_array_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">byte_array_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">target_array</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">byte_array_idx</span><span class="o">++</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l94" href="#l94">94</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="n">Status</span><span class="o">::</span><span class="n">ACK</span><span class="p">;</span><span class="w">	</span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1520,15 +1454,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">        </span><span class="c1">// This is the current position within the bitset, relative to the current byte</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l96" href="#l96">96</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount coveredLine">5</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">bit_offset_within_pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">byte_array_idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">word_size_bits</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1544,15 +1478,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">        </span><span class="c1">// used to bitshift the individual bits into the current byte</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l99" href="#l99">99</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="n">Status</span><span class="w"> </span><span class="nf">send_byte</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">tx_byte</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount coveredLine">5</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">bit_offset_within_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">word_size_bits</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1560,23 +1494,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="src "></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l101" href="#l101">101</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">TXDR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tx_byte</span><span class="p">;</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="c1">// iterate the bitset position [n -&gt; n + 8)</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l102" href="#l102">102</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span></td>
+      <td class="linecount coveredLine">45</td>
+      <td class="src coveredLine"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">pattern_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bit_offset_within_pattern</span><span class="p">;</span><span class="w"> </span><span class="n">pattern_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">bit_offset_within_pattern</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">word_size_bits</span><span class="p">;</span><span class="w"> </span><span class="n">pattern_idx</span><span class="o">++</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1584,30 +1518,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// wait for I2C_ISR_TXE (Transmit data register empty) before continuing</span></td>
+      <td class="src "><span class="w">        </span><span class="p">{</span><span class="w">   </span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l104" href="#l104">104</a></td>
       <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/2</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 0 taken 2 times.</div>
-          <div class="takenBranch">&check; Branch 1 taken 2 times.</div>
-        </div>
-        </details>
       </td>
-      <td class="linecount coveredLine">4</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">while</span><span class="w"> </span><span class="p">(((</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">ISR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_ISR_TXE</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">I2C_ISR_TXE</span><span class="p">))</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="c1">// double check we haven&#39;t overshot the input bitset length</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l105" href="#l105">105</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">{</span><span class="w"></span></td>
+      <td class="linecount coveredLine">40</td>
+      <td class="src coveredLine"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pattern_idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">source_bitset</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1615,46 +1542,39 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">		</span><span class="c1">// do nothing</span></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l107" href="#l107">107</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="n">stm32</span><span class="o">::</span><span class="n">TimerManager</span><span class="o">::</span><span class="n">delay_microsecond</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l108" href="#l108">108</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount coveredLine">32</td>
+      <td class="src coveredLine"><span class="w">                </span><span class="n">target_array</span><span class="p">[</span><span class="n">byte_array_idx</span><span class="p">]</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="n">source_bitset</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">pattern_idx</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bit_offset_within_byte</span><span class="p">);</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l109" href="#l109">109</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="c1">// check if slave device responded with NACK</span></td>
+      <td class="linecount coveredLine">32</td>
+      <td class="src coveredLine"><span class="w">                </span><span class="n">bit_offset_within_byte</span><span class="o">--</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l110" href="#l110">110</a></td>
       <td class="linebranch">
-        <details class="linebranchDetails">
-        <summary class="linebranchSummary">2/2</summary>
-        <div class="linebranchContents">
-          <div class="takenBranch">&check; Branch 0 taken 1 times.</div>
-          <div class="takenBranch">&check; Branch 1 taken 1 times.</div>
-        </div>
-        </details>
       </td>
-      <td class="linecount coveredLine">2</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="p">(((</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">ISR</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">I2C_ISR_NACKF</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">I2C_ISR_NACKF</span><span class="p">))</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="p">}</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1662,31 +1582,31 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">{</span><span class="w"></span></td>
+      <td class="src "><span class="w">            </span><span class="k">else</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l112" href="#l112">112</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="n">Status</span><span class="o">::</span><span class="n">NACK</span><span class="p">;</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l113" href="#l113">113</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="w">	</span><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount coveredLine">8</td>
+      <td class="src coveredLine"><span class="w">                </span><span class="n">target_array</span><span class="p">[</span><span class="n">byte_array_idx</span><span class="p">]</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l114" href="#l114">114</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="n">Status</span><span class="o">::</span><span class="n">ACK</span><span class="p">;</span><span class="w"></span></td>
+      <td class="linecount coveredLine">8</td>
+      <td class="src coveredLine"><span class="w">                </span><span class="n">bit_offset_within_byte</span><span class="o">--</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1694,7 +1614,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">}</span><span class="w"></span></td>
+      <td class="src "><span class="w">            </span><span class="p">}</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1702,39 +1622,39 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w">        </span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l117" href="#l117">117</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="kt">void</span><span class="w"> </span><span class="nf">generate_stop_condition</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="p">}</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l118" href="#l118">118</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="linecount coveredLine">3</td>
+      <td class="src coveredLine"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l119" href="#l119">119</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">I2C_CR2_STOP</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">}</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l120" href="#l120">120</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "></td>
     </tr>
 
     <tr class="source-line">
@@ -1742,15 +1662,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="c1">// @brief Print out the provided bitset as bytes</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l122" href="#l122">122</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="kt">void</span><span class="w"> </span><span class="nf">generate_start_condition</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="c1">// @param pattern The bitset to print</span></td>
     </tr>
 
     <tr class="source-line">
@@ -1758,23 +1678,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="src "><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">BITSET_SIZE</span><span class="o">&gt;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l124" href="#l124">124</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">I2C_CR2_START</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="n">USED_API</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">print_bits</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="o">&lt;</span><span class="n">BITSET_SIZE</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pattern</span><span class="w"> </span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]])</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l125" href="#l125">125</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">6</td>
-      <td class="src coveredLine"><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1782,15 +1702,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">    </span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l127" href="#l127">127</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="kt">void</span><span class="w"> </span><span class="nf">set_numbytes</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">nbytes</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="cp">#ifdef USE_RTT</span></td>
     </tr>
 
     <tr class="source-line">
@@ -1798,31 +1718,31 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="src "><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">pattern</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">idx</span><span class="o">++</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l129" href="#l129">129</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_NBYTES</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l130" href="#l130">130</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">nbytes</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">I2C_CR2_NBYTES_Pos</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l131" href="#l131">131</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">                </span><span class="n">SEGGER_RTT_printf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">);</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1830,15 +1750,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l133" href="#l133">133</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="kt">void</span><span class="w"> </span><span class="nf">send_ack</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">                </span><span class="n">SEGGER_RTT_printf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w">            </span></td>
     </tr>
 
     <tr class="source-line">
@@ -1846,23 +1766,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="src "><span class="w">            </span><span class="n">SEGGER_RTT_printf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%u &quot;</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="n">pattern</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">idx</span><span class="p">));</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l135" href="#l135">135</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="n">I2C_CR2_NACK</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l136" href="#l136">136</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="n">SEGGER_RTT_printf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w">       </span></td>
     </tr>
 
     <tr class="source-line">
@@ -1870,15 +1790,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">    </span><span class="cp">#endif</span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l138" href="#l138">138</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="kt">void</span><span class="w"> </span><span class="nf">send_nack</span><span class="p">(</span><span class="n">I2C_TypeDef</span><span class="o">*</span><span class="w"> </span><span class="n">i2c_handle</span><span class="p">)</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="cp">#ifdef X86_UNIT_TESTING_ONLY</span></td>
     </tr>
 
     <tr class="source-line">
@@ -1886,23 +1806,23 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">{</span><span class="w"></span></td>
+      <td class="src "><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">pattern</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">idx</span><span class="o">++</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l140" href="#l140">140</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="w">	</span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i2c_handle</span><span class="o">-&gt;</span><span class="n">CR2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">I2C_CR2_NACK</span><span class="p">);</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l141" href="#l141">141</a></td>
       <td class="linebranch">
       </td>
-      <td class="linecount coveredLine">1</td>
-      <td class="src coveredLine"><span class="p">}</span><span class="w"></span></td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1910,7 +1830,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
@@ -1918,11 +1838,131 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
-      <td class="src "><span class="p">}</span><span class="w"> </span><span class="c1">// namespace stm32::i2c</span></td>
+      <td class="src "><span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span><span class="w"></span></td>
     </tr>
 
     <tr class="source-line">
       <td class="lineno"><a id="l144" href="#l144">144</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l145" href="#l145">145</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">idx</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l146" href="#l146">146</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="p">{</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l147" href="#l147">147</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l148" href="#l148">148</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l149" href="#l149">149</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">noboolalpha</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pattern</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l150" href="#l150">150</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l151" href="#l151">151</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l152" href="#l152">152</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="w">    </span><span class="cp">#endif</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l153" href="#l153">153</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">}</span><span class="w"></span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l154" href="#l154">154</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l155" href="#l155">155</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="p">}</span><span class="w"> </span><span class="c1">// namespace noarch::bit_manip</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l156" href="#l156">156</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l157" href="#l157">157</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l158" href="#l158">158</a></td>
+      <td class="linebranch">
+      </td>
+      <td class="linecount "></td>
+      <td class="src "><span class="cp">#endif </span><span class="c1">// __BITSET_UTILS_HPP__</span></td>
+    </tr>
+
+    <tr class="source-line">
+      <td class="lineno"><a id="l159" href="#l159">159</a></td>
       <td class="linebranch">
       </td>
       <td class="linecount "></td>
