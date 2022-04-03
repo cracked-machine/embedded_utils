@@ -49,14 +49,9 @@
             ]
         },
         {
-            "label": "Delete HTML",
-            "type": "shell",
-            "command": "rm ${workspaceRoot}/coverage/*.html"
-        },
-        {
             "label": "Open coverage report",
             "type": "shell",
-            "command": "firefox ${workspaceRoot}/coverage/code.pdf"
+            "command": "firefox ${workspaceRoot}/coverage/index.html"
         },
         {
             "label": "CheckTest",

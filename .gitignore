@@ -32,5 +32,3 @@
 *.app
 
 build
-coverage/*.css
-coverage/*.html
