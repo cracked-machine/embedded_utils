@@ -29,6 +29,7 @@ namespace stm32::usart
 bool enable_usart(USART_TypeDef *usart_handle)
 {
     if (usart_handle == nullptr) { return false; }
+    
     usart_handle->CR1 = usart_handle->CR1 | USART_CR1_UE;
     return true;
 }
@@ -36,6 +37,10 @@ bool enable_usart(USART_TypeDef *usart_handle)
 bool transmit_byte(USART_TypeDef *usart_handle, uint8_t byte)
 {
     if (usart_handle == nullptr) { return false; }
+
+    while(!wait_for_bsy_flag(usart_handle));
+    while(!wait_for_tc_flag(usart_handle));
+    
     usart_handle->TDR = byte;
     return true;
 }
@@ -49,10 +54,7 @@ bool wait_for_tc_flag(USART_TypeDef *usart_handle, uint32_t delay_us)
     {
         // if not then wait before checking again
         stm32::TimerManager::delay_microsecond(delay_us);
-        if ((usart_handle->ISR & USART_ISR_TC) != (USART_ISR_TC))
-        { 
-            return false;
-        }
+        return false;
         
     }
 
@@ -70,10 +72,7 @@ bool wait_for_bsy_flag(USART_TypeDef *usart_handle, uint32_t delay_us)
     {
         // give USART bus a chance to finish sending data before checking again
         stm32::TimerManager::delay_microsecond(delay_us);
-        if ((usart_handle->ISR & USART_ISR_BUSY) == (USART_ISR_BUSY))
-        { 
-            return false;
-        }
+        return false;
     }    
     return true; 
 }   

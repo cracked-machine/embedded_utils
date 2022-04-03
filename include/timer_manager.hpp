@@ -57,7 +57,7 @@ class TimerManager : public RestrictedBase
 public:
     // @brief Set up the timer instance. This resets the TIM_TypeDef pointer if already set.
     // @param timer The pointer to TIM_TypeDef
-    [[nodiscard("Return value discarded from TimerManager::initialise()")]] 
+    [[nodiscard]] 
     static bool initialise(TIM_TypeDef *timer);
 
     // @brief wait for a microsecond delay

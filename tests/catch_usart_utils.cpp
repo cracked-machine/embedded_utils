@@ -12,7 +12,13 @@ TEST_CASE("usart_utils", "[usart_utils]")
     std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer);   
     
     // setup mock USART periph
-    USART_TypeDef *usart_handle = new USART_TypeDef;
+    USART_TypeDef *usart_handle = nullptr;
+    REQUIRE_FALSE(stm32::usart::enable_usart(usart_handle));
+    REQUIRE_FALSE(stm32::usart::transmit_byte(usart_handle, 0));
+    REQUIRE_FALSE(stm32::usart::wait_for_bsy_flag(usart_handle));
+    REQUIRE_FALSE(stm32::usart::wait_for_tc_flag(usart_handle));
+    
+    usart_handle = new USART_TypeDef;
     REQUIRE(stm32::usart::enable_usart(usart_handle));
     REQUIRE(usart_handle->CR1 & USART_CR1_UE_Msk);
 
@@ -20,6 +26,8 @@ TEST_CASE("usart_utils", "[usart_utils]")
     {      
         std::cout << "usart_utils - transmit_byte" << std::endl;
         uint32_t test_byte {0xA0};
+        usart_handle->ISR = usart_handle->ISR | USART_ISR_TC_Msk;
+        usart_handle->ISR = usart_handle->ISR & ~USART_ISR_BUSY_Msk;
         REQUIRE(stm32::usart::transmit_byte(usart_handle, test_byte));
         REQUIRE(usart_handle->TDR == test_byte);
     }

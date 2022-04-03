@@ -4,6 +4,9 @@ message("\n** Configuring Host Environment for CTest**")
 message("** Selected Kit: ${CMAKE_C_COMPILER} **")
 message("** Selected Kit: ${CMAKE_CXX_COMPILER} **\n")
 
+set(CMAKE_C_STANDARD    17)
+set(CMAKE_CXX_STANDARD  20)
+
 set(CMAKE_SYSTEM_NAME		Linux)
 set(CMAKE_SYSTEM_VERSION	1)
 set(CMAKE_SYSTEM_PROCESSOR	Linux)
