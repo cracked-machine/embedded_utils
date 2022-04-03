@@ -4,19 +4,49 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Cleanup GCOVR files",
+            "label": "Cleanup files",
             "type": "shell",
-            "command": "rm -rf build/CMakeFiles/test_suite.dir/"
+            "command": "rm",
+            "args": [
+                "-rf",
+                "${workspaceRoot}/build/CMakeFiles/test_suite.dir/",
+                "${workspaceRoot}/coverage/*",
+            ]
         },
         {
             "label": "CMake: Configure",
             "type": "shell",
-            "command": "cmake --no-warn-unused-cli -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/bin/x86_64-linux-gnu-gcc-10 -Bbuild -G Ninja ."
+            "command": "cmake",
+            "args": [
+                "--no-warn-unused-cli",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE",
+                "-DCMAKE_BUILD_TYPE:STRING=Debug",
+                "-DCMAKE_C_COMPILER:FILEPATH=/bin/x86_64-linux-gnu-gcc-10",
+                "-Bbuild",
+                "-G", "Ninja", ".",
+            ]
         },
         {
-            "label": "CMake: Clean Rebuild",
+            "label": "CMake: Clean",
             "type": "shell",
-            "command": "cmake --build build --config Debug --target clean --; cmake --build build --config Debug --target all --"
+            "command": "cmake",
+            "args": [
+                "--build", "build",
+                "--config", "Debug",
+                "--target", "clean",
+                "--",
+            ]
+        },
+        {
+            "label": "CMake: Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "build",
+                "--config", "Debug",
+                "--target", "all", 
+                "--",
+            ]
         },
         {
             "label": "Run",
@@ -31,6 +61,8 @@
             "args": [
                 "-r", "${workspaceRoot}",
                 "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
+                "--html-self-contained",
+                "--html-absolute-paths",
                 "--html",
                 "--html-details",
                 "-o", "${workspaceRoot}/coverage/index.html",
@@ -43,23 +75,31 @@
             "args": [
                 "-r", "${workspaceRoot}",
                 "--exclude-directories", "'build/CMakeFiles/test_suite.dir/tests'", // exclude coverage search for tests
+                "--decisions",
                 "--xml",
                 "--xml-pretty",
                 "-o", "coverage/coverage.xml",
             ]
         },
         {
+            "label": "convert html to pdf",
+            "type": "shell",
+            "command": "wkhtmltopdf ${workspaceRoot}/coverage/index.html ${workspaceRoot}/coverage/*.html ${workspaceRoot}/coverage/code.pdf"
+        },
+        {
             "label": "Open coverage report",
             "type": "shell",
-            "command": "firefox ${workspaceRoot}/coverage/index.html"
+            "command": "firefox",
+            "args": [ "${workspaceRoot}/coverage/index.html" ]
         },
         {
             "label": "CheckTest",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Cleanup GCOVR files",
+                "Cleanup files",
                 "CMake: Configure",
-                "CMake: Clean Rebuild",
+                "CMake: Clean",
+                "CMake: Build",
                 "Run"
             ],
             "problemMatcher": []
@@ -68,9 +108,10 @@
             "label": "Complete All Tasks",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Cleanup GCOVR files",
+                "Cleanup files",
                 "CMake: Configure",
-                "CMake: Clean Rebuild",
+                "CMake: Clean",
+                "CMake: Build",
                 "Run",
                 "Create HTML report",
                 "Convert HTML to PDF",
