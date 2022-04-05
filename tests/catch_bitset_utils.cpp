@@ -19,6 +19,7 @@ TEST_CASE("insert_bitset_at_offset - zero msb_offset", "[bitset_utils]")
     // reset back to 00000000 and check
     REQUIRE(noarch::bit_manip::insert_bitset_at_offset(target, source.flip(), 0));
     REQUIRE(target == 0);
+    
 
 }
 
