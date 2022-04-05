@@ -183,9 +183,9 @@ USED_API StaticBitset<SIZE>& StaticBitset<SIZE>::operator<<= (size_t pos)
         const size_t sub_offset = bits_per_word - offset;
         for (size_t idx = m_word.size() - 1; idx >= wshift; --idx)
         {
-            bool wshifted;
+            bool wshifted {false};
             this->get(idx - wshift, wshifted);
-            bool wshifted_1;
+            bool wshifted_1 {false};
             this->get(idx - wshift -1, wshifted_1);
             this->set(idx, ((wshifted << offset) | (wshifted_1 << sub_offset))); 
             // this->set(idx, ((this[idx - wshift] << offset) | (this[idx - wshift -1] >> sub_offset)));
