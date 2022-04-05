@@ -173,7 +173,7 @@ USED_API StaticBitset<SIZE>& StaticBitset<SIZE>::operator<<= (size_t pos)
     {
         for (size_t idx = m_word.size() - 1; idx >= wshift; --idx)
         {   
-            bool wshifted;
+            bool wshifted {false};
             this->get(idx - wshift, wshifted);
             this->set(idx, wshifted);
         }
