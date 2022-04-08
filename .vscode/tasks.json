@@ -83,18 +83,13 @@
             ]
         },
         {
-            "label": "convert html to pdf",
-            "type": "shell",
-            "command": "wkhtmltopdf ${workspaceRoot}/coverage/index.html ${workspaceRoot}/coverage/*.html ${workspaceRoot}/coverage/code.pdf"
-        },
-        {
             "label": "Open coverage report",
             "type": "shell",
             "command": "firefox",
             "args": [ "${workspaceRoot}/coverage/index.html" ]
         },
         {
-            "label": "CheckTest",
+            "label": "RunTests",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Cleanup files",
@@ -109,14 +104,9 @@
             "label": "Complete All Tasks",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Cleanup files",
-                "CMake: Configure",
-                "CMake: Clean",
-                "CMake: Build",
-                "Run",
+                "RunTests",
+                "Create XML report",
                 "Create HTML report",
-                "Convert HTML to PDF",
-                "Delete HTML",
                 "Open coverage report"
             ],
             "problemMatcher": []
