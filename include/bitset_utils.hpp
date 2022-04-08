@@ -35,7 +35,6 @@
 
 #include <stdint.h>
 #include <bitset>
-#include <static_bitset.hpp>
 #include <array>
 #include <gnuc_ext_defs.hpp>
 

@@ -6,7 +6,6 @@ target_sources(${BUILD_NAME} PRIVATE
     catch_spi_utils.cpp
     catch_usart_utils.cpp
     catch_static_map.cpp
-    catch_static_bitset.cpp
     catch_static_string.cpp
 
 )
