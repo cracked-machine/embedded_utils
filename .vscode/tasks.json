@@ -61,6 +61,7 @@
             "args": [
                 "-r", "${workspaceRoot}",
                 "-e", "tests/catch.*$",
+                "-e", "build.*$",
                 "--exclude-unreachable-branches",
                 "--html-self-contained",
                 "--html-absolute-paths",
@@ -76,6 +77,7 @@
             "args": [
                 "-r", "${workspaceRoot}",
                 "-e", "tests/catch.*$",
+                "-e", "build.*$",
                 "--exclude-unreachable-branches",
                 "--xml",
                 "--xml-pretty",
