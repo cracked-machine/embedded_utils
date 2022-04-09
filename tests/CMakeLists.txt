@@ -11,5 +11,8 @@ target_sources(${BUILD_NAME} PRIVATE
 )
 
 target_include_directories(${BUILD_NAME} PRIVATE 
-    .
+    ${CMAKE_SOURCE_DIR}/tests
+    ${CMAKE_SOURCE_DIR}/tests/mocks
+    ${CMAKE_SOURCE_DIR}/include
+
 )

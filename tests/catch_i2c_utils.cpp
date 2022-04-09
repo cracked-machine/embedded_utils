@@ -1,79 +1,11 @@
 #include <catch2/catch_all.hpp>
-#include <catch_timer_manager.hpp>
+
 #include <timer_manager.hpp>
 #include <i2c_utils.hpp>
 
 const uint8_t EXPECTED_ADDRESS {0x45};
 
-enum class SlaveStatus
-{
-    ACK,
-    NACK
-};
 
-/// @brief Mock function to test stm32::i2c::initalise_slave_device()
-/// @param i2c_handle The mocked i2c peripheral
-/// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
-bool mock_i2c_start_condition_generation(I2C_TypeDef *i2c_handle)
-{
-    if (i2c_handle == nullptr)
-    {
-        return false;
-    }
-    // loop while peripheral is enabled
-    while((i2c_handle->CR1 & I2C_CR1_PE_Msk) == I2C_CR1_PE_Msk)
-    {
-        // start condition was generated
-        if (i2c_handle->CR2 & I2C_CR2_START_Msk == I2C_CR2_START_Msk)
-        { 
-            if ((i2c_handle->CR2 & I2C_CR2_SADD_Msk) == EXPECTED_ADDRESS)
-            {
-                // expected address was used
-                return true;
-            }
-            else
-            {
-                // UNexpected address was used
-                i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_NACKF_Msk;
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-/// @brief Mock function to test stm32::i2c::send_byte()
-/// @param i2c_handle The mocked i2c peripheral
-/// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
-bool mock_i2c_tx_fifo_empty(I2C_TypeDef *i2c_handle, SlaveStatus slave_status)
-{
-    // input check
-    if (i2c_handle == nullptr) { return false; }
-    // reset the register to prevent false positive
-    i2c_handle->ISR = i2c_handle->ISR & ~I2C_ISR_TXE;
-
-    // loop while peripheral is enabled
-    while((i2c_handle->CR1 & I2C_CR1_PE_Msk) == I2C_CR1_PE_Msk)
-    {
-        // wait test bytes to be copied into TX FIFO
-        if (i2c_handle->TXDR != 0)
-        {
-            
-            stm32::TimerManager::delay_microsecond(1);
-            // mock the emptying of the TX FIFO
-            i2c_handle->TXDR = 0;
-            // mock the signaling that the TX FIFO is empty
-            i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_TXE;
-            stm32::TimerManager::delay_microsecond(1);
-            // simulate unhappy slave device, if requested by unit test
-            if (slave_status == SlaveStatus::NACK) { i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_NACKF_Msk; }
-            
-        }
-    }
-
-    return true;
-}
 
 TEST_CASE("i2c_utils - Generate stop condition")
 {
@@ -189,7 +121,7 @@ TEST_CASE("i2c_utils - initialise_slave_device function", "[i2c_utils]")
     // enable the periph
 	i2c_handle->CR1 = i2c_handle->CR1 | I2C_CR1_PE_Msk; 
     // start test fixture thread
-    std::future<bool> i2c_res = std::async(std::launch::async, mock_i2c_start_condition_generation, i2c_handle); 
+    std::future<bool> i2c_res = std::async(std::launch::async, mock_i2c_start_condition_generation, i2c_handle, EXPECTED_ADDRESS); 
     
     SECTION("PROBE: Invalid Address")
     {

@@ -1,8 +1,8 @@
 #include <catch2/catch_all.hpp>
+
+#include <timer_manager.hpp>
 #include <usart_utils.hpp>
-#include <mock_cmsis.hpp>
-#include <catch_timer_manager.hpp>
-#include <iostream>
+
 
 TEST_CASE("usart_utils", "[usart_utils]")
 {

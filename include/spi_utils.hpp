@@ -25,7 +25,7 @@
 
 #if defined(X86_UNIT_TESTING_ONLY)
 	// this file should contain SPI bit definitions
-	#include <mock_cmsis.hpp>
+	#include <mock.hpp>
 #else
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
