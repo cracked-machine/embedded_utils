@@ -49,7 +49,9 @@ namespace noarch::bit_manip
 // @param source The source bitset container to copy from
 // @param msb_offset insertion index starting from the right-most position
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-USED_API bool insert_bitset_at_offset(std::bitset<TARGET_SIZE> &target,  const std::bitset<SOURCE_SIZE> &source, const uint16_t &msb_offset) 
+USED_API bool insert_bitset_at_offset(  std::bitset<TARGET_SIZE> &target,  
+                                        const std::bitset<SOURCE_SIZE> &source, 
+                                        const uint16_t &msb_offset) 
 {
     // protect against oversized msb_offset or SOURCE params
     if (msb_offset + SOURCE_SIZE > TARGET_SIZE)
@@ -63,11 +65,13 @@ USED_API bool insert_bitset_at_offset(std::bitset<TARGET_SIZE> &target,  const s
         // ...minus the offset
         if (source.test(idx))
         {
-            target.set(msb_offset + (source.size() - 1)  - idx, true);
+            // don't use std::bitset.set(), this will force exception handling to bloat the linked .elf
+            target[msb_offset + (source.size() - 1)  - idx] = true;
         }
         else
         {
-            target.set(msb_offset + (source.size() - 1) - idx , false);
+            // don't use std::bitset.set(), this will force exception handling to bloat the linked .elf
+            target[msb_offset + (source.size() - 1) - idx] = false;
         }
     }
     return true;
