@@ -1,6 +1,3 @@
-#ifndef __MOCK_CMSIS_HPP__
-#define __MOCK_CMSIS_HPP__
-
 /**
   ******************************************************************************
   * @file    stm32g0b1xx.h
@@ -28,8 +25,22 @@
   ******************************************************************************
   */
 
-#ifndef STM32G0B1xx_H
-#define STM32G0B1xx_H
+#ifndef __MOCK_STM32G0B1XX_DEFS_HPP__
+#define __MOCK_STM32G0B1XX_DEFS_HPP__
+
+#define SET_BIT(REG, BIT)     ((REG) |= (BIT))
+
+#define CLEAR_BIT(REG, BIT)   ((REG) &= ~(BIT))
+
+#define READ_BIT(REG, BIT)    ((REG) & (BIT))
+
+#define CLEAR_REG(REG)        ((REG) = (0x0))
+
+#define WRITE_REG(REG, VAL)   ((REG) = (VAL))
+
+#define READ_REG(REG)         ((REG))
+
+#define MODIFY_REG(REG, CLEARMASK, SETMASK)  WRITE_REG((REG), (((READ_REG(REG)) & (~(CLEARMASK))) | (SETMASK)))
 
 #include <cstdint>
 
@@ -11188,33 +11199,10 @@ inline auto UCPD2               = ((UCPD_TypeDef *) UCPD2_BASE);
 /*********************** USB OTG HCD Instances ********************************/
 #define IS_HCD_ALL_INSTANCE(INSTANCE) (((INSTANCE) == USB_DRD_FS))
 
-/**
-  * @}
-  */
-
- /**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* STM32G0B1xx_H */
+#endif /* __MOCK_STM32G0B1XX_DEFS_HPP__ */
 
-/**
-  * @}
-  */
-
-  /**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
-
-#endif 
