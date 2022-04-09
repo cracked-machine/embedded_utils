@@ -18,7 +18,7 @@ The dependency tree of the mocks are structured so that you only need to include
 
 ![](../doc/Mock_CMSIS_Dependency_Diagram.png)
 
-New drivers in this project should include the `mock.hpp` header within a guard to ensure it is not used for STM32 target builds. For example:
+New drivers should include the `mock.hpp` header within a guard to ensure it is not used for STM32 target builds. For example:
 
 ```
 #if defined(X86_UNIT_TESTING_ONLY)
