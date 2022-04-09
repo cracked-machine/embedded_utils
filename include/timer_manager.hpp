@@ -24,7 +24,6 @@
 #define __TIMER_MANAGER_HPP__
 
 #if defined(X86_UNIT_TESTING_ONLY)
-    // This file should contain TIM bit definitions
     #include <mock.hpp>
 #else
 	#pragma GCC diagnostic push
