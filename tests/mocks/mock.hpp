@@ -28,5 +28,8 @@
 #include <mock_tim.hpp>
 #include <mock_i2c.hpp>
 
+// misc deps
+#include <iomanip>
+
 
 #endif // __MOCK_HPP__

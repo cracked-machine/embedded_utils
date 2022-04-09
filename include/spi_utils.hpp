@@ -23,10 +23,7 @@
 #ifndef __SPI_UTILS_HPP__
 #define __SPI_UTILS_HPP__
 
-#if defined(X86_UNIT_TESTING_ONLY)
-	// this file should contain SPI bit definitions
-	#include <mock.hpp>
-#else
+#ifndef X86_UNIT_TESTING_ONLY
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
 	// add groups for device family

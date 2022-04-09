@@ -24,9 +24,12 @@
 #ifndef __STATIC_MAP_HPP__
 #define __STATIC_MAP_HPP__
 
-// #include <algorithm>
+
 #include <array>
+
+// defines "USED_API __attribute__((__used__))"
 #include <gnuc_ext_defs.hpp>
+
 // @brief For working example see https://godbolt.org/z/deza1Ecnn
 
 namespace noarch::containers

@@ -23,11 +23,6 @@
 #ifndef __BITSET_UTILS_HPP__
 #define __BITSET_UTILS_HPP__
 
-// used for x86-based testing
-#ifdef X86_UNIT_TESTING_ONLY
-    #include <iostream>
-#endif
-
 // used for arm target debug mode only.
 #ifdef USE_RTT
   #include <SEGGER_RTT.h>
@@ -36,6 +31,8 @@
 #include <stdint.h>
 #include <bitset>
 #include <array>
+
+// defines "USED_API __attribute__((__used__))"
 #include <gnuc_ext_defs.hpp>
 
 namespace noarch::bit_manip

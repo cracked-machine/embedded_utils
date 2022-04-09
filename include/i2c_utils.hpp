@@ -25,12 +25,8 @@
 
 #include <cstdint>
 #include <array>
-// #include <memory>
 
-#if defined(X86_UNIT_TESTING_ONLY)
-	// This file should contain I2C bit definitions
-	#include <mock.hpp>
-#else
+#ifndef X86_UNIT_TESTING_ONLY
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
 	// add groups for device family

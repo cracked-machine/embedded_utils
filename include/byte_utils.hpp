@@ -24,11 +24,8 @@
 #define __BYTE_UTILS_HPP__
 
 #include <stdint.h>
-#ifdef X86_UNIT_TESTING_ONLY
-    #include <iostream>
-    #include <iomanip>
-#endif
 
+// defines "USED_API __attribute__((__used__))"
 #include <gnuc_ext_defs.hpp>
 
 namespace noarch::byte_manip

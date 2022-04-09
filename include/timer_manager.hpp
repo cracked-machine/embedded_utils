@@ -23,9 +23,7 @@
 #ifndef __TIMER_MANAGER_HPP__
 #define __TIMER_MANAGER_HPP__
 
-#if defined(X86_UNIT_TESTING_ONLY)
-    #include <mock.hpp>
-#else
+#ifndef X86_UNIT_TESTING_ONLY
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
 	// add groups for device family    
@@ -38,10 +36,7 @@
 	#pragma GCC diagnostic pop
 #endif
 
-// #include <memory>
 #include <restricted_base.hpp>
-
-
 
 namespace stm32
 {

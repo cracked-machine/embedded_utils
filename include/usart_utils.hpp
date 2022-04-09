@@ -23,11 +23,7 @@
 #ifndef __USART_UTILS_HPP__
 #define __USART_UTILS_HPP__
 
-#if defined(X86_UNIT_TESTING_ONLY)
-	#include <iostream>
-	// This file should contain USART bit definitions 
-	#include <mock.hpp>
-#else
+#ifndef X86_UNIT_TESTING_ONLY
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wvolatile"
 	// add groups for device family

@@ -1,7 +1,7 @@
 
 ## Running Units Tests on X86
 
-When you run the default CMake build, the output is linked with the Catch2 library. To run the testsuite use the command:
+Open this project in VSCode to run the unit tests. The build output is linked with the Catch2 library, so to run the unit tests you only need to run the build:
 `./build/test_suite`
 
 See `.vscode/tasks.json` for details on the individual toolchain commands.
@@ -18,12 +18,10 @@ The dependency tree of the mocks are structured so that you only need to include
 
 ![](../doc/Mock_CMSIS_Dependency_Diagram.png)
 
-New drivers should include the `mock.hpp` header within a guard to ensure it is not used for STM32 target builds. For example:
+New drivers automatically include the `mock.hpp` header during unit testing build. See [CMakeFiles.txt](../CMakeLists.txt#L14):
 
 ```
-#if defined(X86_UNIT_TESTING_ONLY)
-    #include <mock.hpp>
-#endif
+add_definitions(-include ${CMAKE_SOURCE_DIR}/tests/mocks/mock.hpp) 
 ```
 
 If a unit test needs to use other drivers within this project, it should include them directly. For example, [catch_usart_utils.hpp](catch_usart_utils.cpp) uses both the `usart_utils` and `timer_manager`, so its includes are:
