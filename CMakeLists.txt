@@ -29,11 +29,8 @@ if(CMAKE_PROJECT_NAME STREQUAL EMBEDDED_UTILS_TEST_SUITE)
     find_package(Catch2 3 REQUIRED)
     target_link_libraries(${BUILD_NAME} PRIVATE Catch2::Catch2WithMain)
 
-else() # build for parent project only
+else() # build options for using as a submodule
     
-    # generate the header file to define empty USED_API macro for ARM build
-    set(USED_API " ")
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/gnuc_ext_defs.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/include/gnuc_ext_defs.hpp @ONLY)  
     
 endif()
 
