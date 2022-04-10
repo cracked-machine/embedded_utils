@@ -60,7 +60,7 @@
             "command": "gcovr",
             "args": [
                 "-r", "${workspaceRoot}",
-                "-e", "tests/catch.*$",
+                "-e", "tests/.*$",
                 "-e", "build.*$",
                 "--exclude-unreachable-branches",
                 "--html-self-contained",
@@ -76,7 +76,7 @@
             "command": "gcovr",
             "args": [
                 "-r", "${workspaceRoot}",
-                "-e", "tests/catch.*$",
+                "-e", "tests/.*$",
                 "-e", "build.*$",
                 "--exclude-unreachable-branches",
                 "--xml",
