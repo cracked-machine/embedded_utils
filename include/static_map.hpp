@@ -24,11 +24,7 @@
 #ifndef __STATIC_MAP_HPP__
 #define __STATIC_MAP_HPP__
 
-
 #include <array>
-
-// defines "USED_API __attribute__((__used__))"
-#include <gnuc_ext_defs.hpp>
 
 // @brief For working example see https://godbolt.org/z/deza1Ecnn
 
@@ -48,7 +44,7 @@ struct StaticMap {
     // @brief access specified element
     // @param key The key element to match
     // @return Value* Pointer to the value element, or nullptr if not found
-    USED_API Value* find_key(const Key &key) {
+    Value* find_key(const Key &key) {
 
         for (std::pair<Key, Value> &pair : data)
         {

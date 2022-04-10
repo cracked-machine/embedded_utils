@@ -25,14 +25,12 @@
 
 #include <stdint.h>
 
-// defines "USED_API __attribute__((__used__))"
-#include <gnuc_ext_defs.hpp>
 
 namespace noarch::byte_manip
 {
 
 template<std::size_t BYTE_ARRAY_SIZE> 
-USED_API bool print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
+bool print_bytes(std::array<uint8_t, BYTE_ARRAY_SIZE> &bytes [[maybe_unused]])
 {
     if (bytes.empty())
     {

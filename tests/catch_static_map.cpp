@@ -4,6 +4,8 @@
 
 using namespace noarch::containers;
 
+// enforce code coverage with explicit instances of func templates so that linker does not drop references
+template int* StaticMap<int, int, 1>::find_key(const int &key);
 
 /// @brief lookup a valid "Key"; must check for nullptr
 TEST_CASE("Static_map - valid lookup", "[static_map]")

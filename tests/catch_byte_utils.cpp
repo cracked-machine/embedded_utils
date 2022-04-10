@@ -4,6 +4,12 @@
 #include <algorithm>
 #include <mock.hpp>
 
+// enforce code coverage with explicit instances of func templates so that linker does not drop references
+namespace noarch::byte_manip
+{
+template bool print_bytes(std::array<uint8_t, 1> &bytes);
+}
+
 TEST_CASE("Empty byte array", "[byte_utils]")
 {
     std::array<uint8_t, 0> bytes;

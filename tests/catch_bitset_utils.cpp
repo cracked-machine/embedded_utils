@@ -3,6 +3,12 @@
 #include <byte_utils.hpp>
 #include <mock.hpp>
 
+namespace noarch::bit_manip {
+template bool insert_bitset_at_offset(std::bitset<1> &target, const std::bitset<1> &source, const uint16_t &msb_offset);
+template bool bitset_to_bytearray(std::array<uint8_t, 1> &target_array, const std::bitset<1> &source_bitset);
+template void print_bits(std::bitset<1> &pattern);
+}
+
 /// @brief insert bit pattern starting from zero msb_offset argument
 TEST_CASE("insert_bitset_at_offset - zero msb_offset", "[bitset_utils]")
 {

@@ -32,9 +32,6 @@
 #include <bitset>
 #include <array>
 
-// defines "USED_API __attribute__((__used__))"
-#include <gnuc_ext_defs.hpp>
-
 namespace noarch::bit_manip
 {
 
@@ -46,7 +43,7 @@ namespace noarch::bit_manip
 // @param source The source bitset container to copy from
 // @param msb_offset insertion index starting from the right-most position
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-USED_API bool insert_bitset_at_offset(  std::bitset<TARGET_SIZE> &target,  
+bool insert_bitset_at_offset(  std::bitset<TARGET_SIZE> &target,  
                                         const std::bitset<SOURCE_SIZE> &source, 
                                         const uint16_t &msb_offset) 
 {
@@ -81,7 +78,7 @@ USED_API bool insert_bitset_at_offset(  std::bitset<TARGET_SIZE> &target,
 // @param target_array The std::array object copied to. Caution, all pre-existing contents is destroyed.
 // @param source_bitset The std::bitset object copied from. 
 template<std::size_t TARGET_SIZE, std::size_t SOURCE_SIZE> 
-USED_API bool bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const std::bitset<SOURCE_SIZE> &source_bitset)
+bool bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array, const std::bitset<SOURCE_SIZE> &source_bitset)
 {
     
     // 8-bit byte
@@ -122,7 +119,7 @@ USED_API bool bitset_to_bytearray(std::array<uint8_t, TARGET_SIZE> &target_array
 // @brief Print out the provided bitset as bytes
 // @param pattern The bitset to print
 template<std::size_t BITSET_SIZE>
-USED_API void print_bits(std::bitset<BITSET_SIZE> &pattern [[maybe_unused]])
+void print_bits(std::bitset<BITSET_SIZE> &pattern [[maybe_unused]])
 {
     
     #ifdef USE_RTT
