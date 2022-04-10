@@ -136,21 +136,21 @@ USED_API void print_bits(std::bitset<BITSET_SIZE> &pattern [[maybe_unused]])
         }
         SEGGER_RTT_printf(0, "\n");       
     #endif
-    #ifdef X86_UNIT_TESTING_ONLY
-        for (uint16_t idx = 0; idx < pattern.size(); idx++)
-        {
-            if (idx % 8 == 0)
-            {
-                std::cout << " ";
-            }
-            if (idx % 64 == 0)
-            {
-                std::cout << std::endl;
-            }
-            std::cout << std::noboolalpha << pattern.test(idx);
-        }
-        std::cout << std::endl;
-    #endif
+    // #ifdef X86_UNIT_TESTING_ONLY
+    //     for (uint16_t idx = 0; idx < pattern.size(); idx++)
+    //     {
+    //         if (idx % 8 == 0)
+    //         {
+    //             std::cout << " ";
+    //         }
+    //         if (idx % 64 == 0)
+    //         {
+    //             std::cout << std::endl;
+    //         }
+    //         std::cout << std::noboolalpha << pattern.test(idx);
+    //     }
+    //     std::cout << std::endl;
+    // #endif
 }
 
 } // namespace noarch::bit_manip

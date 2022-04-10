@@ -2,6 +2,7 @@
 
 #include <timer_manager.hpp>
 #include <i2c_utils.hpp>
+#include <mock.hpp>
 
 const uint8_t EXPECTED_ADDRESS {0x45};
 

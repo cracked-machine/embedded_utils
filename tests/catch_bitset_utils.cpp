@@ -1,6 +1,7 @@
 #include <catch2/catch_all.hpp>
 #include <bitset_utils.hpp>
 #include <byte_utils.hpp>
+#include <mock.hpp>
 
 /// @brief insert bit pattern starting from zero msb_offset argument
 TEST_CASE("insert_bitset_at_offset - zero msb_offset", "[bitset_utils]")

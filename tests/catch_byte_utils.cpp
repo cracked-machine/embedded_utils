@@ -2,6 +2,7 @@
 
 #include <byte_utils.hpp>
 #include <algorithm>
+#include <mock.hpp>
 
 TEST_CASE("Empty byte array", "[byte_utils]")
 {

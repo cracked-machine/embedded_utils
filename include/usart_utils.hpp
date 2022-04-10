@@ -23,9 +23,7 @@
 #ifndef __USART_UTILS_HPP__
 #define __USART_UTILS_HPP__
 
-#ifndef X86_UNIT_TESTING_ONLY
-	#pragma GCC diagnostic push
-	#pragma GCC diagnostic ignored "-Wvolatile"
+
 	// add groups for device family
 	#if defined (STM32G071xx) || defined (STM32G081xx) || defined (STM32G070xx) \
 	|| defined (STM32G030xx) || defined (STM32G031xx) || defined (STM32G041xx) \
@@ -33,9 +31,6 @@
 	|| defined (STM32G050xx) || defined (STM32G051xx) || defined (STM32G061xx)		
 		#include <stm32g0xx.h>	
 	#endif
-	#pragma GCC diagnostic pop
-    
-#endif
 
 
 namespace stm32::usart

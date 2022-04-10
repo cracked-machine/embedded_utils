@@ -24,7 +24,7 @@
 #ifndef __MOCK_TIM_HPP__
 #define __MOCK_TIM_HPP__
 
-#include <mock_stm32g0b1xx_defs.hpp>
+#include <stm32g0xx.h>
 
 #include <iostream>
 #include <chrono>

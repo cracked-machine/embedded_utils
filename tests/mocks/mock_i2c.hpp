@@ -24,7 +24,7 @@
 #ifndef __MOCK_I2C_HPP__
 #define __MOCK_I2C_HPP__
 
-#include <mock_stm32g0b1xx_defs.hpp>
+#include <stm32g0xx.h>
 
 
 #include <iostream>

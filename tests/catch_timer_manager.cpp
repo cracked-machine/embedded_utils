@@ -1,5 +1,6 @@
 #include <catch2/catch_all.hpp>
 #include <timer_manager.hpp>
+#include <mock.hpp>
 
 TEST_CASE("Timer Manager - microsecond timer: Null Input", "[timer_manager]")
 {

@@ -2,6 +2,7 @@
 
 #include <timer_manager.hpp>
 #include <usart_utils.hpp>
+#include <mock.hpp>
 
 
 TEST_CASE("usart_utils", "[usart_utils]")

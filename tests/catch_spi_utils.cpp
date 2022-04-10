@@ -2,6 +2,7 @@
 
 #include <timer_manager.hpp>
 #include <spi_utils.hpp>
+#include <mock.hpp>
 
 TEST_CASE("spi_utils - send_bytes")
 {
