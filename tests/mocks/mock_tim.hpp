@@ -35,7 +35,7 @@ using namespace std::chrono_literals;
 namespace stm32::mock
 {
 
-
+/// @brief The type of timer structure to use for the mock timer
 enum class Type
 {
     TIM_TYPEDEF,
@@ -46,19 +46,23 @@ class Timer {
 public:
     Timer() = default;
 
-    TIM_TypeDef* mock_init_timer(std::future<bool> &future, bool use_systick = false);
+    /// @brief Initialise and run the mock counter functionality within an asynchronous thread.
+    /// @param future The future result of the async function
+    /// @param timer_type stm32 TIM_TYPEDEF (periperhal timer) or arm SYSTICK_TYPE (global system timer)
+    /// @return TIM_TypeDef* Instance of the peripheral timer or nullptr if global system timer
+    TIM_TypeDef* init_timer(std::future<bool> &future, Type timer_type = Type::TIM_TYPEDEF);
 
     /// @brief Simulate the SysTick counter (normally done by ARM HW).
     /// See "Cortex-M0 Technical Ref Man - SysTick Control and Status Register"
     /// @param systick 
     /// @return false if null input, return true when fixture has terminated
-    bool static inline mock_systick(SysTick_Type *systick);
+    bool static inline run_systick_counter(SysTick_Type *systick);
 
     /// @brief Simulate the timer counter (normally done by STM32 HW) 
     /// See STM32 Reference Manal Timer control register 1
     /// @param timer The mocked STM32 registers
     /// @return false if timer is null
-    bool static inline mock_timer_count(TIM_TypeDef *timer);
+    bool static inline run_timer_counter(TIM_TypeDef *timer);
 };
 
 } // namespace mock_timer

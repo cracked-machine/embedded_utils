@@ -12,7 +12,7 @@ TEST_CASE("spi_utils - send_bytes")
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
     TIM_TypeDef *timer = nullptr;
-    timer = mt.mock_init_timer(tim_res); 
+    timer = mt.init_timer(tim_res); 
 
     // mocked SPI periph (check for nullptr)
     SPI_TypeDef *spi_handle = nullptr;
@@ -52,7 +52,7 @@ TEST_CASE("spi_utils - wait_for_bsy_flag")
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
     TIM_TypeDef *timer = nullptr;
-    timer = mt.mock_init_timer(tim_res);
+    timer = mt.init_timer(tim_res);
 
     SECTION("wait_for_bsy_flag - SPI_SR_BSY not set")
     {
@@ -84,7 +84,7 @@ TEST_CASE("spi_utils - wait_for_txe_flag")
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
     TIM_TypeDef *timer = nullptr;
-    timer = mt.mock_init_timer(tim_res);
+    timer = mt.init_timer(tim_res);
 
     SECTION("wait_for_txe_flag - SPI_SR_TXE not set")
     {

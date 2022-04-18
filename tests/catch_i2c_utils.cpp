@@ -63,7 +63,7 @@ TEST_CASE("i2c_utils - send_bytes", "[i2c_utils]")
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
     TIM_TypeDef *timer = nullptr;
-    timer = mt.mock_init_timer(tim_res);
+    timer = mt.init_timer(tim_res);
 
     // Enable mock I2C peripheral
     I2C_TypeDef *i2c_handle = new I2C_TypeDef;
@@ -116,7 +116,7 @@ TEST_CASE("i2c_utils - initialise_slave_device function", "[i2c_utils]")
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
     TIM_TypeDef *timer = nullptr;
-    timer = mt.mock_init_timer(tim_res);       
+    timer = mt.init_timer(tim_res);       
       
     uint8_t i2c_addr {0x65};
     I2C_TypeDef *i2c_handle = new I2C_TypeDef;

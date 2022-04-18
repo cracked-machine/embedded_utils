@@ -52,7 +52,7 @@ TEST_CASE("Timer Manager - microsecond timer", "[timer_manager]")
         stm32::mock::Timer mt;
         std::future<bool> tim_res;
         TIM_TypeDef *timer = nullptr;
-        timer = mt.mock_init_timer(tim_res);
+        timer = mt.init_timer(tim_res);
         
         // run the SUT; loops until 10ms is reached by timer counter
         REQUIRE(stm32::TimerManager::delay_microsecond(10));
@@ -76,7 +76,7 @@ TEST_CASE("Timer Manager - Systick Delay", "[timer_manager]")
     
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
-    mt.mock_init_timer(tim_res, true);   
+    mt.init_timer(tim_res, stm32::mock::Type::SYSTICK_TYPE);   
     
     // call the SUT function
     SECTION("Zero delay")

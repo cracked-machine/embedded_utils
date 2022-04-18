@@ -26,25 +26,26 @@
 namespace stm32::mock
 {
 
-TIM_TypeDef* Timer::mock_init_timer(std::future<bool> &future, bool use_systick)
+TIM_TypeDef* Timer::init_timer(std::future<bool> &future, Type timer_type)
 {
     TIM_TypeDef* timer = nullptr;
-    if (use_systick) 
+    switch(timer_type)
     {   
-        SysTick = new SysTick_Type; 
-        SysTick->CTRL = SysTick->CTRL | 1UL << 0UL;
-        future = std::async(std::launch::async, mock_systick, SysTick); 
-    }
-    else
-    {
-        timer = new TIM_TypeDef;
-        stm32::TimerManager::initialise(timer);
-        future = std::async(std::launch::async, mock_timer_count, timer); 
+        case Type::SYSTICK_TYPE:
+            SysTick = new SysTick_Type; 
+            SysTick->CTRL = SysTick->CTRL | 1UL << 0UL;
+            future = std::async(std::launch::async, run_systick_counter, SysTick); 
+            break;
+        case Type::TIM_TYPEDEF:    
+            timer = new TIM_TypeDef;
+            stm32::TimerManager::initialise(timer);
+            future = std::async(std::launch::async, run_timer_counter, timer); 
+            break;
     }
     return timer;
 }
 
-bool inline Timer::mock_systick(SysTick_Type *systick)
+bool inline Timer::run_systick_counter(SysTick_Type *systick)
 {
     using namespace std::chrono_literals;
 
@@ -64,7 +65,7 @@ bool inline Timer::mock_systick(SysTick_Type *systick)
     return true;
 }
 
-bool inline Timer::mock_timer_count(TIM_TypeDef *timer)
+bool inline Timer::run_timer_counter(TIM_TypeDef *timer)
 {
     using namespace std::chrono_literals;
     if (timer == nullptr)

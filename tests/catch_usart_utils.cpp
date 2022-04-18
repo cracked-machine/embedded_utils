@@ -11,7 +11,7 @@ TEST_CASE("usart_utils", "[usart_utils]")
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
     TIM_TypeDef *timer = nullptr;
-    timer = mt.mock_init_timer(tim_res);
+    timer = mt.init_timer(tim_res);
 
     
     // setup mock USART periph
