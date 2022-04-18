@@ -8,6 +8,8 @@ target_sources(${BUILD_NAME} PRIVATE
     catch_static_map.cpp
     catch_static_string.cpp
 
+    mocks/mock_tim.cpp
+
 )
 
 target_include_directories(${BUILD_NAME} PRIVATE 

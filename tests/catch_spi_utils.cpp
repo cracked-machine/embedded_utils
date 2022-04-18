@@ -9,9 +9,10 @@ TEST_CASE("spi_utils - send_bytes")
     std::cout << "spi_utils - send_bytes" << std::endl;
 
     // Enable timer test fixture and start it in a new thread
-    TIM_TypeDef *timer = new TIM_TypeDef;
-    REQUIRE(stm32::TimerManager::initialise(timer));
-    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer);    
+    stm32::mock::Timer mt;
+    std::future<bool> tim_res;
+    TIM_TypeDef *timer = nullptr;
+    timer = mt.mock_init_timer(tim_res); 
 
     // mocked SPI periph (check for nullptr)
     SPI_TypeDef *spi_handle = nullptr;
@@ -48,9 +49,10 @@ TEST_CASE("spi_utils - wait_for_bsy_flag")
     std::cout << "spi_utils - wait_for_bsy_flag" << std::endl;
 
     // Enable timer test fixture and start it in a new thread
-    TIM_TypeDef *timer = new TIM_TypeDef;
-    REQUIRE(stm32::TimerManager::initialise(timer));
-    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer);   
+    stm32::mock::Timer mt;
+    std::future<bool> tim_res;
+    TIM_TypeDef *timer = nullptr;
+    timer = mt.mock_init_timer(tim_res);
 
     SECTION("wait_for_bsy_flag - SPI_SR_BSY not set")
     {
@@ -79,9 +81,10 @@ TEST_CASE("spi_utils - wait_for_txe_flag")
     std::cout << "spi_utils - wait_for_txe_flag" << std::endl;
 
     // Enable timer test fixture and start it in a new thread
-    TIM_TypeDef *timer = new TIM_TypeDef;
-    REQUIRE(stm32::TimerManager::initialise(timer));
-    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer);   
+    stm32::mock::Timer mt;
+    std::future<bool> tim_res;
+    TIM_TypeDef *timer = nullptr;
+    timer = mt.mock_init_timer(tim_res);
 
     SECTION("wait_for_txe_flag - SPI_SR_TXE not set")
     {

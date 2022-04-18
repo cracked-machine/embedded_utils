@@ -60,9 +60,10 @@ TEST_CASE("i2c_utils - Receive Bytes", "[i2c_utils")
 TEST_CASE("i2c_utils - send_bytes", "[i2c_utils]")
 {
     // Enable timer test fixture and start it in a new thread
-    TIM_TypeDef *timer = new TIM_TypeDef;
-    REQUIRE(stm32::TimerManager::initialise(timer));
-    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer); 
+    stm32::mock::Timer mt;
+    std::future<bool> tim_res;
+    TIM_TypeDef *timer = nullptr;
+    timer = mt.mock_init_timer(tim_res);
 
     // Enable mock I2C peripheral
     I2C_TypeDef *i2c_handle = new I2C_TypeDef;
@@ -112,10 +113,10 @@ TEST_CASE("i2c_utils - send_bytes", "[i2c_utils]")
 TEST_CASE("i2c_utils - initialise_slave_device function", "[i2c_utils]")
 {
     // Enable timer test fixture and start it in a new thread
-    TIM_TypeDef *timer = new TIM_TypeDef;
-    REQUIRE(stm32::TimerManager::initialise(timer));
-    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer); 
-       
+    stm32::mock::Timer mt;
+    std::future<bool> tim_res;
+    TIM_TypeDef *timer = nullptr;
+    timer = mt.mock_init_timer(tim_res);       
       
     uint8_t i2c_addr {0x65};
     I2C_TypeDef *i2c_handle = new I2C_TypeDef;

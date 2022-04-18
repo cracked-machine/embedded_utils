@@ -8,9 +8,11 @@
 TEST_CASE("usart_utils", "[usart_utils]")
 {
     // setup mock TIMER periph (used by usart_utils)
-    TIM_TypeDef *timer = new TIM_TypeDef;
-    REQUIRE(stm32::TimerManager::initialise(timer));
-    std::future<bool> tim_res = std::async(std::launch::async, mock_timer_count, timer);   
+    stm32::mock::Timer mt;
+    std::future<bool> tim_res;
+    TIM_TypeDef *timer = nullptr;
+    timer = mt.mock_init_timer(tim_res);
+
     
     // setup mock USART periph
     USART_TypeDef *usart_handle = nullptr;

@@ -3,6 +3,7 @@
 #include <byte_utils.hpp>
 #include <mock.hpp>
 
+// enforce code coverage with explicit instances of func templates so that linker does not drop references
 namespace noarch::bit_manip {
 template bool insert_bitset_at_offset(std::bitset<1> &target, const std::bitset<1> &source, const uint16_t &msb_offset);
 template bool bitset_to_bytearray(std::array<uint8_t, 1> &target_array, const std::bitset<1> &source_bitset);

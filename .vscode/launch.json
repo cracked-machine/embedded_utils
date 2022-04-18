@@ -26,6 +26,7 @@
                     "ignoreFailures": true
                 }
             ],
+            "justMyCode": false,
           },
     ]
 }
