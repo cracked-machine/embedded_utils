@@ -9,6 +9,7 @@ target_sources(${BUILD_NAME} PRIVATE
     catch_static_string.cpp
 
     mocks/mock_tim.cpp
+    mocks/mock_i2c.cpp
 
 )
 

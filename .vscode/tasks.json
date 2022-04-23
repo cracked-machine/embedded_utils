@@ -10,7 +10,6 @@
             "args": [
                 "-rf",
                 "${workspaceRoot}/build/CMakeFiles/test_suite.dir/",
-                "${workspaceRoot}/coverage/*",
             ]
         },
         {

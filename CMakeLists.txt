@@ -12,6 +12,9 @@ if(CMAKE_PROJECT_NAME STREQUAL EMBEDDED_UTILS_TEST_SUITE)
     # The define will let unit tests load the mocked stm32g0xx.h (tests/mocks/stm32g0xx.h)
     add_compile_definitions(${BUILD_NAME} STM32G0B1xx)
 
+    # libfuse definitions
+    add_compile_definitions(_FILE_OFFSET_BITS=64)
+
     # include these in all source files for convenient stdout with unit tests
     add_definitions(-include iostream)  
     add_definitions(-include algorithm)

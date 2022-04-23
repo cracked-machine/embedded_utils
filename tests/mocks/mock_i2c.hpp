@@ -25,12 +25,10 @@
 #define __MOCK_I2C_HPP__
 
 #include <stm32g0xx.h>
-
-
-#include <iostream>
-#include <chrono>
 #include <future>
-#include <thread>
+
+namespace stm32::mock
+{
 
 enum class SlaveStatus
 {
@@ -38,68 +36,35 @@ enum class SlaveStatus
     NACK
 };
 
-/// @brief Mock function to test stm32::i2c::initalise_slave_device()
-/// @param i2c_handle The mocked i2c peripheral
-/// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
-bool inline mock_i2c_start_condition_generation(I2C_TypeDef *i2c_handle, uint8_t expected_addr)
+
+class I2C 
 {
-    if (i2c_handle == nullptr)
-    {
-        return false;
-    }
-    // loop while peripheral is enabled
-    while((i2c_handle->CR1 & I2C_CR1_PE_Msk) == I2C_CR1_PE_Msk)
-    {
-        // start condition was generated
-        if ((i2c_handle->CR2 & I2C_CR2_START_Msk) == I2C_CR2_START_Msk)
-        { 
-            if ((i2c_handle->CR2 & I2C_CR2_SADD_Msk) == expected_addr)
-            {
-                // expected address was used
-                return true;
-            }
-            else
-            {
-                // UNexpected address was used
-                i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_NACKF_Msk;
-                return false;
-            }
-        }
-    }
 
-    return true;
-}
+public:
 
-/// @brief Mock function to test stm32::i2c::send_byte()
-/// @param i2c_handle The mocked i2c peripheral
-/// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
-bool inline mock_i2c_tx_fifo_empty(I2C_TypeDef *i2c_handle, SlaveStatus slave_status)
-{
-    // input check
-    if (i2c_handle == nullptr) { return false; }
-    // reset the register to prevent false positive
-    i2c_handle->ISR = i2c_handle->ISR & ~I2C_ISR_TXE;
+    I2C();
 
-    // loop while peripheral is enabled
-    while((i2c_handle->CR1 & I2C_CR1_PE_Msk) == I2C_CR1_PE_Msk)
-    {
-        // wait test bytes to be copied into TX FIFO
-        if (i2c_handle->TXDR != 0)
-        {
-            
-            std::this_thread::sleep_for(1us);
-            // mock the emptying of the TX FIFO
-            i2c_handle->TXDR = 0;
-            // mock the signaling that the TX FIFO is empty
-            i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_TXE;
-            std::this_thread::sleep_for(1us);
-            // simulate unhappy slave device, if requested by unit test
-            if (slave_status == SlaveStatus::NACK) { i2c_handle->ISR = i2c_handle->ISR | I2C_ISR_NACKF_Msk; }
-            
-        }
-    }
+    I2C_TypeDef* init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response);
+    I2C_TypeDef* init_i2c_start_condition(std::future<bool> &start_condition_future, uint8_t expected_address);
 
-    return true;
-}
+    /// @brief Mock function to test stm32::i2c::initalise_slave_device()
+    /// @param i2c_handle The mocked i2c peripheral
+    /// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
+    bool static mock_i2c_start_condition_generation(I2C_TypeDef *i2c_handle, uint8_t expected_addr);  
+
+    /// @brief Mock function to test stm32::i2c::send_byte()
+    /// @param i2c_handle The mocked i2c peripheral
+    /// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
+    bool static mock_i2c_tx_fifo_empty(I2C_TypeDef *i2c_handle, SlaveStatus slave_status);
+
+private:
+    I2C_TypeDef *i2c_handle {nullptr};
+
+
+};
+
+
+} // namespace stm32::mock
+
 
 #endif // __MOCK_I2C_HPP__

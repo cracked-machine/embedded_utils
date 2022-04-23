@@ -25,6 +25,7 @@ jobs:
         sudo apt -y install \
           ninja-build \
           curl   
+          libfuse-dev
         pip3 install git+https://github.com/gcovr/gcovr.git
         git clone https://github.com/catchorg/Catch2.git
         pushd Catch2

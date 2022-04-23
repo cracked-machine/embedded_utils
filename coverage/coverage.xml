@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE coverage SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-04.dtd'>
-<coverage line-rate="0.7222222222222222" function-rate="0.7209302325581395" branch-rate="0.6761904761904762" lines-covered="169" lines-valid="234" functions-covered="31" functions-valid="43" branches-covered="71" branches-valid="105" complexity="0.0" timestamp="1650269302" version="gcovr 5.1">
+<coverage line-rate="0.7222222222222222" function-rate="0.7209302325581395" branch-rate="0.6761904761904762" lines-covered="169" lines-valid="234" functions-covered="31" functions-valid="43" branches-covered="71" branches-valid="105" complexity="0.0" timestamp="1650713418" version="gcovr 5.1">
   <sources>
     <source>/home/chris/Projects/Embedded/BassStation/BassStationSequencerSW/extern/embedded_utils</source>
   </sources>
@@ -355,18 +355,18 @@
                 <condition number="0" type="jump" coverage="100%"/>
               </conditions>
             </line>
-            <line number="37" hits="2668568" branch="true" condition-coverage="100% (2/2)">
+            <line number="37" hits="2473885" branch="true" condition-coverage="100% (2/2)">
               <conditions>
                 <condition number="0" type="jump" coverage="100%"/>
               </conditions>
             </line>
-            <line number="39" hits="2668566" branch="true" condition-coverage="100% (2/2)">
+            <line number="39" hits="2473883" branch="true" condition-coverage="100% (2/2)">
               <conditions>
                 <condition number="0" type="jump" coverage="100%"/>
               </conditions>
             </line>
             <line number="41" hits="11" branch="false"/>
-            <line number="45" hits="2668566" branch="false"/>
+            <line number="45" hits="2473883" branch="false"/>
             <line number="48" hits="2" branch="false"/>
             <line number="51" hits="23" branch="false"/>
             <line number="54" hits="23" branch="true" condition-coverage="100% (2/2)">
@@ -407,7 +407,7 @@
               </conditions>
             </line>
             <line number="98" hits="67" branch="false"/>
-            <line number="99" hits="944676483" branch="true" condition-coverage="100% (2/2)">
+            <line number="99" hits="951420544" branch="true" condition-coverage="100% (2/2)">
               <conditions>
                 <condition number="0" type="jump" coverage="100%"/>
               </conditions>
