@@ -14,6 +14,7 @@ TEST_CASE("Timer Manager - microsecond timer: Null Input", "[timer_manager]")
     }
 }
 
+/// @brief Non-threaded tests
 TEST_CASE("Timer Manager - Init and Reset", "[timer_manager]")
 {
     std::cout << "timer_manager - init and reset" << std::endl;
@@ -39,7 +40,7 @@ TEST_CASE("Timer Manager - Init and Reset", "[timer_manager]")
     REQUIRE(timer2->CR1 == 1);
 }
 
-
+/// @brief Thread-based tests for delay_microsecond()
 TEST_CASE("Timer Manager - microsecond timer", "[timer_manager]")
 {
     std::cout << "timer_manager - microsecond timer" << std::endl;
@@ -68,6 +69,7 @@ TEST_CASE("Timer Manager - microsecond timer", "[timer_manager]")
     }    
 }
 
+/// @brief Thread-based tests for delay_millisecond()
 TEST_CASE("Timer Manager - Systick Delay", "[timer_manager]")
 {
     std::cout << "timer_manager - systick milisecond delay" << std::endl;
