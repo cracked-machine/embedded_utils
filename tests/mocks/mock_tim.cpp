@@ -26,17 +26,17 @@
 namespace stm32::mock
 {
 
-TIM_TypeDef* Timer::init_timer(std::future<bool> &future, Type timer_type)
+TIM_TypeDef* Timer::init_timer(std::future<bool> &future, TimerType timer_type)
 {
     TIM_TypeDef* timer = nullptr;
     switch(timer_type)
     {   
-        case Type::SYSTICK_TYPE:
+        case TimerType::SYSTICK_TYPE:
             SysTick = new SysTick_Type; 
             SysTick->CTRL = SysTick->CTRL | 1UL << 0UL;
             future = std::async(std::launch::async, run_systick_counter, SysTick); 
             break;
-        case Type::TIM_TYPEDEF:    
+        case TimerType::TIM_TYPEDEF:    
             timer = new TIM_TypeDef;
             stm32::TimerManager::initialise(timer);
             future = std::async(std::launch::async, run_timer_counter, timer); 

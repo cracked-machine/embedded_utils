@@ -36,7 +36,7 @@ namespace stm32::mock
 {
 
 /// @brief The type of timer structure to use for the mock timer
-enum class Type
+enum class TimerType
 {
     TIM_TYPEDEF,
     SYSTICK_TYPE
@@ -48,9 +48,9 @@ public:
 
     /// @brief Initialise and run the mock counter functionality within an asynchronous thread.
     /// @param future The future result of the async function
-    /// @param timer_type stm32 TIM_TYPEDEF (periperhal timer) or arm SYSTICK_TYPE (global system timer)
+    /// @param timer_type stm32::mock::TimerType::TIM_TYPEDEF (periperhal timer) or stm32::mock::TimerType::SYSTICK_TYPE (global system timer)
     /// @return TIM_TypeDef* Instance of the peripheral timer or nullptr if global system timer
-    TIM_TypeDef* init_timer(std::future<bool> &future, Type timer_type = Type::TIM_TYPEDEF);
+    TIM_TypeDef* init_timer(std::future<bool> &future, TimerType timer_type = TimerType::TIM_TYPEDEF);
 
     /// @brief Simulate the SysTick counter (normally done by ARM HW).
     /// See "Cortex-M0 Technical Ref Man - SysTick Control and Status Register"

@@ -72,11 +72,10 @@ TEST_CASE("Timer Manager - Systick Delay", "[timer_manager]")
 {
     std::cout << "timer_manager - systick milisecond delay" << std::endl;
 
-    // enable the mocked SysTick counter
-    
+    // enable the mocked SysTick counter. Systick instance is already declared globally in tests/mocks/stm32g0xx.h
     stm32::mock::Timer mt;
     std::future<bool> tim_res;
-    mt.init_timer(tim_res, stm32::mock::Type::SYSTICK_TYPE);   
+    mt.init_timer(tim_res, stm32::mock::TimerType::SYSTICK_TYPE);   
     
     // call the SUT function
     SECTION("Zero delay")
