@@ -26,10 +26,10 @@ jobs:
           ninja-build \
           curl
         pip3 install git+https://github.com/gcovr/gcovr.git
-        pip3 install pytest
 
     - name: Install libfuse-dev v3.10.5
       run: |
+        pip3 uninstall pytest
         pip3 install pytest
         sudo apt -y install fuse3 meson
         cd ~
