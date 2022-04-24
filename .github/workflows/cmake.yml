@@ -30,15 +30,14 @@ jobs:
 
     - name: Install libfuse-dev v3.10.5
       run: |
+        pip3 install pytest
         sudo apt -y install fuse3 meson
         cd ~
-        wget https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
-        tar -xvf fuse-3.10.5.tar.xz 
+        wget -q https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
+        tar -xf fuse-3.10.5.tar.xz 
         cd fuse-3.10.5
-        ls -la
         mkdir build
         cd build
-        ls -la ..
         meson ..
         ninja
         sudo python3 -m pytest test/
