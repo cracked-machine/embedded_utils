@@ -24,9 +24,10 @@ jobs:
         sudo apt -y update
         sudo apt -y install \
           ninja-build \
-          curl  
-        sudo apt -y install libfuse-dev
+          curl \
+          libfuse3-dev
         pip3 install git+https://github.com/gcovr/gcovr.git
+        pip3 install pytest
         git clone https://github.com/catchorg/Catch2.git
         pushd Catch2
         cmake -Bbuild -H. -DBUILD_TESTING=OFF
@@ -34,7 +35,8 @@ jobs:
         popd 
         uname -a
 
-        
+
+
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.

@@ -22,7 +22,7 @@
 
 #include <mock_i2c.hpp>
 
-#include <fuse.h>
+
 
 #include <iostream>
 #include <chrono>
@@ -36,9 +36,17 @@ namespace stm32::mock
 
 I2C::I2C()
 {
+    // setup libfuse
+    [[maybe_unused]] int argc;
+    [[maybe_unused]] char *argv[1];
+
+       
+
     i2c_handle = new I2C_TypeDef;
     i2c_handle->CR1 = i2c_handle->CR1 | I2C_CR1_PE_Msk;
 }
+
+
 
 void I2C::init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response)
 {

@@ -27,6 +27,10 @@
 #include <stm32g0xx.h>
 #include <future>
 
+#define FUSE_USE_VERSION 30
+#include <fuse3/fuse.h>
+#include <string.h>
+
 namespace stm32::mock
 {
 
@@ -46,6 +50,8 @@ public:
 
     void init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response);
     void init_i2c_start_condition(std::future<bool> &start_condition_future, uint8_t expected_address);
+
+    static void* hello_init(struct fuse_conn_info *conn, struct fuse_config *cfg);
 
     /// @brief Mock function to test stm32::i2c::initalise_slave_device()
     /// @param i2c_handle The mocked i2c peripheral
