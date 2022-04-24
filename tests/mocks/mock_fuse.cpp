@@ -174,7 +174,7 @@ void MockFuse::ll_open(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi
 		fuse_reply_open(req, fi);
 }
 
-void MockFuse::ll_read(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
+void MockFuse::ll_read(fuse_req_t req, [[maybe_unused]] fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
 {
 	(void) fi;
 
