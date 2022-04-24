@@ -38,10 +38,10 @@ namespace stm32::mock
 I2C::I2C()
 {
     // setup libfuse
-    [[maybe_unused]] struct fuse_args args = FUSE_ARGS_INIT(m_fuse_argc, m_fuse_argv);
+    struct fuse_args args = FUSE_ARGS_INIT(m_fuse_argc, m_fuse_argv);
     fuse_opt_parse(&args, &m_fuse_options, m_fuse_option_spec, NULL);
-	// m_fuse_options.filename = strdup("hello");
-	// m_fuse_options.contents = strdup("Hello World!\n");
+    fuse_main(args.argc, args.argv, &hello_oper, NULL);
+
 
     i2c_handle = new I2C_TypeDef;
     i2c_handle->CR1 = i2c_handle->CR1 | I2C_CR1_PE_Msk;
@@ -156,6 +156,53 @@ int I2C::hello_getattr(const char *path, struct stat *stbuf, struct fuse_file_in
 	return res;
 }
 
+int I2C::hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+			 off_t offset, struct fuse_file_info *fi,
+			 enum fuse_readdir_flags flags)
+{
+	(void) offset;
+	(void) fi;
+	(void) flags;
+
+	if (strcmp(path, "/") != 0)
+		return -ENOENT;
+
+	filler(buf, ".", NULL, 0, static_cast<fuse_fill_dir_flags>(0));
+	filler(buf, "..", NULL, 0, static_cast<fuse_fill_dir_flags>(0));
+	filler(buf, m_fuse_options.filename, NULL, 0, static_cast<fuse_fill_dir_flags>(0));
+
+	return 0;
+}
+
+int I2C::hello_open(const char *path, struct fuse_file_info *fi)
+{
+	if (strcmp(path+1, m_fuse_options.filename) != 0)
+		return -ENOENT;
+
+	if ((fi->flags & O_ACCMODE) != O_RDONLY)
+		return -EACCES;
+
+	return 0;
+}
+
+int I2C::hello_read(const char *path, char *buf, size_t size, off_t offset,
+		      struct fuse_file_info *fi)
+{
+	size_t len;
+	(void) fi;
+	if(strcmp(path+1, m_fuse_options.filename) != 0)
+		return -ENOENT;
+
+	len = strlen(m_fuse_options.contents);
+	if (offset < static_cast<off_t>(len)) {
+		if (offset + size > len)
+			size = len - offset;
+		memcpy(buf, m_fuse_options.contents + offset, size);
+	} else
+		size = 0;
+
+	return size;
+}
 
 
 } // namespace stm32::mock

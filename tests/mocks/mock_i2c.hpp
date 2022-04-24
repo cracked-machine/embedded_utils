@@ -84,6 +84,51 @@ public:
     static int hello_open(const char *path, struct fuse_file_info *fi);
     static int hello_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi);
 
+    static inline const struct fuse_operations hello_oper = {
+        .getattr	        = hello_getattr,
+        .readlink           = nullptr,
+        .mknod              = nullptr,
+        .mkdir              = nullptr,
+        .unlink             = nullptr,
+        .rmdir              = nullptr,
+        .symlink            = nullptr,
+        .rename             = nullptr,
+        .link               = nullptr,
+        .chmod              = nullptr,
+        .chown              = nullptr,
+        .truncate           = nullptr,
+        .open		        = hello_open,
+        .read		        = hello_read,
+        .write              = nullptr,
+        .statfs             = nullptr,
+        .flush              = nullptr,
+        .release            = nullptr, 
+        .fsync              = nullptr,
+        .setxattr           = nullptr,
+        .getxattr           = nullptr,
+        .listxattr          = nullptr,
+        .removexattr        = nullptr,
+        .opendir            = nullptr,  
+        .readdir	        = hello_readdir,
+        .releasedir         = nullptr,
+        .fsyncdir           = nullptr,
+        .init               = hello_init,
+        .destroy            = nullptr,
+        .access             = nullptr,
+        .create             = nullptr,
+        .lock               = nullptr,
+        .utimens            = nullptr,
+        .bmap               = nullptr,
+        .ioctl              = nullptr,
+        .poll               = nullptr,
+        .write_buf          = nullptr,
+        .read_buf           = nullptr,
+        .flock              = nullptr,
+        .fallocate          = nullptr,
+        .copy_file_range    = nullptr,
+        .lseek              = nullptr
+    };  
+
     /// @brief Mock function to test stm32::i2c::initalise_slave_device()
     /// @param i2c_handle The mocked i2c peripheral
     /// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
