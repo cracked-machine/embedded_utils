@@ -27,6 +27,11 @@ jobs:
           curl
         pip3 install git+https://github.com/gcovr/gcovr.git
         pip3 install pytest
+
+
+    - name: Install Catch2 latest
+      run: |
+        cd ~
         git clone https://github.com/catchorg/Catch2.git
         pushd Catch2
         cmake -Bbuild -H. -DBUILD_TESTING=OFF
@@ -39,8 +44,8 @@ jobs:
       run: |
         sudo apt -y install fuse3
         cd ~
-        sudo curl -O https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
-        unxz fuse-3.10.5.tar.xz 
+        wget https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
+        tar -xf fuse-3.10.5.tar.xz 
         mkdir build
         cd build
         meson ..
