@@ -29,8 +29,7 @@ jobs:
 
     - name: Install libfuse-dev v3.10.5
       run: |
-        pip3 uninstall pytest
-        pip3 install pytest
+        sudo /usr/bin/pip3 install -U pytest
         sudo apt -y install fuse3 meson
         cd ~
         wget -q https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
