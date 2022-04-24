@@ -38,9 +38,9 @@ jobs:
     - name: Install libfuse-dev v3.10.5
       run: |
         sudo apt -y install fuse3
-        sudo curl -Os https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
-        ls -la 
-        tar -xf fuse-3.10.5.tar.xz
+        cd ~
+        sudo curl -O https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
+        unxz fuse-3.10.5.tar.xz 
         mkdir build
         cd build
         meson ..
