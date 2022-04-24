@@ -26,7 +26,8 @@
 
 #include <iostream>
 #include <chrono>
-
+#include <array>
+#include <string>
 #include <thread>
 
 using namespace std::chrono_literals;
@@ -37,16 +38,14 @@ namespace stm32::mock
 I2C::I2C()
 {
     // setup libfuse
-    [[maybe_unused]] int argc;
-    [[maybe_unused]] char *argv[1];
-
-       
+    [[maybe_unused]] struct fuse_args args = FUSE_ARGS_INIT(m_fuse_argc, m_fuse_argv);
+    fuse_opt_parse(&args, &m_fuse_options, m_fuse_option_spec, NULL);
+	// m_fuse_options.filename = strdup("hello");
+	// m_fuse_options.contents = strdup("Hello World!\n");
 
     i2c_handle = new I2C_TypeDef;
     i2c_handle->CR1 = i2c_handle->CR1 | I2C_CR1_PE_Msk;
 }
-
-
 
 void I2C::init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response)
 {
@@ -122,6 +121,39 @@ bool inline I2C::mock_i2c_tx_fifo_empty(I2C_TypeDef *i2c_handle, SlaveStatus sla
     }
 
     return true;
+}
+
+//////////////////////////////
+//// FUSE implementations ////
+//////////////////////////////
+
+// initialise static member
+I2C::FuseOptions I2C::m_fuse_options;
+
+void* I2C::hello_init(struct fuse_conn_info *conn, struct fuse_config *cfg)
+{
+	(void) conn;
+	cfg->kernel_cache = 1;
+	return NULL;
+}
+
+int I2C::hello_getattr(const char *path, struct stat *stbuf, struct fuse_file_info *fi)
+{
+	(void) fi;
+	int res = 0;
+
+	memset(stbuf, 0, sizeof(struct stat));
+	if (strcmp(path, "/") == 0) {
+		stbuf->st_mode = S_IFDIR | 0755;
+		stbuf->st_nlink = 2;
+	} else if (strcmp(path+1, m_fuse_options.filename) == 0) {
+		stbuf->st_mode = S_IFREG | 0444;
+		stbuf->st_nlink = 1;
+		stbuf->st_size = strlen(m_fuse_options.contents);
+	} else
+		res = -ENOENT;
+
+	return res;
 }
 
 
