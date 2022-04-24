@@ -28,6 +28,19 @@ jobs:
         pip3 install git+https://github.com/gcovr/gcovr.git
         pip3 install pytest
 
+    - name: Install libfuse-dev v3.10.5
+      run: |
+        sudo apt -y install fuse3 meson
+        cd ~
+        wget https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
+        tar -xf fuse-3.10.5.tar.xz 
+        cd fuse-3.10.5
+        mkdir build
+        cd build
+        meson ..
+        ninja
+        sudo python3 -m pytest test/
+        sudo ninja install
 
     - name: Install Catch2 latest
       run: |
@@ -38,20 +51,6 @@ jobs:
         sudo cmake --build build/ --target install
         popd 
         uname -a
-
-
-    - name: Install libfuse-dev v3.10.5
-      run: |
-        sudo apt -y install fuse3 meson
-        cd ~
-        wget https://github.com/libfuse/libfuse/releases/download/fuse-3.10.5/fuse-3.10.5.tar.xz
-        tar -xf fuse-3.10.5.tar.xz 
-        mkdir build
-        cd build
-        meson ..
-        ninja
-        sudo python3 -m pytest test/
-        sudo ninja install
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
