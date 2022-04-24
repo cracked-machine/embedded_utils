@@ -40,7 +40,7 @@ jobs:
         cd build
         meson ..
         ninja
-        sudo python3 -m pytest test/
+        sudo pytest test/
         sudo ninja install
 
     - name: Install Catch2 latest
