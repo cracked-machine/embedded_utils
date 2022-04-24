@@ -52,7 +52,7 @@ public:
     struct fuse_args m_fuse_args;
     struct fuse_loop_config m_fuse_config;
 
-    static constexpr char m_mock_mnt_path[11] = "/tmp/fuse4";
+    static constexpr char m_mock_mnt_path[11] = "/tmp/fuse";
     std::array<char*, 2> m_mock_input_args 
     { 
         (char*)"I2C", 

@@ -31,7 +31,8 @@ namespace stm32::mock {
 
 bool MockFuse::init_session()
 {
-    // setup libfuse
+	fuse_lowlevel_version();
+
     if (!std::filesystem::exists(m_mock_mnt_path)) { std::filesystem::create_directories(m_mock_mnt_path); }
 
     m_fuse_args = FUSE_ARGS_INIT(static_cast<int>(m_mock_input_args.size()), m_mock_input_args.data());
@@ -44,8 +45,6 @@ bool MockFuse::init_session()
 	if (fuse_session_mount(m_fuse_session, m_fuse_opts.mountpoint) != 0) { return false; }
 
 	if (fuse_daemonize(true) != 0) { return false; }
-
-
 
 	return true;
 }
