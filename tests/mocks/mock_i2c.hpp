@@ -44,8 +44,8 @@ public:
 
     I2C();
 
-    I2C_TypeDef* init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response);
-    I2C_TypeDef* init_i2c_start_condition(std::future<bool> &start_condition_future, uint8_t expected_address);
+    void init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response);
+    void init_i2c_start_condition(std::future<bool> &start_condition_future, uint8_t expected_address);
 
     /// @brief Mock function to test stm32::i2c::initalise_slave_device()
     /// @param i2c_handle The mocked i2c peripheral
@@ -57,6 +57,8 @@ public:
     /// @return true if unit test disables the peripheral (upon test completion), false if i2c_handle is null_ptr
     bool static mock_i2c_tx_fifo_empty(I2C_TypeDef *i2c_handle, SlaveStatus slave_status);
 
+    I2C_TypeDef* get_handle() { return i2c_handle; }
+    
 private:
     I2C_TypeDef *i2c_handle {nullptr};
 

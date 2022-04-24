@@ -40,16 +40,14 @@ I2C::I2C()
     i2c_handle->CR1 = i2c_handle->CR1 | I2C_CR1_PE_Msk;
 }
 
-I2C_TypeDef* I2C::init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response)
+void I2C::init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response)
 {
     tx_fifo_future = std::async(std::launch::async, mock_i2c_tx_fifo_empty, i2c_handle, expected_slave_response);
-    return i2c_handle;
 }
 
-I2C_TypeDef* I2C::init_i2c_start_condition(std::future<bool> &start_condition_future, uint8_t expected_address)
+void I2C::init_i2c_start_condition(std::future<bool> &start_condition_future, uint8_t expected_address)
 {
     start_condition_future = std::async(std::launch::async, mock_i2c_start_condition_generation, i2c_handle, expected_address);
-    return i2c_handle;
 }
 
 /// @brief Mock function to test stm32::i2c::initalise_slave_device()
