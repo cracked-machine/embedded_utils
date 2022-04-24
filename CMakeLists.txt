@@ -30,11 +30,13 @@ if(CMAKE_PROJECT_NAME STREQUAL EMBEDDED_UTILS_TEST_SUITE)
     target_compile_features(${BUILD_NAME} PUBLIC cxx_std_20)
     add_subdirectory(tests)
 
-    # add catch2 test lib
+    # add catch2 library
     find_package(Catch2 3 REQUIRED)
     target_link_libraries(${BUILD_NAME} PRIVATE Catch2::Catch2WithMain)
-    pkg_check_modules(fuse3 REQUIRED fuse3)
-    target_link_libraries(${BUILD_NAME} PRIVATE fuse3)
+
+    # add libfuse3 library, required struct "fuse_config" was added to v3.0.0
+    pkg_check_modules(libfuse3 REQUIRED IMPORTED_TARGET fuse3>=3.0.0)
+    target_link_libraries(${BUILD_NAME} PRIVATE PkgConfig::libfuse3)
 
 else() # build options for using as a submodule
     

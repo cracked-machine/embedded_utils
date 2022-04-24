@@ -10,6 +10,7 @@ target_sources(${BUILD_NAME} PRIVATE
 
     mocks/mock_tim.cpp
     mocks/mock_i2c.cpp
+    mocks/mock_fuse.cpp
 
 )
 

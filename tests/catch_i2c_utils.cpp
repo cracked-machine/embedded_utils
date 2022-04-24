@@ -3,10 +3,21 @@
 #include <timer_manager.hpp>
 #include <i2c_utils.hpp>
 #include <mock.hpp>
+#include <mock_fuse.hpp>
+#include <filesystem>
 
-
-
-
+TEST_CASE("test_fuse", "[fuse]")
+{
+    stm32::mock::MockFuse mf;
+    if (!mf.init_session()) { std::cout << "Error initiailising mock fuse!\n"; }    
+  
+    
+	mf.running = true;
+	std::future<bool> future = std::async(std::launch::async, mf.start_async_session);
+    
+	mf.running = false;
+	REQUIRE(future.get());  
+}
 
 TEST_CASE("i2c_utils - Generate stop condition")
 {
@@ -251,7 +262,7 @@ TEST_CASE("i2c_utils - set_numbytes", "[i2c_utils]")
     // set the mocked register
     stm32::mock::I2C mock_i2c;
     stm32::i2c::set_numbytes(mock_i2c.get_handle(), 2);
-    
+
     // read back the value
     REQUIRE((mock_i2c.get_handle()->CR2 & (2 << I2C_CR2_NBYTES_Pos)));
 }

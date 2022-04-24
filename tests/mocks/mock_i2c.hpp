@@ -27,10 +27,7 @@
 #include <stm32g0xx.h>
 #include <future>
 
-#define FUSE_USE_VERSION 30
-#include <fuse3/fuse.h>
-#include <cstring>
-#include <cstddef>
+
 
 namespace stm32::mock
 {
@@ -40,10 +37,6 @@ enum class SlaveStatus
     ACK,
     NACK
 };
-
-
-
-#define OPTION(t, p) { t, offsetof(struct FuseOptions, p), 1 }
 
 
 
@@ -57,77 +50,7 @@ public:
     void init_i2c_tx_fifo(std::future<bool> &tx_fifo_future, SlaveStatus expected_slave_response);
     void init_i2c_start_condition(std::future<bool> &start_condition_future, uint8_t expected_address);
 
-    //////////////////////////////
-    ////   FUSE prototypes    ////
-    //////////////////////////////   
-
-    static const int m_fuse_argc {1}; 
-    static inline char *m_fuse_argv[1] { (char*)"I2C" }; // nasty c-style cast!
-    static struct FuseOptions {
-        const char *filename { strdup("hello") };
-        const char *contents { strdup("Hello World!\n") };
-        int show_help {1};
-    } m_fuse_options;    
-    // static FuseOptions m_fuse_options;
-
-    static inline const struct fuse_opt m_fuse_option_spec[5] = {
-        OPTION("--name=%s", filename),
-        OPTION("--contents=%s", contents),
-        OPTION("-h", show_help),
-        OPTION("--help", show_help),
-        FUSE_OPT_END
-    };
-
-    static void* hello_init(struct fuse_conn_info *conn, struct fuse_config *cfg);
-    static int hello_getattr(const char *path, struct stat *stbuf, struct fuse_file_info *fi);
-    static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi, enum fuse_readdir_flags flags);
-    static int hello_open(const char *path, struct fuse_file_info *fi);
-    static int hello_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi);
-
-    static inline const struct fuse_operations hello_oper = {
-        .getattr	        = hello_getattr,
-        .readlink           = nullptr,
-        .mknod              = nullptr,
-        .mkdir              = nullptr,
-        .unlink             = nullptr,
-        .rmdir              = nullptr,
-        .symlink            = nullptr,
-        .rename             = nullptr,
-        .link               = nullptr,
-        .chmod              = nullptr,
-        .chown              = nullptr,
-        .truncate           = nullptr,
-        .open		        = hello_open,
-        .read		        = hello_read,
-        .write              = nullptr,
-        .statfs             = nullptr,
-        .flush              = nullptr,
-        .release            = nullptr, 
-        .fsync              = nullptr,
-        .setxattr           = nullptr,
-        .getxattr           = nullptr,
-        .listxattr          = nullptr,
-        .removexattr        = nullptr,
-        .opendir            = nullptr,  
-        .readdir	        = hello_readdir,
-        .releasedir         = nullptr,
-        .fsyncdir           = nullptr,
-        .init               = hello_init,
-        .destroy            = nullptr,
-        .access             = nullptr,
-        .create             = nullptr,
-        .lock               = nullptr,
-        .utimens            = nullptr,
-        .bmap               = nullptr,
-        .ioctl              = nullptr,
-        .poll               = nullptr,
-        .write_buf          = nullptr,
-        .read_buf           = nullptr,
-        .flock              = nullptr,
-        .fallocate          = nullptr,
-        .copy_file_range    = nullptr,
-        .lseek              = nullptr
-    };  
+ 
 
     /// @brief Mock function to test stm32::i2c::initalise_slave_device()
     /// @param i2c_handle The mocked i2c peripheral
