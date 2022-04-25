@@ -12,7 +12,7 @@
 TEST_CASE("test_fuse", "[fuse]")
 {
     stm32::mock::MockFuse mf;
-    if (!mf.init_session()) { std::cout << "Error initiailising mock fuse!\n"; }   
+    REQUIRE(mf.init_session());
     std::thread fuse_thread(&stm32::mock::MockFuse::start_async_session, &mf);
     // std::this_thread::sleep_for(500ms);
 
