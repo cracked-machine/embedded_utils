@@ -5,18 +5,25 @@
 #include <mock.hpp>
 #include <mock_fuse.hpp>
 #include <filesystem>
+#include <semaphore.h>
+#include <thread>
+#include <signal.h>
 
 TEST_CASE("test_fuse", "[fuse]")
 {
     stm32::mock::MockFuse mf;
-    if (!mf.init_session()) { std::cout << "Error initiailising mock fuse!\n"; }    
-  
+    if (!mf.init_session()) { std::cout << "Error initiailising mock fuse!\n"; }   
+    std::thread fuse_thread(&stm32::mock::MockFuse::start_async_session, &mf);
+    // std::this_thread::sleep_for(500ms);
+
+    // conduct some tests on the FUSE filesystem
+    system("ls -la /tmp/fuse");
+    system("cat /tmp/fuse/hello");
     
-	mf.running = true;
-	std::future<bool> future = std::async(std::launch::async, mf.start_async_session);
-    
-	mf.running = false;
-	REQUIRE(future.get());  
+    // unmount the filesystem and force FUSE to exit loop
+    system("fusermount3 -u /tmp/fuse");
+    fuse_thread.join();
+	
 }
 
 TEST_CASE("i2c_utils - Generate stop condition")

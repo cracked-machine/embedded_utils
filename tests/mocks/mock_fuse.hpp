@@ -43,15 +43,15 @@ public:
     virtual ~MockFuse();
 
     bool init_session();
-    static bool start_async_session();
+    int start_async_session();
 
     static inline bool running {false};
 
-    struct fuse_session *m_fuse_session {nullptr};
+    static inline struct fuse_session *m_fuse_session {nullptr};
     struct fuse_cmdline_opts m_fuse_opts;
     struct fuse_args m_fuse_args;
     struct fuse_loop_config m_fuse_config;
-
+    
     static constexpr char m_mock_mnt_path[11] = "/tmp/fuse";
     std::array<char*, 2> m_mock_input_args 
     { 

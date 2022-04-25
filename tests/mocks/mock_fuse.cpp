@@ -24,14 +24,19 @@
 #include <algorithm>
 #include <thread>
 #include <future>
+#include <stdlib.h>
 using namespace std::chrono_literals;
 
+int fuse_session_receive_buf_int(struct fuse_session *se, struct fuse_buf *buf, struct fuse_chan *ch);
+void fuse_session_process_buf_int(struct fuse_session *se, const struct fuse_buf *buf, struct fuse_chan *ch);
 namespace stm32::mock {
 
 
 bool MockFuse::init_session()
 {
+	system("fusermount -u /tmp/fuse");
 	fuse_lowlevel_version();
+	fuse_log(fuse_log_level::FUSE_LOG_ALERT, "fuse_log_level test");
 
     if (!std::filesystem::exists(m_mock_mnt_path)) { std::filesystem::create_directories(m_mock_mnt_path); }
 
@@ -46,16 +51,16 @@ bool MockFuse::init_session()
 
 	if (fuse_daemonize(true) != 0) { return false; }
 
+
+
 	return true;
 }
 
-bool MockFuse::start_async_session()
+int MockFuse::start_async_session()
 {
-	while(running)
-	{
-		std::this_thread::sleep_for(10us);
-	}
-	return true;
+	m_fuse_config.clone_fd = m_fuse_opts.clone_fd;
+	m_fuse_config.max_idle_threads = m_fuse_opts.max_idle_threads;
+	return fuse_session_loop_mt(m_fuse_session, &m_fuse_config);
 }
 
 MockFuse::~MockFuse()
@@ -125,6 +130,7 @@ void MockFuse::dirbuf_add(fuse_req_t req, struct dirbuf *b, const char *name, fu
 
 void MockFuse::ll_getattr(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
 {
+	fuse_log(fuse_log_level::FUSE_LOG_ALERT, "ll_getattr");
 	struct stat stbuf;
 
 	(void) fi;
@@ -138,6 +144,7 @@ void MockFuse::ll_getattr(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info 
 
 void MockFuse::ll_lookup(fuse_req_t req, fuse_ino_t parent, const char *name)
 {
+	
 	struct fuse_entry_param e;
 
 	if (parent != 1 || strcmp(name, m_fuse_options.filename) != 0)
@@ -156,6 +163,7 @@ void MockFuse::ll_lookup(fuse_req_t req, fuse_ino_t parent, const char *name)
 
 void MockFuse::ll_unlink([[maybe_unused]] fuse_req_t req, [[maybe_unused]] fuse_ino_t parent, [[maybe_unused]] const char *name)
 {
+	
 	// int res;
 
 	// res = unlinkat(lo_fd(req, parent), name, 0);
@@ -165,6 +173,7 @@ void MockFuse::ll_unlink([[maybe_unused]] fuse_req_t req, [[maybe_unused]] fuse_
 
 void MockFuse::ll_open(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi)
 {
+	
 	if (ino != 2)
 		fuse_reply_err(req, EISDIR);
 	else if ((fi->flags & O_ACCMODE) != O_RDONLY)
@@ -175,6 +184,7 @@ void MockFuse::ll_open(fuse_req_t req, fuse_ino_t ino, struct fuse_file_info *fi
 
 void MockFuse::ll_read(fuse_req_t req, [[maybe_unused]] fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
 {
+	
 	(void) fi;
 
 	assert(ino == 2);
@@ -183,6 +193,7 @@ void MockFuse::ll_read(fuse_req_t req, [[maybe_unused]] fuse_ino_t ino, size_t s
 
 void MockFuse::ll_readdir(fuse_req_t req, fuse_ino_t ino, size_t size, off_t off, struct fuse_file_info *fi)
 {
+	
 	(void) fi;
 
 	if (ino != 1)
