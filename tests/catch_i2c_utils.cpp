@@ -17,11 +17,14 @@ TEST_CASE("test_fuse", "[fuse]")
     // std::this_thread::sleep_for(500ms);
 
     // conduct some tests on the FUSE filesystem
-    system("ls -la /tmp/fuse");
-    system("cat /tmp/fuse/hello");
+    int ls_result = system("ls -la /tmp/fuse");
+    REQUIRE(ls_result == 0);
+    int cat_result = system("cat /tmp/fuse/hello");
+    REQUIRE(cat_result == 0);
     
     // unmount the filesystem and force FUSE to exit loop
-    system("fusermount3 -u /tmp/fuse");
+    int fusermount_result = system("fusermount3 -u /tmp/fuse");
+    REQUIRE(fusermount_result == 0);
     fuse_thread.join();
 	
 }
