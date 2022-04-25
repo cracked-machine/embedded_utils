@@ -35,8 +35,8 @@ namespace stm32::mock {
 bool MockFuse::init_session()
 {
 	// make sure the previous file is unmounted (doesn't really have any effect on CI)
-	int fusermount_result = system("fusermount -u /tmp/fuse");
-	REQUIRE(fusermount_result == 0);
+	// int fusermount_result = system("fusermount -u /tmp/fuse");
+	// REQUIRE(fusermount_result == 0);
 
 	fuse_lowlevel_version();
 	fuse_log(fuse_log_level::FUSE_LOG_ALERT, "fuse_log_level test");
