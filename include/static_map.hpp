@@ -20,7 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
 #ifndef __STATIC_MAP_HPP__
 #define __STATIC_MAP_HPP__
 
@@ -36,26 +35,28 @@ namespace noarch::containers
 // @tparam Value The Value
 // @tparam Size The size of the map/number of Key/Value pairs. Must be constant.
 template <typename Key, typename Value, std::size_t Size>
-struct StaticMap {
-    
-    // @brief The dictionary
-    std::array<std::pair<Key, Value>, Size> data;
+struct StaticMap
+{
 
-    // @brief access specified element
-    // @param key The key element to match
-    // @return Value* Pointer to the value element, or nullptr if not found
-    Value* find_key(const Key &key) {
+  // @brief The dictionary. Don't use data.at(), this will force the linker to include exception handling and bloat the linked .elf
+  std::array<std::pair<Key, Value>, Size> data;
 
-        for (std::pair<Key, Value> &pair : data)
-        {
-            if (pair.first == key)
-            {
-                return &pair.second;
-            }
-        }
-        // or return nullptr as the search completed without match
-        return nullptr;
+  // @brief access specified element
+  // @param key The key element to match
+  // @return Value* Pointer to the value element, or nullptr if not found
+  Value *find_key(const Key &key)
+  {
+
+    for (std::pair<Key, Value> &pair : data)
+    {
+      if (pair.first == key)
+      {
+        return &pair.second;
+      }
     }
+    // or return nullptr as the search completed without match
+    return nullptr;
+  }
 };
 
 } // namespace noarch::containers
