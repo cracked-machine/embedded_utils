@@ -4,7 +4,7 @@
 target_sources(${BUILD_NAME} PRIVATE
     # put source files here
     i2c_utils_ref.cpp
-    spi_utils.cpp
+    spi_utils_ref.cpp
     usart_utils.cpp
     restricted_base.cpp
     timer_manager.cpp
