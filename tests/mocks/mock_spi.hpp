@@ -20,49 +20,50 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
 #ifndef __MOCK_SPI_HPP__
 #define __MOCK_SPI_HPP__
 
 #include <stm32g0xx.h>
 
-#include <iostream>
 #include <chrono>
 #include <future>
+#include <iostream>
 #include <thread>
 using namespace std::chrono_literals;
 
-/// @brief Mock function to test stm32::spi::wait_for_txe_flag() and stm32::spi::wait_for_bsy_flag()
+/// @brief Mock function to test stm32::spi_ref::wait_for_txe_flag() and stm32::spi_ref::wait_for_bsy_flag()
 /// @param i2c_handle The mocked SPI peripheral
 /// @return true if unit test disables the peripheral (upon test completion), false if spi_handle is null_ptr
 
 bool inline mock_spi_data_register(SPI_TypeDef *spi_handle)
 {
 
-    if (spi_handle == nullptr) { return false; }
+  if (spi_handle == nullptr)
+  {
+    return false;
+  }
 
-    // loop while peripheral is enabled
-    while((spi_handle->CR1 & SPI_CR1_SPE) == SPI_CR1_SPE)
+  // loop while peripheral is enabled
+  while ((spi_handle->CR1 & SPI_CR1_SPE) == SPI_CR1_SPE)
+  {
+
+    // wait for test bytes to be copied into SPI FIFO
+    if (spi_handle->DR != 0)
     {
-    
-        // wait for test bytes to be copied into SPI FIFO
-        if (spi_handle->DR != 0)
-        {
-            
-            // exaggerate the delay for MCU to clear the BSY flag so that our SUT has chance to run coverage
-            spi_handle->SR = spi_handle->SR | SPI_SR_BSY_Msk;            
-            std::this_thread::sleep_for(500ms);
-            spi_handle->SR = spi_handle->SR & ~SPI_SR_BSY_Msk;
 
-            // exaggerate the delay for MCU to set the TXE flag so that our SUT has chance to run coverage
-            std::this_thread::sleep_for(100ms);
-            spi_handle->DR = 0;
-            spi_handle->SR = spi_handle->SR | SPI_SR_TXE_Msk;
-    
-        }
+      // exaggerate the delay for MCU to clear the BSY flag so that our SUT has chance to run coverage
+      spi_handle->SR = spi_handle->SR | SPI_SR_BSY_Msk;
+      std::this_thread::sleep_for(500ms);
+      spi_handle->SR = spi_handle->SR & ~SPI_SR_BSY_Msk;
+
+      // exaggerate the delay for MCU to set the TXE flag so that our SUT has chance to run coverage
+      std::this_thread::sleep_for(100ms);
+      spi_handle->DR = 0;
+      spi_handle->SR = spi_handle->SR | SPI_SR_TXE_Msk;
     }
+  }
 
-    return true;
+  return true;
 }
 
 #endif // __MOCK_SPI_HPP__
